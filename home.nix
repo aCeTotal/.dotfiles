@@ -28,6 +28,10 @@
 
     ];
 
+    # Manage dotfiles
+    home.file = {};
+
+    # Manage Environment variables
     home.sessionVariables = {
       # Editor = "Emacs";
     };
