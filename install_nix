@@ -1,0 +1,312 @@
+#!/usr/bin/env -S bash -e
+
+# Cleaning the TTY.
+clear
+
+# Cosmetics (colours for text).
+BOLD='\e[1m'
+BRED='\e[91m'
+BBLUE='\e[34m'  
+BGREEN='\e[92m'
+BYELLOW='\e[93m'
+RESET='\e[0m'
+
+# Pretty print (function).
+info_print () {
+    echo -e "${BOLD}${BGREEN}[ ${BBLUE}•${BYELLOW} ] $1${RESET}"
+}
+
+# Pretty print for input (function).
+input_print () {
+    echo -ne "${BOLD}${BYELLOW}[ ${BGREEN}•${BYELLOW} ] $1${RESET}"
+}
+
+# Alert user of bad input (function).
+error_print () {
+    echo -e "${BOLD}${BRED}[ ${BBLUE}•${BRED} ] $1${RESET}"
+}
+
+
+# User enters a username (function).
+username_selector () {
+    echo
+    input_print "Please enter the name of your user: "
+    read -r username
+    if [[ -z "$username" ]]; then
+        error_print "You need to enter a username in order to continue!"
+        return 1
+    fi
+
+    return 0
+}
+
+
+
+# Welcome screen.
+echo -ne "${BOLD}${BGREEN}
+=========================================================
+
+███╗   ██╗██╗██╗  ██╗ ██████╗ ███████╗
+████╗  ██║██║╚██╗██╔╝██╔═══██╗██╔════╝
+██╔██╗ ██║██║ ╚███╔╝ ██║   ██║███████╗
+██║╚██╗██║██║ ██╔██╗ ██║   ██║╚════██║
+██║ ╚████║██║██╔╝ ██╗╚██████╔╝███████║
+╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝                                
+                                                      
+=========================================================
+${RESET}"
+info_print "Welcome to the installation of NixOS! :)"
+echo
+
+# Choosing the target for the installation.
+info_print "Available disks for the installation:"
+echo
+lsblk
+echo
+PS3="Please select the number of the corresponding disk (e.g. 1): "
+echo
+select ENTRY in $(lsblk -dpnoNAME|grep -P "/dev/sd|nvme|vd");
+do
+    DISK="$ENTRY"
+    echo
+    info_print "NixOS will be installed on the following disk: $DISK"
+    break
+done
+
+# Warn user about deletion of old partition scheme.
+echo
+input_print "WARNING! This WILL wipe the current partition table on $DISK. Do you agree [y/N]?: "
+read -r disk_response
+if ! [[ "${disk_response,,}" =~ ^(yes|y)$ ]]; then
+    error_print "Quitting."
+    exit
+fi
+echo
+info_print "Wiping $DISK."
+sudo wipefs -af "$DISK" &>/dev/null
+sudo sgdisk -Zo "$DISK" &>/dev/null
+
+# User choses the hostname.
+until username_selector; do : ; done
+
+# Creating a new partition scheme.
+echo
+info_print "Creating the partitions on $DISK."
+sudo parted -s "$DISK" mklabel gpt
+sudo parted -s "$DISK" mkpart NIXBOOT fat32 1MiB 513MiB
+sudo parted -s "$DISK" set 1 esp on
+sudo parted -s "$DISK" mkpart NIXROOT 513MiB 100%
+
+ESP="/dev/disk/by-partlabel/NIXBOOT"
+ROOT="/dev/disk/by-partlabel/NIXROOT"
+
+# Formatting the ESP as FAT32.
+echo
+info_print "Formatting the EFI Partition as FAT32."
+sudo mkfs.fat -F 32 "$ESP"
+
+# Mounting the root partition.
+echo
+info_print "Mounting the root partititon"
+sudo mkfs.btrfs -f "$ROOT"
+sudo mkdir -p /mnt
+sudo mount "$ROOT" /mnt
+
+# Creating BTRFS subvolumes.
+echo
+info_print "Creating BTRFS subvolumes."
+subvols=(root home nix log)
+for subvol in '' "${subvols[@]}"; do
+    sudo btrfs su cr /mnt/@"$subvol"
+done
+
+mount_subvolumes () {
+echo
+info_print "Creating mountpoints and mounting the newly created subvolumes."
+  sudo umount -l /mnt
+  sudo mount -t btrfs -o subvol=@root,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt 
+  sudo mkdir -p /mnt/{home,nix,var/log,boot} &>/dev/null
+  sudo mount -t btrfs -o subvol=@home,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/home
+  sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/nix
+  sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/var/log
+  sudo chmod -R 0700
+  sudo mount "$ESP" /mnt/boot/
+
+  info_print "Generating the hardware-config / hardware-configuration.nix"
+  sudo nixos-generate-config --root /mnt
+
+  return 0
+}
+
+generate_systemconf () {
+# Generates system config | Configuration.nix.
+echo
+info_print "Generating the system config / configuration.nix"
+sudo rm /mnt/etc/nixos/configuration.nix &>/dev/null
+
+timezone=$(curl -s http://ip-api.com/line?fields=timezone)
+
+cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
+
+{ pkgs, lib, inputs, ... }:
+
+{
+  imports =
+    [   # Include the results of the hardware scan.
+        ./hardware-configuration.nix
+    ];
+
+
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Networking
+  networking.networkmanager.enable = true;
+  networking.hostName = "nixos"; # Define your hostname.
+
+  # Set your time zone.
+  time.timeZone = "$timezone";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "nb_NO.UTF-8";
+    LC_IDENTIFICATION = "nb_NO.UTF-8";
+    LC_MEASUREMENT = "nb_NO.UTF-8";
+    LC_MONETARY = "nb_NO.UTF-8";
+    LC_NAME = "nb_NO.UTF-8";
+    LC_NUMERIC = "nb_NO.UTF-8";
+    LC_PAPER = "nb_NO.UTF-8";
+    LC_TELEPHONE = "nb_NO.UTF-8";
+    LC_TIME = "nb_NO.UTF-8";
+  };
+
+    # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.$username = {
+    isNormalUser = true;
+    initialPassword = "nixos";
+    description = "";
+    extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" ];
+    packages = with pkgs; [];
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    btop
+    git
+    libvirt
+    swww
+    polkit_gnome
+    grim
+    slurp
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  # List services that you want to enable:
+  services.openssh.enable = true;
+  services.fstrim.enable = true;
+  services.xserver = {
+    layout = "no";
+    xkbVariant = "";
+    libinput.enable = true;
+  };
+
+  console.keyMap = "no";
+
+  environment.interactiveShellInit = ''
+  alias installhome='nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install && git clone https://github.com/aCeTotal/.dotfiles.git /home/$username'
+'';
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+  hardware.pulseaudio.enable = false;
+  sound.enable = true;
+  security.rtkit.enable = true;
+  
+  nixpkgs.config.allowUnfree = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.11"; # Did you read the comment?
+
+  # Enables the use of flakes and some other nice features
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+}
+
+EOF
+return 0
+}
+
+# Mount the BTRFS subvolumes
+mount_subvolumes
+
+#generate_preconf
+
+generate_systemconf
+
+sudo nixos-install --no-root-passwd && clear
+echo
+info_print "Rebooting!"
+echo
+sleep 2
+info_print "3..."
+echo
+sleep 2
+info_print "2..."
+echo
+sleep 2
+info_print "1..."
+echo
+sleep 2
+#clear
+
+# GoodBye screen.
+echo -ne "${BOLD}${BRED}
+
+
+    ▄▄▄▄·  ▄▄▄·  ▐ ▄  ▄▄ • ▄▄     
+    ▐█ ▀█▪▐█ ▀█ •█▌▐█▐█ ▀ ▪██▌    
+    ▐█▀▀█▄▄█▀▀█ ▐█▐▐▌▄█ ▀█▄▐█·    
+    ██▄▪▐█▐█ ▪▐▌██▐█▌▐█▄▪▐█.▀     
+    ·▀▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀▀  ▀     
+
+                                                      
+${RESET}"
+
+sleep 1
+sudo reboot
