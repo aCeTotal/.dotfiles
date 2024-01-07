@@ -1,7 +1,6 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
-      imports = [ inputs.home-manager.nixosModules.home-manager ];
 
       home.username = "total";
       home.homeDirectory = "/home/total";
@@ -24,5 +23,16 @@
       # Whether to enable patching wlroots for better Nvidia support
       enableNvidiaPatches = true;
     };
+
+    home.packages = [
+
+    ];
+
+    home.sessionVariables = {
+      # Editor = "Emacs";
+    };
+
+    # Let Home Manager install and manage itself.
+    programs.home-manager.enable = true;
 
 }
