@@ -1,157 +1,106 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [   # Include the results of the hardware scan.
+        ./hardware-configuration.nix
     ];
 
-  # Bootloader.
+
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  # Networking
   networking.networkmanager.enable = true;
+  networking.hostName = "nixos"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF8";
-    LC_IDENTIFICATION = "nb_NO.UTF8";
-    LC_MEASUREMENT = "nb_NO.UTF8";
-    LC_MONETARY = "nb_NO.UTF8";
-    LC_NAME = "nb_NO.UTF8";
-    LC_NUMERIC = "nb_NO.UTF8";
-    LC_PAPER = "nb_NO.UTF8";
-    LC_TELEPHONE = "nb_NO.UTF8";
-    LC_TIME = "nb_NO.UTF8";
+    LC_ADDRESS = "nb_NO.UTF-8";
+    LC_IDENTIFICATION = "nb_NO.UTF-8";
+    LC_MEASUREMENT = "nb_NO.UTF-8";
+    LC_MONETARY = "nb_NO.UTF-8";
+    LC_NAME = "nb_NO.UTF-8";
+    LC_NUMERIC = "nb_NO.UTF-8";
+    LC_PAPER = "nb_NO.UTF-8";
+    LC_TELEPHONE = "nb_NO.UTF-8";
+    LC_TIME = "nb_NO.UTF-8";
   };
 
-
-  # Enable the X11 windowing system.
+    # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
-  # Configure keymap in X11
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.total = {
+    isNormalUser = true;
+    initialPassword = "nixos";
+    description = "";
+    extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" ];
+    packages = with pkgs; [];
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    btop
+    git
+    firefox
+    vscode
+    gh
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  # List services that you want to enable:
+  services.openssh.enable = true;
+  services.fstrim.enable = true;
   services.xserver = {
     layout = "no";
     xkbVariant = "";
+    libinput.enable = true;
   };
 
-  # Configure console keymap
   console.keyMap = "no";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+# Aliases to quickly set nixpkgs to Unstable + install standalone Home-Manager.
+programs.bash.shellAliases = {
+  installhome = "nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install && cd && git clone https://github.com/aCeTotal/.dotfiles.git";
+  upgrade = "sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixos && sudo nix-channel --update && sudo nixos-rebuild switch --upgrade";
+};
 
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.total = {
-    isNormalUser = true;
-    description = "total";
-    extraGroups = [ "networkmanager" "wheel" "power" "disk" "video" "input" ];
-    packages = with pkgs; [
-      firefox
-      kate
-    #  thunderbird
-    ];
-  };
-
-  # Allow unfree packages
+  hardware.pulseaudio.enable = false;
+  sound.enable = true;
+  security.rtkit.enable = true;
+  
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    gh
-    github-desktop
-    vscode
-    neofetch
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@root" "compress=zstd" ];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@log" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-partlabel/NIXBOOT";
-      fsType = "vfat";
-    };
-
-
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -167,5 +116,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  # Enables the use of flakes and some other nice features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
 }
+
