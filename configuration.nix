@@ -30,6 +30,19 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF8";
 
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "nb_NO.UTF8";
+    LC_IDENTIFICATION = "nb_NO.UTF8";
+    LC_MEASUREMENT = "nb_NO.UTF8";
+    LC_MONETARY = "nb_NO.UTF8";
+    LC_NAME = "nb_NO.UTF8";
+    LC_NUMERIC = "nb_NO.UTF8";
+    LC_PAPER = "nb_NO.UTF8";
+    LC_TELEPHONE = "nb_NO.UTF8";
+    LC_TIME = "nb_NO.UTF8";
+  };
+
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -103,6 +116,37 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  fileSystems."/" =
+    { device = "/dev/disk/by-partlabel/NIXROOT";
+      fsType = "btrfs";
+      options = [ "subvol=@root" "compress=zstd" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-partlabel/NIXROOT";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-partlabel/NIXROOT";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" "compress=zstd" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-partlabel/NIXROOT";
+      fsType = "btrfs";
+      options = [ "subvol=@log" ];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-partlabel/NIXBOOT";
+      fsType = "vfat";
+    };
+
+
 
   # List services that you want to enable:
 
