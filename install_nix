@@ -130,7 +130,7 @@ info_print "Creating mountpoints and mounting the newly created subvolumes."
   sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/nix
   sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/var/log
   sudo chmod -R 0700 /mnt/boot/ # Secure the Random Seed File
-  sudo mount "$ESP" /mnt/boot/
+  sudo mount "$NIXBOOT" /mnt/boot/
 
   info_print "Generating the hardware-config / hardware-configuration.nix"
   sudo nixos-generate-config --root /mnt
