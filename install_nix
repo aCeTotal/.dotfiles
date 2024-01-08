@@ -97,20 +97,20 @@ sudo parted -s "$DISK" mkpart NIXBOOT fat32 1MiB 513MiB
 sudo parted -s "$DISK" set 1 esp on
 sudo parted -s "$DISK" mkpart NIXROOT 513MiB 100%
 
-ESP="/dev/disk/by-partlabel/NIXBOOT"
-ROOT="/dev/disk/by-partlabel/NIXROOT"
+NIXBOOT="/dev/disk/by-partlabel/NIXBOOT"
+NIXROOT="/dev/disk/by-partlabel/NIXROOT"
 
 # Formatting the ESP as FAT32.
 echo
 info_print "Formatting the EFI Partition as FAT32."
-sudo mkfs.fat -F 32 "$ESP"
+sudo mkfs.fat -F 32 "$NIXBOOT"
 
 # Mounting the root partition.
 echo
 info_print "Mounting the root partititon"
-sudo mkfs.btrfs -f "$ROOT"
+sudo mkfs.btrfs -f "$NIXROOT"
 sudo mkdir -p /mnt
-sudo mount "$ROOT" /mnt
+sudo mount "$NIXROOT" /mnt
 
 # Creating BTRFS subvolumes.
 echo
@@ -124,12 +124,12 @@ mount_subvolumes () {
 echo
 info_print "Creating mountpoints and mounting the newly created subvolumes."
   sudo umount -l /mnt
-  sudo mount -t btrfs -o subvol=@root,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt 
+  sudo mount -t btrfs -o subvol=@root,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt 
   sudo mkdir -p /mnt/{home,nix,var/log,boot} &>/dev/null
-  sudo mount -t btrfs -o subvol=@home,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/home
-  sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/nix
-  sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$ROOT" /mnt/var/log
-  sudo chmod -R 0700
+  sudo mount -t btrfs -o subvol=@home,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/home
+  sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/nix
+  sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/var/log
+  sudo chmod -R 0700 /mnt/boot/ # Secure the Random Seed File
   sudo mount "$ESP" /mnt/boot/
 
   info_print "Generating the hardware-config / hardware-configuration.nix"
@@ -140,6 +140,8 @@ info_print "Creating mountpoints and mounting the newly created subvolumes."
 
 generate_systemconf () {
 # Generates system config | Configuration.nix.
+# The first setup is only to setup standalone Home-manager and set NIXPKGS to Master/unstable before installing the correct system with a flake.
+# Standard NIXOS isntallation does not use labels, and without labels it will be hard to reuse the hardware-file later.
 echo
 info_print "Generating the system config / configuration.nix"
 sudo rm /mnt/etc/nixos/configuration.nix &>/dev/null
@@ -206,11 +208,8 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
     wget
     btop
     git
-    libvirt
-    swww
-    polkit_gnome
-    grim
-    slurp
+    vscode
+    gh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -232,9 +231,13 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
 
   console.keyMap = "no";
 
-  environment.interactiveShellInit = ''
-  alias installhome='nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install && git clone https://github.com/aCeTotal/.dotfiles.git /home/$username'
-'';
+# Aliases to quickly set nixpkgs to Unstable + install standalone Home-Manager.
+programs.bash.shellAliases = {
+  installhome = "nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install && cd && git clone https://github.com/aCeTotal/.dotfiles.git";
+  upgrade = "sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixos && sudo nix-channel --update && sudo nixos-rebuild switch --upgrade";
+};
+
+
 
   services.pipewire = {
     enable = true;
