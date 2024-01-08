@@ -14,31 +14,31 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/sda2";
+    { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
       options = [ "subvol=@root" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/sda2";
+    { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
       options = [ "subvol=@home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/sda2";
+    { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
       options = [ "subvol=@nix" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/sda2";
+    { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
       options = [ "subvol=@log" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/48F9-B9EC";
+    { device = "/dev/disk/by-partlabel/NIXBOOT";
       fsType = "vfat";
     };
 
