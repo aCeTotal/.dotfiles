@@ -18,22 +18,56 @@
       # Editor = "Emacs";
     };
 
+    programs.bash = {
+      enable = true;
+      hellAliases = {
+        ll = "ls -l";
+        ".." = "cd ..";
+      };        
+    };
+
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    home.language = {
-    base = "nb_NO.utf8";
-    ctype = "nb_NO.utf8";
-    numeric = "nb_NO.utf8";
-    time = "nb_NO.utf8";
-    collate = "nb_NO.utf8";
-    monetary = "nb_NO.utf8";
-    messages = "nb_NO.utf8";
-    paper = "nb_NO.utf8";
-    name = "nb_NO.utf8";
-    address = "nb_NO.utf8";
-    telephone = "nb_NO.utf8";
-    measurement = "nb_NO.utf8";
+    
+
+
+
+
+
+
+
+
+
+
+
+    # Theming for Hyprland
+
+    home.pointerCursor = {
+      gtk.enable = true;
+      # x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    gtk = {
+      enable = true;
+      theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+
+    iconTheme = {
+      package = pkgs.gnome.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+
+    font = {
+      name = "Sans";
+      size = 11;
+    };
 };
+
 
 }
