@@ -132,7 +132,7 @@ info_print "Creating mountpoints and mounting the newly created subvolumes."
   sudo mount -t vfat -o defaults,fmask=0137,dmask=0027 "$NIXBOOT" /mnt/boot/
 
   info_print "Generating the hardware-config / hardware-configuration.nix"
-  #sudo nixos-generate-config --root /mnt
+  sudo nixos-generate-config --root /mnt
 
   return 0
 }
