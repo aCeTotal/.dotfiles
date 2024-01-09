@@ -7,12 +7,9 @@
       home.stateVersion = "24.05";
 
     home.packages = with pkgs; [
+      brave
       blender
       freecad
-      brave
-      vscode
-      git
-      gh
     ];
 
     # Manage dotfiles
