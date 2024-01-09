@@ -11,8 +11,10 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.devices = [ "nodev" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "nvidia_uvm" ];
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  #boot.kernelModules = [ "nvidia_uvm" ];
+
+  services.xserver.videoDrivers = ["nvidia"];
 
   # Networking
   networking.networkmanager.enable = true;
@@ -42,9 +44,6 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
 
     # Enable the X11 windowing system.
   services.xserver.enable = true;
