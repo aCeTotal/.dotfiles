@@ -6,21 +6,25 @@
       home.homeDirectory = "/home/total";
       home.stateVersion = "24.05";
 
-    home.packages = [
-
+    home.packages = with pkgs; [
+      blender
+      freecad
     ];
 
     # Manage dotfiles
-    home.file = {};
+    home.file = {
+      #".config/hyprland/hyprland.conf".source = ./hyprland.conf;
+    };
 
     # Manage Environment variables
     home.sessionVariables = {
-      # Editor = "Emacs";
+      Editor = "vim";
     };
 
+    # Bash
     programs.bash = {
       enable = true;
-      hellAliases = {
+      shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
       };        
