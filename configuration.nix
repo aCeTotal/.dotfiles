@@ -34,9 +34,6 @@
 
   # Power Management
   powerManagement.cpuFreqGovernor = "performance";
-  # Lower the priority of Nix builds to not disturb other processes.
-  daemonCPUSchedPolicy = "idle";
-  daemonIOSchedPriority = 7;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -171,7 +168,7 @@
     settings = {
       max-jobs = 20;
       auto-optimise-store = true;
-      allowed-users = [ "@wheel" "${name}" ];
+      allowed-users = [ "@wheel"];
     };
   };
 
