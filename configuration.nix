@@ -11,7 +11,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.devices = [ "nodev" ];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = [ "nvidia_uvm" ];
 
   # Networking
@@ -72,6 +72,7 @@
     git
     firefox
     vscode
+    gh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
