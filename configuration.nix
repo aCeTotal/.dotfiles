@@ -11,11 +11,10 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      efiSysMountPoint = "/boot";
     };
     grub = {
       enable = true;
-      version = 2;
       efiSupport = true;
       devices = [ "nodev" ];
       configurationLimit = 3;

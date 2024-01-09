@@ -39,7 +39,7 @@
       neededForBoot = true;
     };
 
-  fileSystems."/boot/efi" =
+  fileSystems."/boot" =
     { device = "/dev/disk/by-partlabel/NIXBOOT";
       fsType = "vfat";
     };
