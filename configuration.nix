@@ -11,10 +11,13 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.devices = [ "nodev" ];
+  boot.loader.grub.configurationLimit = 3;
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  #boot.kernelModules = [ "nvidia_uvm" ];
+  boot.kernelModules = [ "nvidia_uvm" ];
 
   services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia.modesetting.enable = true;
 
   # Networking
   networking.networkmanager.enable = true;
@@ -103,6 +106,13 @@
   security.rtkit.enable = true;
   
   nixpkgs.config.allowUnfree = true;
+
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
