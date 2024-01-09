@@ -17,28 +17,29 @@
   fileSystems."/" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@root" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@root" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@home" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@home" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@nix" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@nix" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@log" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@log" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      neededForBoot = true;
     };
 
-  fileSystems."/boot" =
+  fileSystems."/boot/efi" =
     { device = "/dev/disk/by-partlabel/NIXBOOT";
       fsType = "vfat";
     };

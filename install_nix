@@ -129,7 +129,7 @@ info_print "Creating mountpoints and mounting the newly created subvolumes."
   sudo mount -t btrfs -o subvol=@home,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/home
   sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/nix
   sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/var/log
-  sudo mount -t vfat -o rw,fmask=0137,dmask=0027 "$NIXBOOT" /mnt/boot/
+  sudo mount -t vfat -o defaults,noatime,rw,fmask=0137,dmask=0027 "$NIXBOOT" /mnt/boot/efi
 
   info_print "Generating the hardware-config / hardware-configuration.nix"
   sudo nixos-generate-config --root /mnt
@@ -302,28 +302,29 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/hardware-configuration.nix" &>/dev/null
   fileSystems."/" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@root" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@root" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@home" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@home" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@nix" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@nix" "noatime" "compress=zstd" "discard=async" "ssd" ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-partlabel/NIXROOT";
       fsType = "btrfs";
-      options = [ "subvol=@log" "defaults" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      options = [ "subvol=@log" "noatime" "compress=zstd" "discard=async" "ssd" ];
+      neededForBoot = true;
     };
 
-  fileSystems."/boot" =
+  fileSystems."/boot/efi" =
     { device = "/dev/disk/by-partlabel/NIXBOOT";
       fsType = "vfat";
     };
@@ -343,6 +344,7 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/hardware-configuration.nix" &>/dev/null
 }
 
 EOF
+
 return 0
 }
 
@@ -359,16 +361,16 @@ sudo nixos-install --no-root-passwd && clear
 echo
 info_print "Rebooting!"
 echo
-sleep 2
+sleep 1.5
 info_print "3..."
 echo
-sleep 2
+sleep 1.5
 info_print "2..."
 echo
-sleep 2
+sleep 1.5
 info_print "1..."
 echo
-sleep 2
+sleep 1.5
 #clear
 
 # GoodBye screen.
