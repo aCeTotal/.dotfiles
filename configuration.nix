@@ -14,10 +14,60 @@
   boot.loader.grub.configurationLimit = 3;
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = [ "nvidia_uvm" ];
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;                       # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
+    "net.core.rmem_default" = 16777216;       # Default socket receive buffer size, improve network performance & applications that use sockets
+    "net.core.rmem_max" = 16777216;           # Maximum socket receive buffer size, determin the amount of data that can be buffered in memory for network operations
+    "net.core.wmem_default" = 16777216;       # Default socket send buffer size, improve network performance & applications that use sockets
+    "net.core.wmem_max" = 16777216;           # Maximum socket send buffer size, determin the amount of data that can be buffered in memory for network operations
+    "net.ipv4.tcp_keepalive_intvl" = 30;      # TCP keepalive interval between probes, TCP keepalive probes, which are used to detect if a connection is still alive.
+    "net.ipv4.tcp_keepalive_probes" = 5;      # TCP keepalive probes, TCP keepalive probes, which are used to detect if a connection is still alive.
+    "net.ipv4.tcp_keepalive_time" = 300;      # TCP keepalive interval (seconds), TCP keepalive probes, which are used to detect if a connection is still alive.
+    "vm.dirty_background_bytes" = 268435456;  # 256 MB in bytes, data that has been modified in memory and needs to be written to disk
+    "vm.dirty_bytes" = 1073741824;            # 1 GB in bytes, data that has been modified in memory and needs to be written to disk
+    "vm.min_free_kbytes" = 65536;             # Minimum free memory for safety (in KB), can help prevent memory exhaustion situations
+    "vm.swappiness" = 1;                      # how aggressively the kernel swaps data from RAM to disk. Lower values prioritize keeping data in RAM,
+    "vm.vfs_cache_pressure" = 50;             # Adjust vfs_cache_pressure (0-1000), how the kernel reclaims memory used for caching filesystem objects
+    "fs.aio-max-nr" = 1048576;                # defines the maximum number of asynchronous I/O requests that can be in progress at a given time.
+    "kernel.pid_max" = 4194304;               # allows a large number of processes and threads to be managed
+  };
 
+  # Power Management
+  powerManagement.cpuFreqGovernor = "performance";
+  # Lower the priority of Nix builds to not disturb other processes.
+  daemonCPUSchedPolicy = "idle";
+  daemonIOSchedPriority = 7;
+
+  # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
 
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia = {
+
+    modesetting.enable = true;                # Modesetting is required.
+    nvidiaPersistenced = true;                # Ensures all GPUs stay awake even during headless mode
+
+    powerManagement.enable = false;           # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+    open = false;
+
+    # Enable the Nvidia settings menu,
+	  # accessible via `nvidia-settings`.
+    nvidiaSettings = false;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   # Networking
   networking.networkmanager.enable = true;
@@ -60,7 +110,7 @@
     isNormalUser = true;
     initialPassword = "nixos";
     description = "";
-    extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" "audio" "disk" "systemd-journal" ];
     packages = with pkgs; [];
   };
 
@@ -73,6 +123,10 @@
     firefox
     vscode
     gh
+    clinfo
+    virtualglLib
+    vulkan-loader
+    vulkan-tools
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -110,7 +164,14 @@
   nix = {
     gc = {
       automatic = true;
-      options = "--delete-older-than 14d";
+      dates = "weekly";
+      randomizedDelaySec = "14m";
+      options = "--delete-older-than 10d";
+    };
+    settings = {
+      max-jobs = 20;
+      auto-optimise-store = true;
+      allowed-users = [ "@wheel" "${name}" ];
     };
   };
 
