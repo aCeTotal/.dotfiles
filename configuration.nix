@@ -126,6 +126,7 @@
     firefox
     vscode
     gh
+    neofetch
     clinfo
     virtualglLib
     vulkan-loader
