@@ -158,9 +158,20 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
     ];
 
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Boot Loader
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+    grub = {
+      enable = true;
+      version = 2;
+      efiSupport = true;
+      devices = [ "nodev" ];
+      configurationLimit = 3;
+    };
+  };
 
   # Networking
   networking.networkmanager.enable = true;
@@ -210,6 +221,7 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
     firefox
     vscode
     gh
+    neofetch
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
