@@ -9,6 +9,10 @@
     home.packages = with pkgs; [
       blender
       freecad
+      brave
+      vscode
+      git
+      gh
     ];
 
     # Manage dotfiles
