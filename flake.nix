@@ -18,7 +18,7 @@
         nixosConfigurations = {
             desktop = lib.nixosSystem {
                 inherit system;
-		modules = [ ./hosts/desktop ];
+		modules = [./hosts ];
             };
             
             laptop = lib.nixosSystem {
