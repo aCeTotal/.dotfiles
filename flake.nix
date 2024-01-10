@@ -18,17 +18,17 @@
         nixosConfigurations = {
             desktop = lib.nixosSystem {
                 inherit system;
-                modules = [ ./hosts/desktop/system.nix ];
+                modules = [ ./hosts/desktop_system.nix ];
             };
             
             laptop = lib.nixosSystem {
                 inherit system;
-                modules = [ ./hosts/laptop/system.nix ];
+                modules = [ ./hosts/laptop_system.nix ];
 	    };
 
             htpc = lib.nixosSystem {
 		inherit system;
-		modules = [ ./hosts/htpc/system.nix ];
+		modules = [ ./hosts/htpc_system.nix ];
 	    };
         };
         homeConfigurations = {
