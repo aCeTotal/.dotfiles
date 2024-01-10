@@ -1,10 +1,12 @@
 {
-    description = "My flake";
+    description = "My Flake";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
         home-manager.url = "github:nix-community/home-manager/master";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     };
 
     outputs = { self, nixpkgs, home-manager, ... }:
@@ -14,16 +16,31 @@
             pkgs = nixpkgs.legacyPackages.${system};
         in  {
         nixosConfigurations = {
-            desktop-office = lib.nixosSystem {
+            desktop = lib.nixosSystem {
                 inherit system;
-                modules = [ ./configuration.nix ];
+                modules = [ ./hosts/desktop/system.nix ];
             };
+            
+            laptop = lib.nixosSystem {
+                inherit system;
+                modules = [ ./hosts/laptop/system.nix ];
+	    };
+
+            htpc = lib.nixosSystem {
+		inherit system;
+		modules = [ ./hosts/htpc/system.nix ];
+	    };
         };
         homeConfigurations = {
             total = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                modules = [ ./home.nix ];
+                modules = [ ./users/total/home.nix ];
             };
+
+	    htpc = home-manager.lib.homeManagerConfiguration {
+		inherit pkgs;
+		modules = [ ./users/htpc/home.nix ];
+	    };
         };
     };
 
