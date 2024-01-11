@@ -6,7 +6,6 @@
             userName  = "aCeTotal";
             userEmail = "lars.oksendal@gmail.com";
         };
-};
 
 
 }
