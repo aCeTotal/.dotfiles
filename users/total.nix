@@ -2,20 +2,22 @@
 
 {
 
-      imports = 
-      [
-        #programs
-        ./modules/programs/git.nix
-        ./modules/programs/bash.nix
+    imports = 
+    [
+      #programs
+      ./modules/programs/git.nix
+      ./modules/programs/bash.nix
 
-        # Theming
-        ./modules/theming/cursor_icons.nix
-      ];
+      # Theming
+      ./modules/theming/cursor_icons.nix
+
+      # Config
+    ];
 
 
-      home.username = "total";
-      home.homeDirectory = "/home/total";
-      home.stateVersion = "24.05";
+    home.username = "total";
+    home.homeDirectory = "/home/total";
+    home.stateVersion = "24.05";
 
     home.packages = with pkgs; [
       brave

@@ -4,7 +4,8 @@
 {
   imports =
     [   # Include the results of the hardware scan.
-        ./hardware-configuration.nix
+        ./hardware_configuration.nix
+
     ];
 
   # Boot Loader
@@ -22,7 +23,7 @@
   };
 
 
-  boot.tmp.cleanOnBoot = true;
+  # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
@@ -45,8 +46,11 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "fq";
   };
+
+  # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
   boot.kernelModules = [ "nvidia_uvm" "tcp_bbr" ];
+  boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
 	options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1"
@@ -63,6 +67,8 @@
     algorithm = "zstd";
   };
 
+
+  # HYPRLAND
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
