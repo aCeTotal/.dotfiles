@@ -30,6 +30,7 @@
       shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
+        update = "cd ~/.dotfiles sudo nixos-rebuild switch --flake .#desktop && home-manager switch .#";
       };        
     };
 

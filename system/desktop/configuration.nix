@@ -157,7 +157,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    git
     firefox
     vscode
     gh
