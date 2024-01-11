@@ -12,6 +12,7 @@
       ./modules/theming/cursor_icons.nix
 
       # Config
+      ./modules/config/hyprland/hyprland.conf.nix
     ];
 
 

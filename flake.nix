@@ -1,5 +1,5 @@
 {
-    description = "My flake";
+    description = "[aCe]Total's flake";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
