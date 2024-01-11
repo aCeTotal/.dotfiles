@@ -27,12 +27,10 @@
             total = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
-			 ./users/total/home.nix
+			 ./home.nix
 		 ];
             };
         };
      };
-
    };
-
 }
