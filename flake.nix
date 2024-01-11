@@ -16,32 +16,23 @@
             pkgs = nixpkgs.legacyPackages.${system};
         in  {
         nixosConfigurations = {
-            desktop = lib.nixosSystem {
+            desktop = nixpkgs.lib.nixosSystem {
                 inherit system;
-		modules = [./system/configuration.nix];
+		modules = [
+			./system/desktop/configuration.nix
+		];
             };
-            
-            laptop = lib.nixosSystem {
-                inherit system;
-                modules = [ ./hosts/laptop_system.nix ];
-	    };
 
-            htpc = lib.nixosSystem {
-		inherit system;
-		modules = [ ./hosts/htpc_system.nix ];
-	    };
-        };
         homeConfigurations = {
             total = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                modules = [ ./users/total/home.nix ];
+                modules = [
+			 ./users/total/home.nix
+		 ];
             };
-
-	    htpc = home-manager.lib.homeManagerConfiguration {
-		inherit pkgs;
-		modules = [ ./users/htpc/home.nix ];
-	    };
         };
-    };
+     };
+
+   };
 
 }
