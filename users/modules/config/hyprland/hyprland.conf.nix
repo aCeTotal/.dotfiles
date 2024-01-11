@@ -18,7 +18,7 @@ monitor=,3440x1440@100,auto,1
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 # Execute your favorite apps at launch
-exec-once = swaybg -i "/usr/share/wallpapers/1.jpg"
+exec-once = swaybg -i "$HOME/.dotfiles/users/wallpapers/1.jpg"
 exec-once = ~/.config/hypr/xdg-portal-hyprland
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -151,7 +151,7 @@ $mainMod = SUPER
 bind = $mainMod, RETURN, exec, alacritty  #open the terminal
 bind = $mainMod, Q, killactive, # close the active window
 bind = $mainMod, P, exec, wofi --show drun
-bind = $mainMod, BACKSPACE, exec, thorium-browser
+bind = $mainMod, BACKSPACE, exec, brave
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
@@ -202,5 +202,12 @@ bindm = $mainMod, mouse:273, resizewindow
 
 
     '';
+
+    home.packages = with pkgs; [
+        swaybg
+        xfce.thunar
+    ];
+
+    programs.nm-applet.enable = true;
 
 }
