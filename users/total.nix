@@ -2,6 +2,12 @@
 
 {
 
+      imports =
+    [
+        ./modules/programs/git.nix
+    ];
+
+
       home.username = "total";
       home.homeDirectory = "/home/total";
       home.stateVersion = "24.05";
