@@ -148,10 +148,10 @@ windowrulev2 = opacity 0.8 0.6,class:^(wofi)$
 $mainMod = SUPER
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod, RETURN, exec, alacritty  #open the terminal
+bind = $mainMod, RETURN, exec, kitty  #open the terminal
 bind = $mainMod, Q, killactive, # close the active window
-bind = $mainMod, P, exec, wofi --show drun
-bind = $mainMod, BACKSPACE, exec, brave
+bind = $mainMod, P, exec, rofi --show drun
+bind = $mainMod, BACKSPACE, exec, floorp
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
@@ -159,8 +159,6 @@ bind = $mainMod, D, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
 bind = $mainMod, S, exec, grim -g "$(slurp)" - | swappy -f - # take a screenshot
 bind = $mainMod, F12, exec, wdisplays
-#bind = $mainMod, F12, exec, ./UnrealEngine/Engine/Binaries/Linux/UnrealEditor
-#bind = $mainMod, F11, exec, rider
 
 # Move focus with mainMod + arrow keys
 bind = $mainMod, left, movefocus, l
@@ -205,8 +203,9 @@ bindm = $mainMod, mouse:273, resizewindow
 
     home.packages = with pkgs; [
         swaybg
-        waybar
+        rofi-wayland
         xfce.thunar
+        kitty
     ];
 
 }

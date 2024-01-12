@@ -24,10 +24,9 @@
 
     home.packages = with pkgs; [
       brave
-      alacritty
+      floorp
       blender
       freecad
-      rofi-wayland
     ];
 
     # Manage dotfiles
