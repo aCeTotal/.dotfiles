@@ -27,6 +27,7 @@
       floorp
       blender
       freecad
+      discord
     ];
 
     # Manage dotfiles

@@ -148,9 +148,9 @@ windowrulev2 = opacity 0.8 0.6,class:^(wofi)$
 $mainMod = SUPER
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod, RETURN, exec, kitty  #open the terminal
+bind = $mainMod, RETURN, exec, foot  #open the terminal
 bind = $mainMod, Q, killactive, # close the active window
-bind = $mainMod, P, exec, rofi --show drun
+bind = $mainMod, P, exec, rofi -show drun
 bind = $mainMod, BACKSPACE, exec, floorp
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
@@ -204,8 +204,10 @@ bindm = $mainMod, mouse:273, resizewindow
     home.packages = with pkgs; [
         swaybg
         rofi-wayland
+        grim
+        slurp
         xfce.thunar
-        kitty
+        foot
     ];
 
 }
