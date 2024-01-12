@@ -167,6 +167,7 @@
     vscode
     gh
     neofetch
+    discord
     clinfo
     virtualglLib
     vulkan-loader
