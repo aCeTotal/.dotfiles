@@ -12,7 +12,9 @@
       ./modules/theming/cursor_icons.nix
 
       # Config
-      ./modules/config/hyprland/hyprland.conf.nix
+      ./modules/config/hyprland/hyprland_config.nix
+      ./modules/config/alacritty/alacritty_config.nix
+      ./modules/config/waybar/waybar_config.nix
     ];
 
 
