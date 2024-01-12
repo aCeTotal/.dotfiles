@@ -198,6 +198,9 @@ bind = $mainMod, mouse_up, workspace, e-1
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
 
+env = WLR_NO_HARDWARE_CURSORS,1
+env = LIBVA_DRIVER_NAME,nvidia
+
 
     '';
 
@@ -208,6 +211,9 @@ bindm = $mainMod, mouse:273, resizewindow
         slurp
         xfce.thunar
         foot
+        qt5-wayland
+        qt6-wayland
+        dunst
     ];
 
 }
