@@ -21,6 +21,7 @@
     home.username = "total";
     home.homeDirectory = "/home/total";
     home.stateVersion = "24.05";
+    home-manager.users.total.nixpkgs.config.allowUnfree = true;
 
     home.packages = with pkgs; [
       brave
