@@ -205,9 +205,8 @@ bindm = $mainMod, mouse:273, resizewindow
 
     home.packages = with pkgs; [
         swaybg
+        waybar
         xfce.thunar
     ];
-
-    programs.nm-applet.enable = true;
 
 }
