@@ -211,8 +211,6 @@ env = LIBVA_DRIVER_NAME,nvidia
         slurp
         xfce.thunar
         foot
-        qt5-wayland
-        qt6-wayland
         dunst
     ];
 
