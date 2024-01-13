@@ -24,7 +24,7 @@
 
 
   # Kernel setup
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
     "net.core.rmem_default" = 1073741824;           # Default socket receive buffer size, improve network performance & applications that use sockets
@@ -53,9 +53,9 @@
   boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
-	options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1"
-	options nvidia NVreg_UsePageAttributeTable=1
-	option nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x3322; PowerMizerDefaultAC=0x1"	
+	  options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1
+	  options nvidia NVreg_UsePageAttributeTable=1
+	  option nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x3322; PowerMizerDefaultAC=0x1
 ''; 
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;

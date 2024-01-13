@@ -5,8 +5,6 @@
     imports = 
     [
 
-      neovim-flake.nixosModules.hm
-
       #programs
       ./modules/programs/git.nix
       ./modules/programs/bash.nix
