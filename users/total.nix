@@ -1,9 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
     imports = 
     [
+
+      neovim-flake.nixosModules.hm
+
       #programs
       ./modules/programs/git.nix
       ./modules/programs/bash.nix
@@ -28,6 +31,7 @@
       blender
       freecad
     ];
+
 
     # Manage dotfiles
     home.file = {
