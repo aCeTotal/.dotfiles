@@ -28,6 +28,7 @@
       floorp
       blender
       freecad
+      vscodium
     ];
 
 

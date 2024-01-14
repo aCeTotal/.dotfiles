@@ -87,14 +87,20 @@ decoration {
 animations {
     enabled = yes
 
-    # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-    bezier = myBezier, 0.10, 0.9, 0.1, 1.05
+    # Define Settings For Animation Bezier Curve
+    bezier = wind, 0.05, 0.9, 0.1, 1.05
+    bezier = winIn, 0.1, 1.1, 0.1, 1.1
+    bezier = winOut, 0.3, -0.3, 0, 1
+    bezier = liner, 1, 1, 1, 1
 
-    animation = windows, 1, 7, myBezier, slide
-    animation = windowsOut, 1, 7, myBezier, slide
-    animation = border, 1, 10, default
-    animation = fade, 1, 7, default
-    animation = workspaces, 1, 6, default
+    animation = windows, 1, 6, wind, slide
+    animation = windowsIn, 1, 6, winIn, slide
+    animation = windowsOut, 1, 5, winOut, slide
+    animation = windowsMove, 1, 5, wind, slide
+    animation = border, 1, 1, liner
+    animation = borderangle, 1, 30, liner, loop
+    animation = fade, 1, 10, default
+    animation = workspaces, 1, 5, wind
 }
 
 dwindle {
@@ -150,8 +156,8 @@ $mainMod = SUPER
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 bind = $mainMod, RETURN, exec, foot  #open the terminal
 bind = $mainMod, Q, killactive, # close the active window
-bind = $mainMod, P, exec, rofi -show drun
-bind = $mainMod, BACKSPACE, exec, floorp
+bind = $mainMod, P, exec, rofi -show run
+bind = $mainMod, BACKSPACE, exec, brave
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float

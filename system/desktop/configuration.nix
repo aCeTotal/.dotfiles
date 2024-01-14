@@ -18,7 +18,7 @@
       enable = true;
       efiSupport = true;
       devices = [ "nodev" ];
-      configurationLimit = 3;
+      configurationLimit = 4;
     };
   };
 
@@ -49,11 +49,12 @@
 
   # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
-  boot.kernelModules = [ "nvidia_uvm" "tcp_bbr" ];
+  boot.kernelModules = [ "btrfs" "nvidia" "nvidia_uvm" "tcp_bbr" ];
   boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
 	  options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1
+	  nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1
 	  options nvidia NVreg_UsePageAttributeTable=1
 	  option nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x3322; PowerMizerDefaultAC=0x1
 ''; 
@@ -85,7 +86,7 @@
   # Power Management
   powerManagement.cpuFreqGovernor = "performance";
 
-  # Load nvidia driver for Xorg and Wayland
+  # NVIDIA STUFF
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
@@ -115,6 +116,7 @@
 
   # Networking
   networking.networkmanager.enable = true;
+  programs.nm-applet.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
 
   # Set your time zone.
@@ -147,7 +149,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
@@ -164,6 +166,7 @@
     vim
     wget
     firefox
+    pavucontrol
     vscode
     gh
     neofetch
@@ -172,7 +175,10 @@
     virtualglLib
     vulkan-loader
     vulkan-tools
-    xdg-desktop-portal-hyprland
+    # Work
+    sstp
+    networkmanager-sstp
+    citrix_workspace
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -197,6 +203,7 @@
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 };
+  programs.gamemode.enable = true;
 
   console = {
     packages=[ pkgs.terminus_font ];
@@ -215,6 +222,10 @@
   sound.enable = true;
   security.rtkit.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
   nix = {
     gc = {
       automatic = true;
@@ -223,8 +234,10 @@
       options = "--delete-older-than 10d";
     };
     settings = {
-      max-jobs = 20;
+      max-jobs = 40;
       auto-optimise-store = true;
+      substituters = ["https://nix-gaming.cachix.org"];
+      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
     };
   };
 
@@ -232,7 +245,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
   networking.enableIPv6 = true;
 
   # This value determines the NixOS release from which the default
