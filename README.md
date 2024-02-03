@@ -1,4 +1,4 @@
-1. If you are not ME and you want to use my lame flake, you SHOULD fork this repo right away and make it your own. You will need to have your own git repo before continuing.
+1. If you are not ME and you want to use my lame flake, you SHOULD fork this repo right away and make it your own. You will need to have your own git repo before continuing from step 9.
 2. Make sure your BIOS is set to only use UEFI and Secure Boot disabled.
 3. Boot up the latest minimal NixOS-image.
 4. Change the keyboard layout with: sudo loadkeys no-latin1 (Norwegian layout).
