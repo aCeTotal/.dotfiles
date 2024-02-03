@@ -196,7 +196,7 @@
   services.xserver.libinput.enable = true;
   services.xserver.xkb = {
     layout = "no";
-    xkbVariant = "";
+    Variant = "";
   };
 
   programs.steam = {
