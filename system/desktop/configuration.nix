@@ -165,6 +165,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    git
     firefox
     pavucontrol
     vscode
