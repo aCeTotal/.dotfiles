@@ -193,10 +193,10 @@
   # List services that you want to enable:
   services.openssh.enable = true;
   services.fstrim.enable = true;
-  services.xserver = {
+  services.xserver.libinput.enable = true;
+  services.xserver.xkb = {
     layout = "no";
     xkbVariant = "";
-    libinput.enable = true;
   };
 
   programs.steam = {
