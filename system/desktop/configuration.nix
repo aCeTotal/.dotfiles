@@ -137,6 +137,20 @@
     LC_TIME = "nb_NO.UTF-8";
   };
 
+
+fonts.packages = with pkgs; [
+  noto-fonts
+  noto-fonts-cjk
+  noto-fonts-emoji
+  liberation_ttf
+  nerdfonts
+  fira-code
+  fira-code-symbols
+  mplus-outline-fonts.githubRelease
+  dina-font
+  proggyfonts
+];
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -165,7 +179,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    git
     firefox
     pavucontrol
     vscode
