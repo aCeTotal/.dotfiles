@@ -27,7 +27,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
 	    home-manager.users.total = import ./home.nix;
-	    };
+	    }
 		];
             };
     };
