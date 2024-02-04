@@ -27,7 +27,6 @@
       brave
       floorp
       blender
-      freecad
       vscodium
     ];
 
