@@ -199,8 +199,6 @@ fonts.packages = with pkgs; [
   };
 
   # List services that you want to enable:
-  services.openssh.enable = true;
-  services.fstrim.enable = true;
   services.xserver.libinput.enable = true;
   services.xserver.xkb = {
     layout = "no";
@@ -229,10 +227,16 @@ fonts.packages = with pkgs; [
   hardware.pulseaudio.enable = false;
   sound.enable = true;
   security.rtkit.enable = true;
+  services.tumbler.enable = true;
+  services.gvfs.enable = true;
+  services.openssh.enable = true;
+  services.fstrim.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+
 
   nix = {
     gc = {
@@ -243,9 +247,16 @@ fonts.packages = with pkgs; [
     };
     settings = {
       max-jobs = 40;
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
-      substituters = ["https://nix-gaming.cachix.org"];
-      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+      substituters = [
+	"https://nix-gaming.cachix.org"
+	"https://hyprland.cachix.org"
+	];
+      trusted-public-keys = [
+	"nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" 
+	"hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+	];
     };
   };
 
@@ -263,9 +274,6 @@ fonts.packages = with pkgs; [
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  # Enables the use of flakes and some other nice features
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }
 
