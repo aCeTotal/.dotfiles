@@ -56,6 +56,7 @@
 ''; 
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
   # Zram
   zramSwap = {
