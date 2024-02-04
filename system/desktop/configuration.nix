@@ -178,7 +178,6 @@ fonts.packages = with pkgs; [
     freecad
     firefox
     pavucontrol
-    vscode
     gh
     neofetch
     discord
