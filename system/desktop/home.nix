@@ -6,16 +6,16 @@
     [
 
       #programs
-      ./modules/programs/git.nix
-      ./modules/programs/bash.nix
+      ./users/modules/programs/git.nix
+      ./users/modules/programs/bash.nix
 
       # Theming
-      ./modules/theming/cursor_icons.nix
+      ./users/modules/theming/cursor_icons.nix
 
       # Config
-      ./modules/config/hyprland/hyprland_config.nix
-      ./modules/config/alacritty/alacritty_config.nix
-      ./modules/config/waybar/waybar_config.nix
+      ./users/modules/config/hyprland/hyprland_config.nix
+      ./users/modules/config/alacritty/alacritty_config.nix
+      ./users/modules/config/waybar/waybar_config.nix
     ];
 
 
@@ -28,6 +28,7 @@
       floorp
       blender
       vscodium
+      firefox
     ];
 
 

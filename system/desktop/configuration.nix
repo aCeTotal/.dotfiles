@@ -176,7 +176,6 @@ fonts.packages = with pkgs; [
     vim
     wget
     freecad
-    firefox
     pavucontrol
     gh
     neofetch
