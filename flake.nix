@@ -1,13 +1,18 @@
 {
-    description = "[aCe]Total's flake";
+    description = "TotalOS";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager.url = "github:nix-community/home-manager/master";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
+	hyprland.url = "github:hyprwm/Hyprland";
+    		hyprland-plugins = {
+      		url = "github:hyprwm/hyprland-plugins";
+      		inputs.hyprland.follows = "hyprland";
+    		};
     };
 
-    outputs = { self, nixpkgs, home-manager, ... }:
+    outputs = inputs@{ self, nixpkgs, home-manager, ... }:
         let
             lib = nixpkgs.lib;
             system = "x86_64-linux";
@@ -16,15 +21,14 @@
         nixosConfigurations = {
             desktop = lib.nixosSystem {
                 inherit system;
-                modules = [ ./system/desktop/configuration.nix ];
+                modules = [ ./system/desktop/configuration.nix 
+		home-manager.nixosModules.home-manager {
+	    home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+	    home-manager.users.total = import ./home.nix;
+	    };
+		];
             };
-        };
-        homeConfigurations = {
-            total = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [ ./users/total.nix ];
-            };
-        };
     };
-
 }

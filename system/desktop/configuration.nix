@@ -5,7 +5,6 @@
   imports =
     [   # Include the results of the hardware scan.
         ./hardware_configuration.nix
-
     ];
 
   # Boot Loader
@@ -77,7 +76,7 @@
 	# If your cursor becomes invisible
 	WLR_NO_HARDWARE_CURSORS = "1";
 	# Hint electron apps to use wayland
-	NIXOS_OZONE_WL = "0";
+	NIXOS_OZONE_WL = "1";
   };
 
   # Power Management
