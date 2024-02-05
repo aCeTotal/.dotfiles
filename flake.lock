@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707088232,
-        "narHash": "sha256-nxPBAZ//BwKkBcjwLE5g9zTq29g7gccTnH5+CeMTxpA=",
+        "lastModified": 1707114923,
+        "narHash": "sha256-LDYPWa+BgxHSNEye93SyIPgz5u3RAfh78P9KyO+rQzI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4740f2ccda184e9cc509d7a82b26d7271e0c79d9",
+        "rev": "afcedcf2c8e424d0465e823cf833eb3adebe1db7",
         "type": "github"
       },
       "original": {
@@ -30,11 +30,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1707061220,
-        "narHash": "sha256-LAHHvGqjSVBHwTpCcVcT+O84JLRNd5kOMPQHlZxg07c=",
+        "lastModified": 1707166580,
+        "narHash": "sha256-jiffSkrbRv1xtPCddH4FgNMp11yrW4CKAABw5VkIS5g=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "cbadf3e3f31ab5ad5d192daac5f2ca930d08b8fb",
+        "rev": "1fd82e37a782a3506accb63cd470fe96db772cc0",
         "type": "github"
       },
       "original": {
@@ -50,11 +50,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706478736,
-        "narHash": "sha256-V1T0x16p4r+/fdWR5RU2lV0tTW0YrA8K9+GIibsZAeQ=",
+        "lastModified": 1707099401,
+        "narHash": "sha256-9Le8MyRMlrIA6Te+woK9OG27fF0h5fgt7T3I3SKQLSs=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "24e33780589f5c15132fc86c97ea033e56b06f59",
+        "rev": "ff8526c766fbe87500fc7d94cda733e29a111fb2",
         "type": "github"
       },
       "original": {
@@ -142,12 +142,29 @@
         "type": "github"
       }
     },
+    "nixpkgs_patched": {
+      "locked": {
+        "lastModified": 1706975488,
+        "narHash": "sha256-arYN4yIKU1cN5sde1+hsRNrTsgEIsU+mrwT5N8jX+BQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "468a37e6ba01c45c91460580f345d48ecdb5a4db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "468a37e6ba01c45c91460580f345d48ecdb5a4db",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs_patched": "nixpkgs_patched"
       }
     },
     "systems": {
