@@ -184,6 +184,8 @@ fonts.packages = with pkgs; [
     virtualglLib
     vulkan-loader
     vulkan-tools
+    nfs-utils
+    nfstrace
     # Work
     sstp
     networkmanager-sstp
