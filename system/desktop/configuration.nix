@@ -241,7 +241,7 @@ fonts.packages = with pkgs; [
 
 
   #NFS
-  fileSystems."$HOME/Documents/NFS/Bigdisk1" = {
+  fileSystems."/mnt/nfs/Bigdisk1" = {
     device = "192.168.0.40:/bigdisk1";
     fsType = "nfs";
     options = [ "rw" "nofail" "x-systemd.automount" "noauto" ];
