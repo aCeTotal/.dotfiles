@@ -238,6 +238,14 @@ fonts.packages = with pkgs; [
   services.blueman.enable = true;
 
 
+  #NFS
+  fileSystems."$HOME/Documents/NFS/Bigdisk1" = {
+    device = "192.168.0.40:/bigdisk1";
+    fsType = "nfs";
+    options = [ "rw" "nofail" "x-systemd.automount" "noauto" ];
+  };
+
+
   nix = {
     gc = {
       automatic = true;
