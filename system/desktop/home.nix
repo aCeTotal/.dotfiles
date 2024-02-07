@@ -16,6 +16,9 @@
       ./modules/config/hyprland/hyprland_config.nix
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
+
+      #Flake modules
+      nixvim.homeManagerModules.nixvim
     ];
 
 
@@ -33,6 +36,11 @@
       grim
       swappy
     ];
+
+    programs.nixvim = {
+    	plugins.lightline.enable = true;
+	colorschemes.gruvbox.enable = true;
+    };
 
 
     # Manage dotfiles

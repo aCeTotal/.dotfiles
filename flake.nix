@@ -7,10 +7,15 @@
         home-manager.url = "github:nix-community/home-manager/master";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 	hyprland.url = "github:hyprwm/Hyprland";
-    		hyprland-plugins = {
+    	hyprland-plugins = {
       		url = "github:hyprwm/hyprland-plugins";
       		inputs.hyprland.follows = "hyprland";
-    		};
+    	};
+	nixvim = {
+      		url = "github:nix-community/nixvim";
+      		inputs.nixpkgs.follows = "nixpkgs";
+   	};
+
     };
 
     outputs = inputs@{ self, nixpkgs, home-manager, ... }:
