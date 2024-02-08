@@ -17,7 +17,7 @@
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
 
-      inputs.nixvim.homeManagerModules.nixvim
+     inputs.nixvim.homeManagerModules.nixvim
     ];
 
 
