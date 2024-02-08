@@ -17,8 +17,7 @@
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
 
-      #Flake modules
-      nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeManagerModules.nixvim
     ];
 
 
