@@ -16,6 +16,8 @@
       ./modules/config/hyprland/hyprland_config.nix
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
+      ./modules/config/citrix/citrix-conf.nix
+      
 
     ];
 
