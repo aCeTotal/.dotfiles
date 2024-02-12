@@ -3,8 +3,9 @@
 
 {
   imports =
-    [ 
+    [
         ./hardware_configuration.nix
+
     ];
 
   # Boot Loader

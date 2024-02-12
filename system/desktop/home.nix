@@ -17,7 +17,6 @@
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
 
-     inputs.nixvim.homeManagerModules.nixvim
     ];
 
 
@@ -27,20 +26,21 @@
 
     home.packages = with pkgs; [
       brave
-      floorp
+      spotify
       blender
-      vscodium
       firefox
       slurp
       grim
       swappy
+
+     #Work (Testing)
+     wpsoffice
+     libreoffice-fresh
+     planner
+     todoist
+     projectlibre
+     teams-for-linux
     ];
-
-    programs.nixvim = {
-    	plugins.lightline.enable = true;
-	colorschemes.gruvbox.enable = true;
-    };
-
 
     # Manage dotfiles
     home.file = {
