@@ -113,7 +113,7 @@
 
   # Networking
   networking.networkmanager.enable = true;
-  programs.nm-applet.enable = true;
+ # programs.nm-applet.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
 
   # Set your time zone.
@@ -159,8 +159,14 @@ fonts.packages = with pkgs; [
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.sddm = {
+	enable = true;
+	wayland.enable = true;
+	autoNumlock = true;
+	theme = "tokyo-night-sddm";
+  };
+  services.xserver.displayManager.defaultSession = "Hyprland";
+  services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
@@ -177,16 +183,26 @@ fonts.packages = with pkgs; [
     vim
     wget
     freecad
+    gnumake
+    appimage-run
     pavucontrol
     gh
     neofetch
     discord
+    unzip
+    unrar
+    libnotify
     clinfo
+    lm_sensors
     virtualglLib
     vulkan-loader
     vulkan-tools
     nfs-utils
+    networkmanagerapplet
     nfstrace
+    cmatrix
+    htop
+    btop
     # Work
     sstp
     networkmanager-sstp
@@ -270,6 +286,18 @@ fonts.packages = with pkgs; [
 	];
     };
   };
+
+
+systemd.user.services = {
+    nm-applet = {
+      description = "Network manager applet";
+
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+
+      serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+    };
+};
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
