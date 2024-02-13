@@ -8,6 +8,7 @@
       #programs
       ./modules/programs/git.nix
       ./modules/programs/bash.nix
+      ./modules/programs/neovim/neovim.nix
 
       # Theming
       ./modules/theming/cursor_icons.nix

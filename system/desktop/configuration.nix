@@ -165,8 +165,8 @@ fonts.packages = with pkgs; [
 	autoNumlock = true;
 	theme = "tokyo-night-sddm";
   };
-  services.xserver.displayManager.defaultSession = "Hyprland";
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.defaultSession = "hyprland";
+  #services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
