@@ -67,7 +67,7 @@
 
       telescope-fzf-native-nvim
 
-      cmp_luasnip
+    rnix cmp_luasnip
       cmp-nvim-lsp
 
       luasnip
