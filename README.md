@@ -1,3 +1,5 @@
+[Work-In-Progress]
+
 1. If you are not ME and you want to use my flake, you SHOULD fork this repo right away and make it your own. You will need to have your own git repo to make your system reproducible.
 2. Make sure your BIOS is set to only use UEFI and Secure Boot disabled.
 3. Boot up the latest minimal NixOS-image.
