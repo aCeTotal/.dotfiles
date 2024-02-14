@@ -27,7 +27,10 @@
             desktop = lib.nixosSystem {
               specialArgs = {inherit inputs; inherit system;};
                 modules = [ ./system/desktop/configuration.nix 
-			home-manager.nixosModules.home-manager {
+                home-manager.nixosModules.home-manager {
+                    home-manager.extraSpecialArgs = {
+                      inherit inputs;
+                    };
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
