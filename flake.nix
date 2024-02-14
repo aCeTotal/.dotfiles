@@ -1,5 +1,5 @@
 {
-    description = "TotalOS";
+    description = "aCeTotal's FLAKE";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -9,7 +9,13 @@
     	hyprland-plugins = {
       		url = "github:hyprwm/hyprland-plugins";
       		inputs.hyprland.follows = "hyprland";
-    	};
+          };
+
+        nixvim = {
+          url = "github:nix-community/nixvim";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
 	# Neovim Theme	
 	plugin-onedark.url = "github:navarasu/onedark.nvim";
