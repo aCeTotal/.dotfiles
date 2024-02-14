@@ -21,7 +21,8 @@
         in  {
         nixosConfigurations = {
             desktop = lib.nixosSystem {
-                inherit system;
+              inherit system;
+              specialArgs = {inherit inputs;}
                 modules = [ ./system/desktop/configuration.nix 
 			        home-manager.nixosModules.home-manager {
 	    	            home-manager.useGlobalPkgs = true;
