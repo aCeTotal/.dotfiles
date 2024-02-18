@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+
+      home.packages = with pkgs; [
+      libsecret
+    ];
+
         programs.git = {
             enable = true;
 	    package = pkgs.gitFull;
