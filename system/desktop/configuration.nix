@@ -175,6 +175,11 @@ fonts.packages = with pkgs; [
     description = "";
     extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" "audio" "disk" "systemd-journal" ];
     packages = with pkgs; [];
+    openssh.authorizedKeys.keys = [
+  	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDbzZLzWSWbwAsBLXBGFj+TJBMn5E1pIBImJTtVfVH4SmA8Ovufm48F0BO/orFXNwjmOo9I1AsmRaZVIz6ehuDiIkhYSRVdKMGI2jyc0SGXmkvKmdPOqZ5a6Diwd793Aal9C8lxOsdoCYIXcpSDEQhmcUl1b/sERtH/YZ+Xg7tZiXMdniqxa+PODYLau+5RqbuS48X5MiWMFFGjZd92gaLh7uRqO6ZyTa47HVPZY8ZhEllEY2eRu9uOnjpr7mQbsX3sCQEIrVcDEBE8IEl1gsjSi3qfSCs2HriQmxqVdDu6h9xPb2BWnvuusS7fX4lXQmCRyKhsEKWg+XcEkesYFqjDv9yqiB35CYRSMYIP+x3+ufk4LmNnp2Ae8dZNinJaEBlJJCY89uljqmB0uoHZVYW7TvjUQzHI/okQ4ecAaapX80DZtC6jCuJ2YsN1W1+DBBhDsX2OfXGaFtgrI8eB4QCheE7kIU0nx55jkfVndkosek3CLmcgvw7xBuTcrjtxUZc= lars.oksendal@gmail.com" # content of authorized_keys file
+  	# note: ssh-copy-id will add user@your-machine after the public key
+  	# but we can remove the "@your-machine" part
+    ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -249,8 +254,15 @@ fonts.packages = with pkgs; [
   security.rtkit.enable = true;
   services.tumbler.enable = true;
   services.gvfs.enable = true;
-  services.openssh.enable = true;
   services.fstrim.enable = true;
+
+  services.openssh = {
+   enable = true;
+   # require public key authentication for better security
+   settings.PasswordAuthentication = false;
+   settings.KbdInteractiveAuthentication = false;
+   #settings.PermitRootLogin = "yes";
+  };
 
   # Bluetooth
   hardware.bluetooth.enable = true;
