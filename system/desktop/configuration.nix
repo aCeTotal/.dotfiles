@@ -183,6 +183,7 @@ fonts.packages = with pkgs; [
     vim
     wget
     freecad
+    gamescope
     gnumake
     appimage-run
     pavucontrol
