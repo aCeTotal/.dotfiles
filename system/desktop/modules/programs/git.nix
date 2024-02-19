@@ -18,4 +18,18 @@
 	      }/bin/git-credential-libsecret";
 	    };
         };
+
+
+	ssh = {
+        enable = true;
+        compression = true;
+        controlMaster = "auto";
+
+        matchBlocks = {
+          "github.com" = {
+            identityFile = "~/.ssh/github";
+          };
+        };
+      };
+
 }
