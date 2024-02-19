@@ -22,7 +22,6 @@
 
     ];
 
-
     home.username = "total";
     home.homeDirectory = "/home/total";
     home.stateVersion = "24.05";
@@ -46,6 +45,8 @@
      projectlibre
      teams-for-linux
     ];
+
+    services.ssh-agent.enable = true;
 
     # Manage dotfiles
     home.file = {

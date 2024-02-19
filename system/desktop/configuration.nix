@@ -264,8 +264,6 @@ fonts.packages = with pkgs; [
    #settings.PermitRootLogin = "yes";
   };
 
-  services.ssh-agent.enable = true;
-
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
