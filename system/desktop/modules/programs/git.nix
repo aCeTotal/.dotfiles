@@ -20,7 +20,8 @@
         };
 
 
-	ssh = {
+	programs.ssh = {
+
         enable = true;
         compression = true;
         controlMaster = "auto";
