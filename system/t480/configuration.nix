@@ -149,6 +149,7 @@ fonts.packages = with pkgs; [
     opengl.enable = true;
     opengl.driSupport = true;
     opengl.driSupport32Bit = true;
+    hardware.trackpoint.fakeButtons = false;
   };
 
     # Enable the X11 windowing system.
@@ -270,6 +271,7 @@ services.xserver.displayManager.gdm.wayland = true;
   services.gvfs.enable = true;
   services.fstrim.enable = true;
   services.upower.enable = true;
+  services.xserver.synaptics.tapButtons = true;
 
   services.openssh = {
    enable = true;
