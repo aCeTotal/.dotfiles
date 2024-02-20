@@ -25,10 +25,18 @@
 
   # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelParams = [
+      "i915.modeset=1"
+      "i915.fastboot=1"
+      "i915.enable_guc=2"
+      "i915.enable_psr=1"
+      "i915.enable_fbc=1"
+      "i915.enable_dc=2"
+    ];
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
     "net.core.rmem_default" = 1073741824;           # Default socket receive buffer size, improve network performance & applications that use sockets
-    "net.core.rmem_max" = 1073741824;               # Maximum socket receive buffer size, determin the amount of data that can be buffered in memory for network operations
+    "net.core.rmem_max" = 1073741824;               [O# Maximum socket receive buffer size, determin the amount of data that can be buffered in memory for network operations
     "net.core.wmem_default" = 1073741824;           # Default socket send buffer size, improve network performance & applications that use sockets
     "net.core.wmem_max" = 1073741824;               # Maximum socket send buffer size, determin the amount of data that can be buffered in memory for network operations
     "net.ipv4.tcp_rmem" = "4096 87380 1073741824";  # 1 GiB max
@@ -61,6 +69,11 @@
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+
+  hardware.trackpoint = {
+      enable = true;
+      sensitivity = 255;
+  };
 
   # Zram
   zramSwap = {
@@ -171,6 +184,7 @@ fonts.packages = with pkgs; [
   services.logind.killUserProcesses = true;
   services.throttled.enable = true;
   services.fprintd.enable = true;
+  services.thinkfan.enable = true;
 
   services.xserver.displayManager.defaultSession = "hyprland";
   #services.xserver.desktopManager.plasma5.enable = true;
