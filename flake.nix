@@ -42,9 +42,9 @@
             };
 
 	    # LENOVO T480
-	    desktop = lib.nixosSystem {
+	    t480 = lib.nixosSystem {
               specialArgs = {inherit inputs; inherit system;};
-                modules = [ ./system/T480/configuration.nix 
+                modules = [ ./system/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
                     home-manager.extraSpecialArgs = {
                       inherit inputs;
@@ -52,9 +52,11 @@
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.total = import ./system/T480/home.nix;
+	    			home-manager.users.total = import ./system/t480/home.nix;
 	    		}
 		    nixos-hardware.nixosModules.lenovo-thinkpad-t480
+		    nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+                    nixos-hardware.nixosModules.common-gpu-intel
 		];
             };
 

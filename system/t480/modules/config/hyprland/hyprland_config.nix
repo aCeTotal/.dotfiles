@@ -6,7 +6,7 @@
         # Setup monitors
 # See https://wiki.hyprland.org/Configuring/Monitors/
 #monitor=,preferred,auto,1
-monitor=,3440x1440@165,auto,1
+monitor=,1920x1080@60,auto,1
 
 # Dual monitor example on G15 Strix
 # eDP-1 is the built in monitor while DP-1 is external
@@ -18,7 +18,7 @@ monitor=,3440x1440@165,auto,1
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 # Execute your favorite apps at launch
-exec-once = swaybg -i "$HOME/.dotfiles/system/desktop/wallpapers/1.jpg"
+exec-once = swaybg -i "$HOME/.dotfiles/wallpapers/1.jpg"
 exec-once = ~/.config/hypr/xdg-portal-hyprland
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
