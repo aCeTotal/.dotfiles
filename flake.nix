@@ -41,7 +41,7 @@
 		];
             };
 
-	    # LENOVO T480
+	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
               specialArgs = {inherit inputs; inherit system;};
                 modules = [ ./system/t480/configuration.nix 
