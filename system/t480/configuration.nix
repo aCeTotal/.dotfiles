@@ -33,6 +33,7 @@
       "i915.enable_psr=1"
       "i915.enable_fbc=1"
       "i915.enable_dc=2"
+      "psmouse.synaptics_intertouch=0"
     ];
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
