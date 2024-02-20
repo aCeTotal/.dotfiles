@@ -229,7 +229,7 @@ tooltip {
     },
 
     "clock": {
-        "format": "{: %I:%M:%S   %a, %b %e}",
+        "format": "{: %H:%M:%S   %a, %e.%b}",
 	"interval": 1,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
     },
