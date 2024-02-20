@@ -149,7 +149,6 @@ fonts.packages = with pkgs; [
     opengl.enable = true;
     opengl.driSupport = true;
     opengl.driSupport32Bit = true;
-    hardware.trackpoint.fakeButtons = false;
   };
 
     # Enable the X11 windowing system.

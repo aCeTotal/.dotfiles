@@ -18,6 +18,9 @@
       ./modules/config/alacritty/alacritty_config.nix
       ./modules/config/waybar/waybar_config.nix
       #./modules/config/citrix/citrix-conf.nix
+
+      # Div
+      ./modules/devtools.nix
       
 
     ];
@@ -35,14 +38,8 @@
       grim
       swappy
       pamixer
-
-     #Work (Testing)
-     wpsoffice
-     libreoffice-fresh
-     planner
-     todoist
-     projectlibre
-     teams-for-linux
+      libreoffice-fresh
+      teams-for-linux
     ];
 
     services.ssh-agent.enable = true;
