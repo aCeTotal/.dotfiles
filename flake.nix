@@ -52,7 +52,7 @@
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.total = import ./system/t480/home.nix;
+	    			home-manager.users.christophermp = import ./system/t480/home.nix;
 	    		}
 		    nixos-hardware.nixosModules.lenovo-thinkpad-t480
 		    nixos-hardware.nixosModules.common-cpu-intel-kaby-lake

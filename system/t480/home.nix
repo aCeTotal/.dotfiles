@@ -22,8 +22,8 @@
 
     ];
 
-    home.username = "total";
-    home.homeDirectory = "/home/total";
+    home.username = "christophermp";
+    home.homeDirectory = "/home/christophermp";
     home.stateVersion = "24.05";
 
     home.packages = with pkgs; [
@@ -34,7 +34,6 @@
       slurp
       grim
       swappy
-      pureref
       pamixer
 
      #Work (Testing)

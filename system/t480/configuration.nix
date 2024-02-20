@@ -189,7 +189,7 @@ services.xserver.displayManager.gdm.wayland = true;
   #services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.total = {
+  users.users.christophermp = {
     isNormalUser = true;
     initialPassword = "nixos";
     description = "";
@@ -224,10 +224,6 @@ services.xserver.displayManager.gdm.wayland = true;
     cmatrix
     htop
     btop
-    # Work
-    sstp
-    networkmanager-sstp
-    citrix_workspace
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

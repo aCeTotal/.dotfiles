@@ -4,9 +4,11 @@
     home.file.".config/hypr/hyprland.conf".text = ''
 
         # Setup monitors
-# See https://wiki.hyprland.org/Configuring/Monitors/
-#monitor=,preferred,auto,1
-monitor=,1920x1080@60,auto,1
+# See https://wiki.hyprland.org/Configuring/Monitors#/
+#monitor=,1920x1080@60,auto,1
+monitor=,highres,auto,1
+
+
 
 # Dual monitor example on G15 Strix
 # eDP-1 is the built in monitor while DP-1 is external
