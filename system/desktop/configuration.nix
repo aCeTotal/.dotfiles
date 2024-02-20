@@ -119,6 +119,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -160,12 +161,18 @@ fonts.packages = with pkgs; [
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm = {
-	enable = true;
-	wayland.enable = true;
-	autoNumlock = true;
-	theme = "tokyo-night-sddm";
-  };
+  #services.xserver.displayManager.sddm = {
+#	enable = true;
+#	wayland.enable = true;
+#	autoNumlock = true;
+#	theme = "tokyo-night-sddm";
+#  };
+
+services.xserver.displayManager.gdm.enable = true;
+services.xserver.displayManager.gdm.wayland = true;
+
+
+
   services.xserver.displayManager.defaultSession = "hyprland";
   #services.xserver.desktopManager.plasma5.enable = true;
 

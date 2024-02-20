@@ -19,6 +19,7 @@
       efiSupport = true;
       devices = [ "nodev" ];
       configurationLimit = 4;
+      useOSProber = true;
     };
   };
 
@@ -36,7 +37,7 @@
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
     "net.core.rmem_default" = 1073741824;           # Default socket receive buffer size, improve network performance & applications that use sockets
-    "net.core.rmem_max" = 1073741824;               [O# Maximum socket receive buffer size, determin the amount of data that can be buffered in memory for network operations
+    "net.core.rmem_max" = 1073741824;               # Maximum socket receive buffer size, determin the amount of data that can be buffered in memory for network operations
     "net.core.wmem_default" = 1073741824;           # Default socket send buffer size, improve network performance & applications that use sockets
     "net.core.wmem_max" = 1073741824;               # Maximum socket send buffer size, determin the amount of data that can be buffered in memory for network operations
     "net.ipv4.tcp_rmem" = "4096 87380 1073741824";  # 1 GiB max
@@ -109,6 +110,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -146,27 +148,22 @@ fonts.packages = with pkgs; [
     opengl.enable = true;
     opengl.driSupport = true;
     opengl.driSupport32Bit = true;
-
-
-    extraPackages = with pkgs; [
-      vaapiIntel
-      intel-media-driver
-      libvdpau-va-gl
-      intel-compute-runtime
-      mesa.opencl
-    ];
   };
 
     # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm = {
-	enable = true;
-	wayland.enable = true;
-	autoNumlock = true;
-	theme = "tokyo-night-sddm";
-  };
+# Enable the KDE Plasma Desktop Environment.
+#  services.xserver.displayManager.sddm = {
+#	enable = true;
+#	wayland.enable = true;
+#	autoNumlock = true;
+#	theme = "tokyo-night-sddm";
+#  };
+
+services.xserver.displayManager.gdm.enable = true;
+services.xserver.displayManager.gdm.wayland = true;
+
 
   services.tlp = {
       enable = true;
@@ -271,6 +268,7 @@ fonts.packages = with pkgs; [
   services.tumbler.enable = true;
   services.gvfs.enable = true;
   services.fstrim.enable = true;
+  services.upower.enable = true;
 
   services.openssh = {
    enable = true;
