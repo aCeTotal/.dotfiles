@@ -7,12 +7,14 @@
       shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
+	"v" = "nvim";
 	"update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
-	"upgrade" = "cd $HOME/.dotfiles && nix flake update && nixos-rebuild switch --flake .#desktop";
+	"upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
 
 
-	"editconf" = "vim ~/.dotfiles/system/desktop/configuration.nix";
-	"edithome" = "vim ~/.dotfiles/system/desktop/home.nix";
+	"editconf" = "nvim ~/.dotfiles/hosts/desktop/configuration.nix";
+	"edithome" = "nvim ~/.dotfiles/hosts/desktop/home.nix";
+	"modules" = "cd ~/.dotfiles/hosts/desktop/modules";
       };        
     };
 

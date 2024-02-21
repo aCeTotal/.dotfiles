@@ -150,6 +150,8 @@ fonts.packages = with pkgs; [
   proggyfonts
 ];
 
+programs.neovim.defaultEditor = true;
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;

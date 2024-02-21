@@ -8,7 +8,7 @@
       #programs
       ./modules/programs/git.nix
       ./modules/programs/bash.nix
-     # ./modules/programs/nixvim.nix
+      ./modules/programs/nixvim.nix
 
       # Theming
       ./modules/theming/cursor_icons.nix
