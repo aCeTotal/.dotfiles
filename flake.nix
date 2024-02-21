@@ -28,7 +28,7 @@
 	    # NVIDIA DESKTOP
             desktop = lib.nixosSystem {
               specialArgs = {inherit inputs; inherit system;};
-                modules = [ ./system/desktop/configuration.nix 
+                modules = [ ./hosts/desktop/configuration.nix 
                 home-manager.nixosModules.home-manager {
                     home-manager.extraSpecialArgs = {
                       inherit inputs;
@@ -36,7 +36,7 @@
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.total = import ./system/desktop/home.nix;
+	    			home-manager.users.total = import ./hosts/desktop/home.nix;
 	    		}
 		];
             };
@@ -44,7 +44,7 @@
 	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
               specialArgs = {inherit inputs; inherit system;};
-                modules = [ ./system/t480/configuration.nix 
+                modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
                     home-manager.extraSpecialArgs = {
                       inherit inputs;
@@ -52,7 +52,7 @@
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.christophermp = import ./system/t480/home.nix;
+	    			home-manager.users.christophermp = import ./hosts/t480/home.nix;
 	    		}
 		    nixos-hardware.nixosModules.lenovo-thinkpad-t480
 		    nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
