@@ -1,6 +1,4 @@
 {
-    description = "TotalOS";
-
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 	nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -10,7 +8,7 @@
     	hyprland-plugins = {
       		url = "github:hyprwm/hyprland-plugins";
       		inputs.hyprland.follows = "hyprland";
-          };
+        };
 
         nixvim = {
           	url = "github:nix-community/nixvim";
@@ -27,12 +25,10 @@
         nixosConfigurations = {
 	    # NVIDIA DESKTOP
             desktop = lib.nixosSystem {
-              specialArgs = {inherit inputs; inherit system;};
+              specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/desktop/configuration.nix 
                 home-manager.nixosModules.home-manager {
-                    home-manager.extraSpecialArgs = {
-                      inherit inputs;
-                    };
+                    home-manager.extraSpecialArgs = { inherit inputs; };
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
@@ -43,12 +39,10 @@
 
 	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
-              specialArgs = {inherit inputs; inherit system;};
+              specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
-                    home-manager.extraSpecialArgs = {
-                      inherit inputs;
-                    };
+                    home-manager.extraSpecialArgs = { inherit inputs; };
 	    			home-manager.useGlobalPkgs = true;
             			home-manager.useUserPackages = true;
             			home-manager.backupFileExtension = "backup";
