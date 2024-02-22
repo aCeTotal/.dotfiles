@@ -6,18 +6,16 @@
     [
 
       #programs
-      ./modules/programs/git.nix
-      ./modules/programs/bash.nix
-      ./modules/programs/nixvim.nix
+      ./modules/git.nix
+      ./modules/bash.nix
+      ./modules/nixvim.nix
       ./modules/alacritty.nix
+      ./modules/rofi.nix
 
-      # Theming
-      ./modules/theming/cursor_icons.nix
+      ./modules/cursor_icons.nix
 
-      # Config
-      ./modules/config/hyprland/hyprland_config.nix
-      ./modules/config/waybar/waybar_config.nix
-      #./modules/config/citrix/citrix-conf.nix
+      ./modules/hyprland.nix
+      ./modules/waybar.nix
       
 
     ];

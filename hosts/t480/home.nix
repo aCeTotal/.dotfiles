@@ -4,25 +4,15 @@
 
     imports = 
     [
-
-      #programs
-      ./modules/programs/git.nix
-      ./modules/programs/bash.nix
-     # ./modules/programs/nixvim.nix
-
-      # Theming
-      ./modules/theming/cursor_icons.nix
-
-      # Config
-      ./modules/config/hyprland/hyprland_config.nix
-      ./modules/config/alacritty/alacritty_config.nix
-      ./modules/config/waybar/waybar_config.nix
-      #./modules/config/citrix/citrix-conf.nix
-
-      # Div
+      ./modules/git.nix
+      ./modules/bash.nix
+      ./modules/nixvim.nix
+      ./modules/cursor_icons.nix
+      ./modules/hyprland.nix
+      ./modules/alacritty.nix
+      ./modules/rofi.nix
+      ./modules/waybar.nix
       ./modules/devtools.nix
-      
-
     ];
 
     home.username = "christophermp";
@@ -51,7 +41,7 @@
 
     # Manage Environment variables
     home.sessionVariables = {
-      Editor = "vim";
+      Editor = "neovim";
     };
 
     # Let Home Manager install and manage itself.
