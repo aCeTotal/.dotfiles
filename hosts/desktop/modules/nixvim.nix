@@ -11,6 +11,8 @@
 
   programs.nixvim = {
     enable = true;
+    viAlias = true;
+    vimAlias = true;
     colorschemes.dracula.enable = true;
 
     extraPlugins = with pkgs.vimPlugins; [
@@ -22,12 +24,29 @@
       bufferline.enable = true;
       luasnip.enable = true;
       lightline.enable = true;
-      neo-tree.enable = true;
       rust-tools.enable = true;
+
+      startup = { 
+	      enable = true;
+	      theme = "evil";
+	      userMappings = {
+	      "<leader>ff" = "<cmd>Telescope find_files<CR>";
+	      "<leader>s"  = "<cmd>Telescope live_grep<CR>";
+	      };
+      };
 
       airline = {
 	      enable = true;
       	powerlineFonts = true;
+      };
+
+      coq-nvim = {
+        enable = true;
+        installArtifacts = true;
+      };
+
+      comment-nvim = {
+        enable = true;
       };
 
       gitsigns = {
@@ -83,6 +102,21 @@
 	      kotlin-language-server.enable = true;
 	      nixd.enable = true;
 	      ruff-lsp.enable = true;
+        tsserver.enable = true;
+	      lua-ls.enable = true;
+	      rust-analyzer = {
+	        enable = true;
+	        installRustc = true;
+	        installCargo = true;
+	      };
+	      html.enable = true;
+	      ccls.enable = true;
+	      cmake.enable = true;
+	      csharp-ls.enable = true;
+	      cssls.enable = true;
+	      jsonls.enable = true;
+	      pyright.enable = true;
+	      tailwindcss.enable = true;
 	  };
 
 	keymaps.lspBuf = {
@@ -94,15 +128,15 @@
 	};
       };
 
-      none-ls = {
-	enable = true;
-	  sources = {
-	    diagnostics = {
-	    golangci_lint.enable = true;
-	    ktlint.enable = true;
-	    shellcheck.enable = true;
-	    statix.enable = true;
-	    };
+  none-ls = {
+	  enable = true;
+	    sources = {
+	      diagnostics = {
+	      golangci_lint.enable = true;
+	      ktlint.enable = true;
+	      shellcheck.enable = true;
+	      statix.enable = true;
+	      };
 	      formatting = {
 	        fantomas.enable = true;
 	        gofmt.enable = true;
@@ -112,7 +146,7 @@
 	        markdownlint.enable = true;
 	        rustfmt.enable = true;
 	      };
-    };
+      };
   };
 
 
@@ -125,6 +159,7 @@
 
       nvim-cmp = {
       enable = true;
+      autoEnableSources = true;
       sources = [
         { name = "nvim_lsp"; }
         { name = "luasnip"; }
@@ -195,7 +230,7 @@
         completion = {
           winhighlight =
             "FloatBorder:CmpBorder,Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel";
-          scrollbar = false;
+          scrollbar = true;
           sidePadding = 0;
           border = [ "╭" "─" "╮" "│" "╯" "─" "╰" "│" ];
         };
@@ -288,7 +323,7 @@
         mode = "n";
         key = "<leader>f";
         options.silent = false;
-        action = "<cmd>Neotree reveal right<CR>";
+        action = "<cmd>NvimTreeToggle<CR>";
       }
 
       # Default mode is "" which means normal-visual-op
@@ -333,6 +368,10 @@
       shiftwidth = 2;
       smartindent = true;
       tabstop = 2;
+      cursorline = true;
+
+      termguicolors = true;
+      scrolloff = 4;
 
       ignorecase = true;
       incsearch = true;
