@@ -8,7 +8,7 @@
       #programs
       ./modules/git.nix
       ./modules/bash.nix
-      ./modules/nixvim.nix
+      ./modules/nixvim/nixvim.nix
       ./modules/alacritty.nix
       ./modules/rofi.nix
 
@@ -33,6 +33,7 @@
       grim
       swappy
       pureref
+      notepadqq
       pamixer
 
      #Work (Testing)
