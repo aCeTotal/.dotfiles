@@ -3,6 +3,7 @@
 {
 
   imports = [
+    inputs.nixvim.homeManagerModules.nixvim
     ./autosave.nix
     ./auto-pairs.nix
     ./options.nix
@@ -20,7 +21,10 @@
     ./toggleterm.nix
   ];
 
-  colorschemes.dracula.enable = true;
+  #colorschemes.dracula.enable = true;
+
+  programs.nixvim = {
+    enable = true;
 
   keymaps = [
     # Global Mappings
@@ -66,7 +70,7 @@
     # }
   ];
 
-
+};
 
 }
 

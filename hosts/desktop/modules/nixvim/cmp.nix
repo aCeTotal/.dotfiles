@@ -1,6 +1,6 @@
 # # Source: https://github.com/hmajid2301/dotfiles/blob/ab7098387426f73c461950c7c0a4f8fb4c843a2c/home-manager/editors/nvim/plugins/coding/cmp.nix
 {
-  plugins = {
+  programs.nixvim.plugins = {
     luasnip.enable = true;
     cmp-buffer = { enable = true; };
 

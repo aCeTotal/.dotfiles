@@ -1,5 +1,5 @@
 {
-  plugins.auto-save = {
+  programs.nixvim.plugins.auto-save = {
     enable = true;
     enableAutoSave = true;
   };

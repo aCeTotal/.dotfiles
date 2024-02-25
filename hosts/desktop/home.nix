@@ -8,7 +8,7 @@
       #programs
       ./modules/git.nix
       ./modules/bash.nix
-      ./modules/nixvim/nixvim.nix
+      ./modules/nixvim.nix
       ./modules/alacritty.nix
       ./modules/rofi.nix
 

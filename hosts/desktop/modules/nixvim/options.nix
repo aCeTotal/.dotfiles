@@ -1,5 +1,6 @@
 {
-  config.options = {
+
+  programs.nixvim.config.options = {
     updatetime = 100; # Faster completion
 
     number = true;
@@ -20,4 +21,5 @@
     swapfile = false;
     undofile = true; # Build-in persistent undo
   };
+
 }
