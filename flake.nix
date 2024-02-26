@@ -52,9 +52,27 @@
 	    			            users.christophermp = import ./hosts/t480/home.nix;
                     };
 	    		      }
-		      nixos-hardware.nixosModules.lenovo-thinkpad-t480
-		      nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-          nixos-hardware.nixosModules.common-gpu-intel
+		              nixos-hardware.nixosModules.lenovo-thinkpad-t480
+		              nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+                  nixos-hardware.nixosModules.common-gpu-intel
+		            ];
+              };
+
+        # MSI GS66 Stealth 10UE
+	      gs66 = lib.nixosSystem {
+                specialArgs = { inherit inputs; inherit system; };
+                  modules = [ ./hosts/gs66/configuration.nix 
+                  home-manager.nixosModules.home-manager {
+                    home-manager = {
+                        extraSpecialArgs = { inherit inputs; };
+	    			            useGlobalPkgs = true;
+            			      useUserPackages = true;
+            			      backupFileExtension = "backup";
+	    			            users.total = import ./hosts/gs66/home.nix;
+                    };
+	    		      }
+		              nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+                  nixos-hardware.nixosModules.common-gpu-intel
 		            ];
               };
 
