@@ -28,11 +28,13 @@
               specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/desktop/configuration.nix 
                 home-manager.nixosModules.home-manager {
-                    home-manager.extraSpecialArgs = { inherit inputs; };
-	    			home-manager.useGlobalPkgs = true;
-            			home-manager.useUserPackages = true;
-            			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.total = import ./hosts/desktop/home.nix;
+                    home-manager = {
+                      extraSpecialArgs = { inherit inputs; };
+	    			          useGlobalPkgs = true;
+            			    useUserPackages = true;
+            			    backupFileExtension = "backup";
+	    			          users.total = import ./hosts/desktop/home.nix;
+                    };
 	    		}
 		];
             };
@@ -42,15 +44,17 @@
               specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
-                    home-manager.extraSpecialArgs = { inherit inputs; };
-	    			home-manager.useGlobalPkgs = true;
-            			home-manager.useUserPackages = true;
-            			home-manager.backupFileExtension = "backup";
-	    			home-manager.users.christophermp = import ./hosts/t480/home.nix;
+                    home-manager = {
+                        extraSpecialArgs = { inherit inputs; };
+	    			            useGlobalPkgs = true;
+            			      useUserPackages = true;
+            			      backupFileExtension = "backup";
+	    			            users.christophermp = import ./hosts/t480/home.nix;
+                    };
 	    		}
-		    nixos-hardware.nixosModules.lenovo-thinkpad-t480
-		    nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-                    nixos-hardware.nixosModules.common-gpu-intel
+		      nixos-hardware.nixosModules.lenovo-thinkpad-t480
+		      nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+          nixos-hardware.nixosModules.common-gpu-intel
 		];
             };
 

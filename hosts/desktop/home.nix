@@ -20,21 +20,27 @@
 
     ];
 
-    home.username = "total";
-    home.homeDirectory = "/home/total";
-    home.stateVersion = "24.05";
+    home = {
+    username = "total";
+    homeDirectory = "/home/total";
+    stateVersion = "24.05";
+    };
 
     home.packages = with pkgs; [
       brave
+      gimp
       spotify
       blender
-      firefox
       slurp
       grim
       swappy
       pureref
       notepadqq
       pamixer
+
+      wl-clipboard
+      libsForQt5.dolphin
+      grimblast
 
      #Work (Testing)
      wpsoffice

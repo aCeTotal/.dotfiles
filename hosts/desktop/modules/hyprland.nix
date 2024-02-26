@@ -164,6 +164,7 @@ bind = $mainMod, V, togglefloating, # Allow a window to float
 bind = $mainMod, D, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
 bind = $mainMod, S, exec, grim -g "$(slurp)" - | swappy -f - # take a screenshot
+bind = , Print, exec, grimblast copy area
 bind = $mainMod, F12, exec, wdisplays
 
 # Move focus with mainMod + arrow keys
