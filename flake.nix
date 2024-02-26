@@ -18,13 +18,13 @@
 
     outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, ... }:
         let
-            inherit nixpkgs;
+            lib = nixpkgs.lib;
             system = "x86_64-linux";
             pkgs = nixpkgs.legacyPackages.${system};
         in  {
         nixosConfigurations = {
 	    # NVIDIA DESKTOP
-            desktop = nixpkgs.nixosSystem {
+            desktop = lib.nixosSystem {
               specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/desktop/configuration.nix 
                 home-manager.nixosModules.home-manager {
@@ -40,7 +40,7 @@
             };
 
 	    # LENOVO THINKPAD T480
-	    t480 = nixpkgs.nixosSystem {
+	    t480 = lib.nixosSystem {
               specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
