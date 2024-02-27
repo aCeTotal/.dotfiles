@@ -11,9 +11,7 @@
       ./modules/nixvim.nix
       ./modules/alacritty.nix
       ./modules/rofi.nix
-
       ./modules/cursor_icons.nix
-
       ./modules/hyprland.nix
       ./modules/waybar.nix
       
@@ -30,24 +28,17 @@
       brave
       gimp
       spotify
-      blender
       slurp
       grim
       swappy
       pureref
-      notepadqq
       pamixer
 
       wl-clipboard
-      libsForQt5.dolphin
       grimblast
 
      #Work (Testing)
-     wpsoffice
      libreoffice-fresh
-     planner
-     todoist
-     projectlibre
      teams-for-linux
     ];
 

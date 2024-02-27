@@ -14,6 +14,8 @@
           	url = "github:nix-community/nixvim";
           	inputs.nixpkgs.follows = "nixpkgs";
         };
+
+       nix-gaming.url = "github:fufexan/nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, ... }:
