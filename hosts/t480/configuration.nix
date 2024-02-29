@@ -21,6 +21,7 @@
       configurationLimit = 4;
       useOSProber = true;
     };
+    timeout = 1;
   };
 
 

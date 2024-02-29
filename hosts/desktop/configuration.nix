@@ -20,6 +20,7 @@
       devices = [ "nodev" ];
       configurationLimit = 4;
     };
+    timeout = 1;
   };
 
 
@@ -80,6 +81,8 @@
 	# Hint electron apps to use wayland
 	NIXOS_OZONE_WL = "1";
   };
+
+  services.onedrive.enable = true;
 
   # Power Management
   powerManagement.cpuFreqGovernor = "performance";
@@ -222,7 +225,7 @@ services.xserver.displayManager.gdm.wayland = true;
     # Work
     sstp
     networkmanager-sstp
-    citrix_workspace
+    citrix_workspace_23_02_0
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

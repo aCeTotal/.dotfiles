@@ -14,7 +14,6 @@
       ./modules/cursor_icons.nix
       ./modules/hyprland.nix
       ./modules/waybar.nix
-      
 
     ];
 
@@ -28,6 +27,7 @@
       brave
       gimp
       spotify
+      blender
       slurp
       grim
       swappy
@@ -40,6 +40,12 @@
      #Work (Testing)
      libreoffice-fresh
      teams-for-linux
+     onedriver
+     onedrive
+     onedrivegui
+
+    inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+
     ];
 
     services.ssh-agent.enable = true;
@@ -52,6 +58,7 @@
     # Manage Environment variables
     home.sessionVariables = {
       Editor = "vim";
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "'${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
     };
 
     # Let Home Manager install and manage itself.
