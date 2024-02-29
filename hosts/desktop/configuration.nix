@@ -41,6 +41,8 @@
     "vm.dirty_background_bytes" = 268435456;        # 256 MB in bytes, data that has been modified in memory and needs to be written to disk
     "vm.dirty_bytes" = 1073741824;                  # 1 GB in bytes, data that has been modified in memory and needs to be written to disk
     "vm.min_free_kbytes" = 65536;                   # Minimum free memory for safety (in KB), can help prevent memory exhaustion situations
+    "vm.max_map_count" = 16777216;                  # Star Citizen requirements
+    "fs.file-max" = 524288;                         # Star Citizen requirements
     "vm.swappiness" = 1;                            # how aggressively the kernel swaps data from RAM to disk. Lower values prioritize keeping data in RAM,
     "vm.vfs_cache_pressure" = 50;                   # Adjust vfs_cache_pressure (0-1000), how the kernel reclaims memory used for caching filesystem objects
     "fs.aio-max-nr" = 1048576;                      # defines the maximum number of asynchronous I/O requests that can be in progress at a given time.
@@ -227,6 +229,14 @@ services.xserver.displayManager.gdm.wayland = true;
     networkmanager-sstp
     citrix_workspace_23_02_0
   ];
+
+  nixpkgs.overlays = [
+    (_: prev: {
+        steam = prev.steam.override {
+            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
+        };
+    })
+];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

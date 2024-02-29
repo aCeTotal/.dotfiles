@@ -44,7 +44,6 @@
      onedrive
      onedrivegui
 
-    inputs.nix-gaming.packages.${pkgs.system}.proton-ge
 
     ];
 
@@ -58,7 +57,6 @@
     # Manage Environment variables
     home.sessionVariables = {
       Editor = "vim";
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "'${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
     };
 
     # Let Home Manager install and manage itself.
