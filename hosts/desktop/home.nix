@@ -46,8 +46,9 @@
 
      #stm32 dev 
      gcc-arm-embedded
-     stm32cubemx
+     #stm32cubemx
      stlink-gui
+     platformio
 
 
     ];

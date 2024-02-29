@@ -228,6 +228,7 @@ services.xserver.displayManager.gdm.wayland = true;
     sstp
     networkmanager-sstp
     citrix_workspace_23_02_0
+    stm32cubemx
   ];
 
   nixpkgs.overlays = [
