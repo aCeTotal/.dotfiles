@@ -8,6 +8,7 @@
 
     ];
 
+
   # Boot Loader
   boot.loader = {
     efi = {
@@ -220,7 +221,6 @@ services.xserver.displayManager.gdm.wayland = true;
     cmatrix
     htop
     btop
-    citrix_workspace
   ])
 
   ++
@@ -229,7 +229,7 @@ services.xserver.displayManager.gdm.wayland = true;
   (with pkgs-stable; [
     sstp
     networkmanager-sstp
-    #citrix_workspace
+    citrix_workspace
   ]);
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -328,6 +328,19 @@ systemd.user.services = {
       serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
     };
 };
+
+
+  nixpkgs.config.allowUnfree = true;
+
+_module.args = {
+  pkgs-stable = import inputs.nixpkgs-stable {
+      inherit (config.nixpkgs) config;
+      inherit (pkgs.stdenv.hostPlatform) system;
+  };
+};
+
+
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

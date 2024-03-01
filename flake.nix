@@ -23,7 +23,6 @@
         let
             lib = nixpkgs.lib;
             system = "x86_64-linux";
-            allowUnfree = { nixpkgs.config.allowUnfree = true; };
             pkgs = nixpkgs.legacyPackages.${system};
             pkgs-stable = nixpkgs-stable.legacyPackages.${system};
         in  {
@@ -32,7 +31,6 @@
             desktop = lib.nixosSystem {
               specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
                 modules = [ ./hosts/desktop/configuration.nix
-                allowUnfree
                 home-manager.nixosModules.home-manager {
                     home-manager = {
                       extraSpecialArgs = { inherit inputs; };
