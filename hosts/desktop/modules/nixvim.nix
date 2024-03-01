@@ -101,6 +101,7 @@
 	      gopls.enable = true;
 	      kotlin-language-server.enable = true;
 	      nixd.enable = true;
+        nil_ls.enable = true;
 	      ruff-lsp.enable = true;
         tsserver.enable = true;
 	      lua-ls.enable = true;

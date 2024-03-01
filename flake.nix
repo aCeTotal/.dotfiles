@@ -1,6 +1,7 @@
 {
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 	      nixos-hardware.url = "github:NixOS/nixos-hardware/master";
         home-manager.url = "github:nix-community/home-manager/master";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,17 +19,20 @@
        nix-gaming.url = "github:fufexan/nix-gaming";
     };
 
-    outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, ... }:
+    outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
         let
             lib = nixpkgs.lib;
             system = "x86_64-linux";
+            allowUnfree = { nixpkgs.config.allowUnfree = true; };
             pkgs = nixpkgs.legacyPackages.${system};
+            pkgs-stable = nixpkgs-stable.legacyPackages.${system};
         in  {
         nixosConfigurations = {
 	    # NVIDIA DESKTOP
             desktop = lib.nixosSystem {
-              specialArgs = { inherit inputs; inherit system; };
-                modules = [ ./hosts/desktop/configuration.nix 
+              specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
+                modules = [ ./hosts/desktop/configuration.nix
+                allowUnfree
                 home-manager.nixosModules.home-manager {
                     home-manager = {
                       extraSpecialArgs = { inherit inputs; };
@@ -43,7 +47,7 @@
 
 	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
-              specialArgs = { inherit inputs; inherit system; };
+              specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
                 modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
                     home-manager = {
@@ -62,7 +66,7 @@
 
         # MSI GS66 Stealth 10UE
 	      gs66 = lib.nixosSystem {
-                specialArgs = { inherit inputs; inherit system; };
+                specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
                   modules = [ ./hosts/gs66/configuration.nix 
                   home-manager.nixosModules.home-manager {
                     home-manager = {

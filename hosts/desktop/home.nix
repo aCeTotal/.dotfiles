@@ -49,6 +49,7 @@
      #stm32cubemx
      stlink-gui
      platformio
+     clang-tools
 
 
     ];
