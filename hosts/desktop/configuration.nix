@@ -329,8 +329,8 @@ systemd.user.services = {
     };
 };
 
-
-  nixpkgs.config.allowUnfree = true;
+# Allow Unfree packages
+nixpkgs.config.allowUnfree = true;
 
 _module.args = {
   pkgs-stable = import inputs.nixpkgs-stable {
