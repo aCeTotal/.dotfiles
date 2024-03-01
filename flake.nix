@@ -25,6 +25,7 @@
             system = "x86_64-linux";
             allowUnfree = { nixpkgs.config.allowUnfree = true; };
             pkgs = nixpkgs.legacyPackages.${system};
+            pkgs-stable = nixpkgs-stable.legacyPackages.${system};
         in  {
         nixosConfigurations = {
 	    # NVIDIA DESKTOP
