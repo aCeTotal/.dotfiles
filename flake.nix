@@ -29,7 +29,7 @@
         nixosConfigurations = {
 	    # NVIDIA DESKTOP
             desktop = lib.nixosSystem {
-              specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
+              specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/desktop/configuration.nix
                 home-manager.nixosModules.home-manager {
                     home-manager = {
@@ -45,7 +45,7 @@
 
 	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
-              specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
+              specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/t480/configuration.nix 
                 home-manager.nixosModules.home-manager {
                     home-manager = {
@@ -64,7 +64,7 @@
 
         # MSI GS66 Stealth 10UE
 	      gs66 = lib.nixosSystem {
-                specialArgs = { inherit inputs; inherit system; inherit pkgs-stable; };
+                specialArgs = { inherit inputs; inherit system; };
                   modules = [ ./hosts/gs66/configuration.nix 
                   home-manager.nixosModules.home-manager {
                     home-manager = {
