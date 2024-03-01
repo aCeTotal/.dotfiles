@@ -220,6 +220,7 @@ services.xserver.displayManager.gdm.wayland = true;
     cmatrix
     htop
     btop
+    citrix_workspace
   ])
 
   ++
@@ -228,7 +229,7 @@ services.xserver.displayManager.gdm.wayland = true;
   (with pkgs-stable; [
     sstp
     networkmanager-sstp
-    citrix_workspace
+    #citrix_workspace
   ]);
 
   # Some programs need SUID wrappers, can be configured further or are
