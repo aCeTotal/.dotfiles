@@ -104,14 +104,6 @@ programs.neovim.defaultEditor = true;
 #	theme = "tokyo-night-sddm";
 #  };
 
-
-  services.xserver.displayManager = {
-    defaultSession = "plasma6";
-    autologin.enable = true;
-    autologin.user = "total";
-  };
-  #services.xserver.desktopManager.plasma5.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
     isNormalUser = true;
