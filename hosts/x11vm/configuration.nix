@@ -30,7 +30,7 @@
 
   # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
-  boot.kernelModules = [ "btrfs" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
@@ -43,13 +43,6 @@
     swapDevices = 1;
     algorithm = "zstd";
   };
-
-  # Power Management
-  powerManagement.cpuFreqGovernor = "performance";
-
-  # NVIDIA STUFF
-  services.xserver.videoDrivers = ["intel"];
-
 
   # Networking
   networking.networkmanager.enable = true;
@@ -112,7 +105,11 @@ programs.neovim.defaultEditor = true;
 #  };
 
 
-  services.xserver.displayManager.defaultSession = "plasma6";
+  services.xserver.displayManager = {
+    defaultSession = "plasma6";
+    autologin.enable = true;
+    autologin.user = "total";
+  };
   #services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
