@@ -81,6 +81,24 @@
               };
 
 
+
+        # X11 VM
+            x11vm = lib.nixosSystem {
+              specialArgs = { inherit inputs; inherit system; };
+                modules = [ ./hosts/x11vm/configuration.nix
+                home-manager.nixosModules.home-manager {
+                    home-manager = {
+                      extraSpecialArgs = { inherit inputs; };
+	    			          useGlobalPkgs = true;
+            			    useUserPackages = true;
+            			    backupFileExtension = "backup";
+	    			          users.total = import ./hosts/x11vm/home.nix;
+                    };
+	    	      	}
+		          ];
+            };
+
+
    	 };
 
       };

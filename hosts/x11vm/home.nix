@@ -25,30 +25,9 @@
 
     home.packages = with pkgs; [
       brave
-      gimp
-      spotify
-      blender
-      slurp
-      grim
-      swappy
-      pureref
-      pamixer
-
-      wl-clipboard
-      grimblast
-
-     #Work (Testing)
-     libreoffice-fresh
-     teams-for-linux
-     onedriver
-     onedrive
-     onedrivegui
-
      #stm32 dev 
      gcc-arm-embedded
      stm32cubemx
-     stlink-gui
-     platformio
      clang-tools
 
 
