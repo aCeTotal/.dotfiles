@@ -150,7 +150,6 @@ programs.neovim.defaultEditor = true;
     quickemu
     quickgui
     networkmanager-sstp
-    citrix_workspace
     usbutils
     screen
   ]);
