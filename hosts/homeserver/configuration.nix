@@ -78,12 +78,12 @@
 
   # NFS
   fileSystems."/export/bigdisk1" = {
-    devices = "/mnt/bigdisk1";
+    device = "/mnt/bigdisk1";
     options = [ "bind" "rw" "mode=777" ];
   };
 
   fileSystems."/export/bigdisk2" = {
-    devices = "/mnt/bigdisk2";
+    device = "/mnt/bigdisk2";
     options = [ "bind" "rw" "mode=777" ];
   };
 
