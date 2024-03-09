@@ -70,11 +70,8 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-    
-    /export 192.168.0.30(rw,nohide,insecure,no_subtree_check) 192.168.0.15(rw,nohide,insecure,no_subtree_check) 10.0.2.*(rw,nohide,insecure,no_subtree_check)
-
-    /export/bigdisk1 192.168.0.30(rw,nohide,insecure,no_subtree_check) 192.168.0.15(rw,nohide,insecure,no_subtree_check) 10.0.2.*(rw,nohide,insecure,no_subtree_check)
-
+    /export 192.168.0.30(rw,fsid=0,no_subtree_check) 192.168.0.15(rw,fsid=0,no_subtree_check) 10.0.2.15(rw,fsid=0,no_subtree_check)
+    /export/bigdisk1 192.168.0.30(rw,nohide,insecure,no_subtree_check) 192.168.0.15(rw,nohide,insecure,no_subtree_check) 10.0.2.15(rw,nohide,insecure,no_subtree_check)
     '';
   };
 
