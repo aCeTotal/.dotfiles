@@ -124,17 +124,6 @@
 programs.neovim.defaultEditor = true;
 
 
-    # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.sddm = {
-#	enable = true;
-#	wayland.enable = true;
-#	autoNumlock = true;
-#	theme = "tokyo-night-sddm";
-#  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
     isNormalUser = true;
