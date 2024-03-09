@@ -98,6 +98,22 @@
 		          ];
             };
 
+        # HomeServer
+	      homeserver = lib.nixosSystem {
+                specialArgs = { inherit inputs; inherit system; };
+                  modules = [ ./hosts/homeserver/configuration.nix 
+                  home-manager.nixosModules.home-manager {
+                    home-manager = {
+                        extraSpecialArgs = { inherit inputs; };
+	    			            useGlobalPkgs = true;
+            			      useUserPackages = true;
+            			      backupFileExtension = "backup";
+	    			            users.total = import ./hosts/homeserver/home.nix;
+                    };
+	    		      }
+		            ];
+              };
+
 
    	 };
 
