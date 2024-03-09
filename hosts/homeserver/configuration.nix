@@ -69,6 +69,9 @@
   # NFS Server
   services.nfs.server = {
     enable = true;
+    lockdPort = 4001;
+    mountdPort = 4002;
+    statdPort = 4000;
     exports = ''
     /export 192.168.0.30(rw,fsid=0,no_subtree_check) 192.168.0.15(rw,fsid=0,no_subtree_check) 10.0.2.15(rw,fsid=0,no_subtree_check)
     /export/bigdisk1 192.168.0.30(rw,nohide,insecure,no_subtree_check) 192.168.0.15(rw,nohide,insecure,no_subtree_check) 10.0.2.15(rw,nohide,insecure,no_subtree_check)
@@ -257,7 +260,12 @@ _module.args = {
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 111  2049 4000 4001 4002 20048 ];
+    allowedUDPPorts = [ 111 2049 4000 4001  4002 20048 ];
+  };
+
   networking.enableIPv6 = true;
 
   # This value determines the NixOS release from which the default
