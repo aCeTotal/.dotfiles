@@ -205,7 +205,7 @@ programs.neovim.defaultEditor = true;
 
 
   #NFS
-  fileSystems."/mnt/nfs/Bigdisk1" = {
+  fileSystems."/mnt/bigdisk1" = {
     device = "192.168.0.40:/bigdisk1";
     fsType = "nfs";
     options = [ "rw" "nofail" "x-systemd.automount" "noauto" ];
