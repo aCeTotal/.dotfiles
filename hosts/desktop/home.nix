@@ -26,6 +26,7 @@
     home.packages = with pkgs; [
       brave
       gimp
+      librepcb
       spotify
       blender
       slurp
