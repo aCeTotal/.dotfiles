@@ -215,6 +215,7 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
   environment.systemPackages = with pkgs; [
     vim
     wget
+    wpa_supplicant
     btop
     git
     firefox
