@@ -179,6 +179,9 @@ cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
   # Set your time zone.
   time.timeZone = "$timezone";
 
+  networking.wireless.enable = true;
+  networking.wireless.userControlled.enable = true;
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
