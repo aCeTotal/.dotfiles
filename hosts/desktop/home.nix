@@ -8,7 +8,7 @@
       #programs
       ./modules/git.nix
       ./modules/bash.nix
-    #  ./modules/nixvim.nix
+      #./modules/nixvim.nix
       ./modules/alacritty.nix
       ./modules/rofi.nix
       ./modules/cursor_icons.nix
@@ -82,6 +82,20 @@
           uris = ["qemu:///system"];
      };
     };
+
+    programs.neovim = {
+  	enable = true;
+	viAlias = true;
+	vimAlias = true;
+	defaultEditor = true;
+  	extraConfig = ''
+    	set number relativenumber
+	set cc=80
+  	'';
+    };
+
+    programs.neovim.plugins = [
+   ];
 
     # Manage Environment variables
     home.sessionVariables = {

@@ -197,7 +197,6 @@ services.xserver.displayManager.gdm.wayland = true;
 
   # Unstable packages
   (with pkgs; [
-    vim
     wget
     freecad
     gamescope
