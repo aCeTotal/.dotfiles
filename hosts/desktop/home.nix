@@ -6,15 +6,13 @@
     [
 
       #programs
-      ./modules/git.nix
-      ./modules/bash.nix
-      #./modules/nixvim.nix
-      ./modules/alacritty.nix
-      ./modules/rofi.nix
-      ./modules/cursor_icons.nix
-      ./modules/hyprland.nix
-      ./modules/waybar.nix
-
+      ../../modules/git.nix
+      ../../modules/bash.nix
+      ../../modules/alacritty.nix
+      ../../modules/rofi.nix
+      ../../modules/cursor_icons.nix
+      ../../modules/hyprland.nix
+      ../../modules/waybar.nix
     ];
 
     home = {
@@ -85,17 +83,28 @@
 
     programs.neovim = {
   	enable = true;
-	viAlias = true;
-	vimAlias = true;
-	defaultEditor = true;
+	  viAlias = true;
+	  vimAlias = true;
+    vimdiffAlias = true;
   	extraConfig = ''
-    	set number relativenumber
-	set cc=80
+      luafile ~/.dotfiles/nvim/settings.lua
+      luafile ~/.dotfiles/nvim/treesitter.lua
   	'';
-    };
 
-    programs.neovim.plugins = [
-   ];
+    plugins = with pkgs.vimPlugins; [
+        # Fiel tree
+        nvim-web-devicons
+        nvim-tree-lua
+
+        # Languages
+        vim-nix
+        nvim-treesitter
+
+        # Eye Candy
+        indentLine
+    ];
+
+  };
 
     # Manage Environment variables
     home.sessionVariables = {
