@@ -8,7 +8,7 @@
       #programs
       ./modules/git.nix
       ./modules/bash.nix
-      ./modules/nixvim.nix
+    #  ./modules/nixvim.nix
       ./modules/alacritty.nix
       ./modules/rofi.nix
       ./modules/cursor_icons.nix
@@ -45,14 +45,28 @@
      onedrive
      onedrivegui
 
-     #stm32 dev 
+     # Dev 
      gcc-arm-embedded
      stm32cubemx
      stlink-gui
      platformio
      clang-tools
-
-
+     haskellPackages.vulkan
+     vulkan-headers
+     vulkan-helper
+     imgui
+     cmake
+     boost
+     catch2
+     cmake
+     gnumake
+     ccache
+     pkg-config
+     meson
+     ninja
+     perl
+     bison
+     flex
     ];
 
     services.ssh-agent.enable = true;

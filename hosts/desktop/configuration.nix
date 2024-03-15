@@ -342,6 +342,10 @@ systemd.user.services = {
     };
 };
 
+nixpkgs.config.permittedInsecurePackages = [
+  "freeimage-unstable-2021-11-01"
+];
+
 # Allow Unfree packages on both stable and unstable
 nixpkgs.config.allowUnfree = true;
 
