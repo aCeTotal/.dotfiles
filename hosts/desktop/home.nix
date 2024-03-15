@@ -10,6 +10,7 @@
       ../../modules/bash.nix
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
+      ../../modules/neovim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix
@@ -80,31 +81,6 @@
           uris = ["qemu:///system"];
      };
     };
-
-    programs.neovim = {
-  	enable = true;
-	  viAlias = true;
-	  vimAlias = true;
-    vimdiffAlias = true;
-  	extraConfig = ''
-      luafile ~/.dotfiles/nvim/settings.lua
-      luafile ~/.dotfiles/nvim/treesitter.lua
-  	'';
-
-    plugins = with pkgs.vimPlugins; [
-        # Fiel tree
-        nvim-web-devicons
-        nvim-tree-lua
-
-        # Languages
-        vim-nix
-        nvim-treesitter
-
-        # Eye Candy
-        indentLine
-    ];
-
-  };
 
     # Manage Environment variables
     home.sessionVariables = {
