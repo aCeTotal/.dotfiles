@@ -7,16 +7,7 @@
 	viAlias = true;
 	vimAlias = true;
         vimdiffAlias = true;
-        extraConfig = builtins.concatStringsSep "\n" [
-          ''
-          luafile ${builtins.toString ../nvim/settings.lua}
-          luafile ${builtins.toString ../nvim/line.lua}
-          luafile ${builtins.toString ../nvim/lsp.lua}
-          luafile ${builtins.toString ../nvim/ide.lua}
-          luafile ${builtins.toString ../nvim/tabs.lua}
-          luafile ${builtins.toString ../nvim/tree.lua}
-          ''
-        ];
+        extraConfig = lib.fileContents nvim/init.lua;
 
       plugins = with pkgs.vimPlugins; [
         # Base
