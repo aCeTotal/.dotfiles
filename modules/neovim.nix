@@ -9,12 +9,12 @@
         vimdiffAlias = true;
         extraConfig = builtins.concatStringsSep "\n" [
           ''
-          luafile ${builtins.toString ~/.dotfiles/nvim/settings.lua}
-          luafile ${builtins.toString ~/.dotfiles/nvim/line.lua}
-          luafile ${builtins.toString ~/.dotfiles/nvim/lsp.lua}
-          luafile ${builtins.toString ~/.dotfiles/nvim/ide.lua}
-          luafile ${builtins.toString ~/.dotfiles/nvim/tabs.lua}
-          luafile ${builtins.toString ~/.dotfiles/nvim/tree.lua}
+          luafile ${builtins.toString ../nvim/settings.lua}
+          luafile ${builtins.toString ../nvim/line.lua}
+          luafile ${builtins.toString ../nvim/lsp.lua}
+          luafile ${builtins.toString ../nvim/ide.lua}
+          luafile ${builtins.toString ../nvim/tabs.lua}
+          luafile ${builtins.toString ../nvim/tree.lua}
           ''
         ];
 
@@ -51,4 +51,16 @@
     ];  
 
   };
+
+    xdg.configFile = {
+      nvim = {
+        source = ../nvim;
+        recursive = true;
+      };
+    };
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
 }
