@@ -23,7 +23,6 @@
       ./modules/gitsigns.nix
       ./modules/conform.nix 
       ./modules/fidget.nix
-
       ./modules/indent-blankline.nix
     ];
 

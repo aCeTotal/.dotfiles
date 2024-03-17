@@ -19,7 +19,6 @@
         };
         sorting_strategy = "ascending";
       };
-    };
     keymaps = {
       "<leader><space>" = {
         action = "find_files, {}";
@@ -121,18 +120,8 @@
         action = "colorscheme, {}";
         desc = "Colorscheme preview";
       };
-    };
-  };
-    keymaps = [
-    {
-      mode = "n";
-      key = "<leader>sd";
-      action = "<cmd>Telescope diagnostics bufnr=0<cr>";
-      options = {
-        desc = "Document diagnostics";
       };
-    }
-  ];
+    };
     extraConfigLua = ''
       require("telescope").setup{
         pickers = {
@@ -142,6 +131,7 @@
         }
       }
   '';
+  };
 }
 
 

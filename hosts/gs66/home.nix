@@ -4,15 +4,15 @@
 
     imports = 
     [
-      ./modules/git.nix
-      ./modules/bash.nix
-      ./modules/nixvim.nix
-      ./modules/cursor_icons.nix
-      ./modules/hyprland.nix
-      ./modules/alacritty.nix
-      ./modules/rofi.nix
-      ./modules/waybar.nix
-      ./modules/devtools.nix
+      ../../modules/git.nix
+      ../../modules/bash.nix
+      ../../modules/nixvim.nix
+      ../../modules/cursor_icons.nix
+      ../../modules/hyprland.nix
+      ../../modules/alacritty.nix
+      ../../modules/rofi.nix
+      ../../modules/waybar.nix
+      ../../modules/devtools.nix
     ];
 
     home.username = "christophermp";
