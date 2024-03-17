@@ -1,36 +1,16 @@
 local o = vim.opt
 local g = vim.g
+local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
 
--- Autocmds
-vim.cmd [[
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
+vim.fn.mkdir(parser_install_dir, "p")
+vim.opt.runtimepath:append(parser_install_dir)
 
-autocmd FileType nix setlocal shiftwidth=2
-
-
-]]
-
--- Keybinds
-local map = vim.api.nvim_set_keymap
-local opts = { silent = true, noremap = true }
-
-map("n", "<C-h>", "<C-w>h", opts)
-map("n", "<C-j>", "<C-w>j", opts)
-map("n", "<C-k>", "<C-w>k", opts)
-map("n", "<C-l>", "<C-w>l", opts)
-map('n', '<C-n>', ':Telescope live_grep <CR>', opts)
-map('n', '<C-f>', ':Telescope find_files <CR>', opts)
-map('n', 'j', 'gj', opts)
-map('n', 'k', 'gk', opts)
-map('n', ';', ':', { noremap = true } )
-
-g.mapleader = ' '
+-- Remapping
+vim.g.mapleader = " "
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files <CR>', opts)
+vim.keymap.set('n', '<leader>gs', ':Telescope git_files <CR>', opts)
+vim.keymap.set('n', '<leader>ps', ':Telescope live_grep <CR>', opts)
 
 -- Performance
 o.lazyredraw = true;
@@ -82,4 +62,5 @@ o.pumheight = 6
 o.splitright = true
 o.splitbelow = true
 o.completeopt = "menuone,noselect"
+
 

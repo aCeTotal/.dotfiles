@@ -1,5 +1,5 @@
 
-{ pkgs, pkgs-stable, lib, inputs, config, ... }:
+{ pkgs, pkgs-stable, inputs, config, ... }:
 
 {
   imports =
@@ -7,7 +7,6 @@
         ./hardware_configuration.nix
 
     ];
-
 
   # Boot Loader
   boot.loader = {
@@ -184,11 +183,7 @@ services.xserver.displayManager.gdm.wayland = true;
     description = "";
     extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" "audio" "disk" "systemd-journal" "dialout" "libvirtd" ];
     packages = with pkgs; [];
-    openssh.authorizedKeys.keys = [
-  	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDbzZLzWSWbwAsBLXBGFj+TJBMn5E1pIBImJTtVfVH4SmA8Ovufm48F0BO/orFXNwjmOo9I1AsmRaZVIz6ehuDiIkhYSRVdKMGI2jyc0SGXmkvKmdPOqZ5a6Diwd793Aal9C8lxOsdoCYIXcpSDEQhmcUl1b/sERtH/YZ+Xg7tZiXMdniqxa+PODYLau+5RqbuS48X5MiWMFFGjZd92gaLh7uRqO6ZyTa47HVPZY8ZhEllEY2eRu9uOnjpr7mQbsX3sCQEIrVcDEBE8IEl1gsjSi3qfSCs2HriQmxqVdDu6h9xPb2BWnvuusS7fX4lXQmCRyKhsEKWg+XcEkesYFqjDv9yqiB35CYRSMYIP+x3+ufk4LmNnp2Ae8dZNinJaEBlJJCY89uljqmB0uoHZVYW7TvjUQzHI/okQ4ecAaapX80DZtC6jCuJ2YsN1W1+DBBhDsX2OfXGaFtgrI8eB4QCheE7kIU0nx55jkfVndkosek3CLmcgvw7xBuTcrjtxUZc= lars.oksendal@gmail.com" # content of authorized_keys file
-  	# note: ssh-copy-id will add user@your-machine after the public key
-  	# but we can remove the "@your-machine" part
-    ];
+    openssh.authorizedKeys.keys = [];
   };
 
   # List packages installed in system profile. To search, run:

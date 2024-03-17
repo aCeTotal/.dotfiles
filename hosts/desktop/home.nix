@@ -10,7 +10,8 @@
       ../../modules/bash.nix
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
-      ../../modules/neovim.nix
+#      ../../modules/neovim.nix #Neovim with nix and lua-configs
+      ../../modules/nixvim/nixvim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix
@@ -33,6 +34,7 @@
       swappy
       pureref
       pamixer
+      ripgrep
 
       wl-clipboard
       grimblast
