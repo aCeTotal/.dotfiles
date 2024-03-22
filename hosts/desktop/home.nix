@@ -29,6 +29,7 @@
       librepcb
       spotify
       blender
+      prusa-slicer
       slurp
       grim
       swappy
