@@ -24,6 +24,7 @@
 
     home.packages = with pkgs; [
       brave
+      firefox
       gimp
       librepcb
       spotify
@@ -31,7 +32,7 @@
       slurp
       grim
       swappy
-      pureref
+      #pureref
       pamixer
       ripgrep
 
@@ -54,6 +55,8 @@
      haskellPackages.vulkan
      vulkan-headers
      vulkan-helper
+     vulkan-loader
+     vulkan-tools
      imgui
      cmake
      boost
@@ -67,6 +70,7 @@
      perl
      bison
      flex
+     bashmount udisks udiskie
     ];
 
     services.ssh-agent.enable = true;
