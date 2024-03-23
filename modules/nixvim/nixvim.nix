@@ -90,8 +90,22 @@
       ## luaSnips
       luasnip.enable = true;
 
+      auto-save = {
+        enable = true;
+        enableAutoSave = true;
+      };
+
+      nvim-autopairs = {
+        enable = true;
+        enableMoveright = true;
+        enableAfterQuote = true;
+        enableBracketInQuote = true;
+        enableCheckBracketLine = true;
+        enableAbbr = true;
+      };
+
       ## oil
-       oil.enable = true;
+      oil.enable = true;
 
       ts-autotag.enable = true;
 

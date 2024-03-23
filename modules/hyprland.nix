@@ -18,7 +18,7 @@ monitor=,3440x1440@165,auto,1
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 # Execute your favorite apps at launch
-exec-once = swaybg -i "$HOME/.dotfiles/wallpapers/1.jpg"
+exec-once = swaybg -i "$HOME/.dotfiles/wallpapers/current.jpg"
 exec-once = ~/.config/hypr/xdg-portal-hyprland
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP

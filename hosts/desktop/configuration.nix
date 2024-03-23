@@ -22,7 +22,6 @@
     };
   };
 
-
   # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -222,6 +221,7 @@ services.xserver.displayManager.gdm.wayland = true;
   #Stable packages
   (with pkgs-stable; [
     sstp
+    waybar
     quickemu
     quickgui
     networkmanager-sstp

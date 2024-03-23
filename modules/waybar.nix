@@ -229,9 +229,8 @@ tooltip {
     },
 
     "clock": {
-        "format": "{: %H:%M:%S   %A, %e.%B}",
-	"interval": 1,
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
+        "format": " {: %H:%M:%S   %A, %e.%B}",
+	      "interval": 1
     },
 
     "backlight": {
@@ -317,7 +316,7 @@ tooltip {
     '';
 
     home.packages = with pkgs; [
-        waybar
+        #waybar
     ];
 
 }
