@@ -26,6 +26,7 @@
       brave
       firefox
       gimp
+      mpv
       librepcb
       spotify
       blender
@@ -36,6 +37,7 @@
       #pureref
       pamixer
       ripgrep
+      chatgpt-cli
 
       wl-clipboard
       grimblast
@@ -95,5 +97,6 @@
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+    
 
 }

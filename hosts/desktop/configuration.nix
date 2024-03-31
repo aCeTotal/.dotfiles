@@ -22,6 +22,7 @@
     };
   };
 
+
   # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -45,6 +46,8 @@
     "kernel.pid_max" = 4194304;                     # allows a large number of processes and threads to be managed
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "fq";
+    "vm.max_map_count" = 16777216;                  # Star Citizen Requirements
+    "fs.file-max" = 524288;                         # Star CItizen Requirements
   };
 
   # Extra BOOT settings
