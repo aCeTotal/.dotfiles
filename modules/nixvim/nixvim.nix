@@ -98,19 +98,19 @@
 
       nvim-autopairs = {
         enable = true;
-        enableMoveright = false;
-        enableAfterQuote = false;
-        enableBracketInQuote = false;
-        enableCheckBracketLine = false;
-        enableAbbr = false;
+        enableMoveright = true;
+        enableAfterQuote = true;
+        enableBracketInQuote = true;
+        enableCheckBracketLine = true;
+        enableAbbr = true;
       };
 
       ## oil
-      oil.enable = true;
+      oil.enable = false;
 
-      ts-autotag.enable = true;
+      ts-autotag.enable = false;
 
-      emmet.enable = true;
+      emmet.enable = false;
 
       nvim-colorizer.enable = true;
 
