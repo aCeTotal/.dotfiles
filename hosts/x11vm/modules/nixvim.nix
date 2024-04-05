@@ -143,7 +143,7 @@
 	        gofmt.enable = true;
 	        goimports.enable = true;
 	        ktlint.enable = true;
-	        nixfmt.enable = true;
+	        nixfmt-classic.enable = true;
 	        markdownlint.enable = true;
 	        rustfmt.enable = true;
 	      };

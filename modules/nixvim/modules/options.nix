@@ -2,7 +2,7 @@
 
 
 {
-   programs.nixvim.options = {
+   programs.nixvim.opts = {
     # Enable relative line numbers
       number = true;
       relativenumber = true;

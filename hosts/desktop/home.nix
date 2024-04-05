@@ -74,6 +74,14 @@
      bison
      flex
      bashmount udisks udiskie
+
+    #Jetbrains
+    jetbrains.clion
+    jetbrains.webstorm
+    jetbrains.rust-rover
+    jetbrains.rider
+    jetbrains.pycharm-professional
+    jetbrains.phpstorm
     ];
 
     services.ssh-agent.enable = true;

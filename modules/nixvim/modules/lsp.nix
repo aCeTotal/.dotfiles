@@ -7,7 +7,7 @@
     plugins = {
       rust-tools.enable = true;
       lsp-format = {
-        enable = true;
+        enable = false;
         lspServersToEnable = "all";
         setup.eslint.sync = true;
       };

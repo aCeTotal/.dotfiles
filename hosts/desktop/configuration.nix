@@ -50,6 +50,7 @@
     "fs.file-max" = 524288;                         # Star CItizen Requirements
   };
 
+
   # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
   boot.kernelModules = [ "btrfs" "nvidia" "nvidia_uvm" "tcp_bbr" ];
@@ -217,6 +218,9 @@ services.xserver.displayManager.gdm.wayland = true;
     cmatrix
     htop
     btop
+    protontricks
+    q4wine
+    wine-wayland
   ])
 
   ++

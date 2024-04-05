@@ -20,11 +20,12 @@
       ./modules/which-key.nix
       ./modules/lazygit.nix
       ./modules/worktree.nix
-      ./modules/gitsigns.nix
+      #./modules/gitsigns.nix
       ./modules/conform.nix 
       ./modules/fidget.nix
       ./modules/indent-blankline.nix
     ];
+
 
 
   programs.nixvim = {
@@ -97,11 +98,11 @@
 
       nvim-autopairs = {
         enable = true;
-        enableMoveright = true;
-        enableAfterQuote = true;
-        enableBracketInQuote = true;
-        enableCheckBracketLine = true;
-        enableAbbr = true;
+        enableMoveright = false;
+        enableAfterQuote = false;
+        enableBracketInQuote = false;
+        enableCheckBracketLine = false;
+        enableAbbr = false;
       };
 
       ## oil
