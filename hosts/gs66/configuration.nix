@@ -1,5 +1,5 @@
 
-{ pkgs, pkgs-stable, config, ... }:
+{ pkgs, pkgs-stable, inputs, config, ... }:
 
 {
   imports =
@@ -312,7 +312,6 @@ services.xserver.displayManager.gdm.wayland = true;
   };
 
   # Allow Unfree packages on both stable and unstable
-  nixpkgs.config.allowUnfree = true;
 
   _module.args = {
     pkgs-stable = import inputs.nixpkgs-stable {
