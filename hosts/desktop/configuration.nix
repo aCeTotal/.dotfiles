@@ -138,20 +138,20 @@
   };
 
 
-fonts.packages = with pkgs; [
-  noto-fonts
-  noto-fonts-cjk
-  noto-fonts-emoji
-  liberation_ttf
-  nerdfonts
-  fira-code
-  fira-code-symbols
-  mplus-outline-fonts.githubRelease
-  dina-font
-  proggyfonts
-];
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    nerdfonts
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+  ];
 
-programs.neovim.defaultEditor = true;
+  programs.neovim.defaultEditor = true;
 
   # Enable OpenGL
   hardware.opengl = {
@@ -165,14 +165,14 @@ programs.neovim.defaultEditor = true;
 
   # Enable the KDE Plasma Desktop Environment.
   #services.xserver.displayManager.sddm = {
-#	enable = true;
-#	wayland.enable = true;
-#	autoNumlock = true;
-#	theme = "tokyo-night-sddm";
-#  };
+  #	enable = true;
+  #	wayland.enable = true;
+  #	autoNumlock = true;
+  #	theme = "tokyo-night-sddm";
+  #  };
 
-services.xserver.displayManager.gdm.enable = true;
-services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
 
 
 
@@ -210,8 +210,6 @@ services.xserver.displayManager.gdm.wayland = true;
     clinfo
     lm_sensors
     virtualglLib
-    vulkan-loader
-    vulkan-tools
     nfs-utils
     networkmanagerapplet
     nfstrace
@@ -237,14 +235,6 @@ services.xserver.displayManager.gdm.wayland = true;
     screen
   ]);
 
-  nixpkgs.overlays = [
-    (_: prev: {
-        steam = prev.steam.override {
-            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
-        };
-    })
-];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -264,7 +254,8 @@ services.xserver.displayManager.gdm.wayland = true;
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-};
+  };
+
   programs.gamemode.enable = true;
 
   console = {
@@ -332,49 +323,50 @@ services.xserver.displayManager.gdm.wayland = true;
   };
 
 
-systemd.user.services = {
-    nm-applet = {
-      description = "Network manager applet";
+  systemd.user.services = {
+      nm-applet = {
+        description = "Network manager applet";
 
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
 
-      serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-    };
-};
-
-nixpkgs.config.permittedInsecurePackages = [
-  "freeimage-unstable-2021-11-01"
-];
-
-# Allow Unfree packages on both stable and unstable
-nixpkgs.config.allowUnfree = true;
-
-_module.args = {
-  pkgs-stable = import inputs.nixpkgs-stable {
-      inherit (config.nixpkgs) config;
-      inherit (pkgs.stdenv.hostPlatform) system;
+        serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+      };
   };
-};
 
-# Enable the libvirt daemon
-virtualisation.libvirtd = {
-  enable = true;
-  qemu = {
-    package = pkgs.qemu_kvm;
-    runAsRoot = true;
-    swtpm.enable = true;
-    ovmf = {
+  nixpkgs.config.permittedInsecurePackages = [
+    "freeimage-unstable-2021-11-01"
+  ];
+
+  # Allow Unfree packages on both stable and unstable
+  nixpkgs.config.allowUnfree = true;
+
+  _module.args = {
+    pkgs-stable = import inputs.nixpkgs-stable {
+        inherit (config.nixpkgs) config;
+       inherit (pkgs.stdenv.hostPlatform) system;
+    };
+  };
+
+  # Enable the libvirt daemon
+  virtualisation.libvirtd = {
       enable = true;
-      packages = [(pkgs.OVMFFull.override {
-        secureBoot = true;
-        tpmSupport = true;
-      }).fd];
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [(pkgs.OVMFFull.override {
+          secureBoot = true;
+          tpmSupport = true;
+        }).fd];
+      };
     };
   };
-};
-programs.virt-manager.enable = true;
-virtualisation.spiceUSBRedirection.enable = true;
+
+  programs.virt-manager.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
 
 

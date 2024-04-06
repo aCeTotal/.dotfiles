@@ -33,7 +33,6 @@
       "i915.enable_psr=1"
       "i915.enable_fbc=1"
       "i915.enable_dc=2"
-      "psmouse.synaptics_intertouch=0"
     ];
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
@@ -72,10 +71,6 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
-  hardware.trackpoint = {
-      enable = true;
-      sensitivity = 255;
-  };
 
   # Zram
   zramSwap = {
@@ -107,7 +102,7 @@
   # Networking
   networking.networkmanager.enable = true;
  # programs.nm-applet.enable = true;
-  networking.hostName = "nixos_t480"; # Define your hostname.
+  networking.hostName = "nixos_gs66"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
@@ -182,7 +177,7 @@ services.xserver.displayManager.gdm.wayland = true;
   services.logind.killUserProcesses = true;
   services.throttled.enable = true;
   services.fprintd.enable = true;
-  services.thinkfan.enable = true;
+  services.thiddnkfan.enable = true;
 
   services.xserver.displayManager.defaultSession = "hyprland";
   #services.xserver.desktopManager.plasma5.enable = true;
@@ -266,7 +261,6 @@ services.xserver.displayManager.gdm.wayland = true;
   services.gvfs.enable = true;
   services.fstrim.enable = true;
   services.upower.enable = true;
-  services.xserver.synaptics.tapButtons = true;
 
   services.openssh = {
    enable = true;

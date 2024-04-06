@@ -103,7 +103,6 @@
     home.packages = with pkgs; [
       ripgrep
       csharp-ls
-      nixfmt-classic
       stylua
       pyright
       dockerfile-language-server-nodejs

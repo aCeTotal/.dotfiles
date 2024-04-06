@@ -12,10 +12,9 @@
 	"upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
 
   #Imgui dev
-  "im-shell" = "cd ~/imgui_vulkan/ && nix-shell";
-  "im-demo" = "exec ~/imgui_vulkan/src/bin/Linux64/imgui_testing";
-  "im-edit" = "nvim ~/imgui_vulkan/src/main.cpp";
-  "im-compile" = "cd ~/imgui_vulkan/src/build && ninja";
+  "guidemo" = "exec ~/arcticmo/src/bin/Linux64/arcticmo";
+  "guiedit" = "cd ~/arcticmo/dev-shells/editshell/ && nix-shell";
+  "guicompile" = "cd ~/arcticmo/dev-shells/buildshell && nix-shell";
 
 	"editconf" = "nvim ~/.dotfiles/hosts/desktop/configuration.nix";
 	"edithome" = "nvim ~/.dotfiles/hosts/desktop/home.nix";
