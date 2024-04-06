@@ -6,7 +6,7 @@
     [
       ../../modules/git.nix
       ../../modules/bash.nix
-      ../../modules/nixvim.nix
+      ../../modules/nixvim/nixvim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/alacritty.nix
