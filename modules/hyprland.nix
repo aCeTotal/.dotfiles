@@ -39,6 +39,9 @@ input {
     kb_options =
     kb_rules =
 
+    repeat_delay = 300
+    repeat_rate = 50
+
     follow_mouse = 1
 
     touchpad {

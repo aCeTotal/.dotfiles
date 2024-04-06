@@ -210,6 +210,7 @@
     clinfo
     lm_sensors
     virtualglLib
+    vulkan-tools
     nfs-utils
     networkmanagerapplet
     nfstrace
@@ -249,6 +250,7 @@
   services.xserver.xkb = {
     layout = "no";
   };
+
 
   programs.steam = {
   enable = true;
