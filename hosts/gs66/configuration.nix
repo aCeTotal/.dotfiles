@@ -230,7 +230,7 @@ services.xserver.displayManager.gdm.wayland = true;
   waybar
   sstp 
   networkmanager-sstp
-  citrix_workspace
+  #citrix_workspace
   usbutils
   ]);
 
