@@ -182,7 +182,7 @@ services.xserver.displayManager.gdm.wayland = true;
   #services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.christophermp = {
+  users.users.total = {
     isNormalUser = true;
     initialPassword = "nixos";
     description = "";
