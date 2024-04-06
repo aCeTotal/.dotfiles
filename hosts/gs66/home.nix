@@ -12,11 +12,10 @@
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
       ../../modules/waybar.nix
-      ../../modules/devtools.nix
     ];
 
-    home.username = "christophermp";
-    home.homeDirectory = "/home/christophermp";
+    home.username = "total";
+    home.homeDirectory = "/home/total";
     home.stateVersion = "24.05";
 
     home.packages = with pkgs; [
