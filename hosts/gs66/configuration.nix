@@ -1,5 +1,5 @@
 
-{ pkgs, lib, inputs, config, ... }:
+{ pkgs, pkgs-stable, config, ... }:
 
 {
   imports =
@@ -192,7 +192,11 @@ services.xserver.displayManager.gdm.wayland = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = 
+
+
+  #Unstable packages
+  (with pkgs; [
     vim
     wget
     freecad
@@ -217,7 +221,18 @@ services.xserver.displayManager.gdm.wayland = true;
     cmatrix
     htop
     btop
-  ];
+  ])
+
+  ++
+
+  #Stable packages
+  (with pkgs-stable; [
+  waybar
+  sstp 
+  networkmanager-sstp
+  citrix_workspace
+  usbutils
+  ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
