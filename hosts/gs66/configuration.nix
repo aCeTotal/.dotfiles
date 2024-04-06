@@ -177,7 +177,6 @@ services.xserver.displayManager.gdm.wayland = true;
   services.logind.killUserProcesses = true;
   services.throttled.enable = true;
   services.fprintd.enable = true;
-  services.thiddnkfan.enable = true;
 
   services.xserver.displayManager.defaultSession = "hyprland";
   #services.xserver.desktopManager.plasma5.enable = true;
