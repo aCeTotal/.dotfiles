@@ -20,6 +20,7 @@
       devices = [ "nodev" ];
       configurationLimit = 4;
     };
+    timeout = 1;
   };
 
 
@@ -49,7 +50,6 @@
     "vm.max_map_count" = 16777216;                  # Star Citizen Requirements
     "fs.file-max" = 524288;                         # Star CItizen Requirements
   };
-
 
   # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];

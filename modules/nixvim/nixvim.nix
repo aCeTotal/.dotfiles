@@ -106,16 +106,16 @@
       };
 
       ## oil
-      oil.enable = false;
+      oil.enable = true;
 
-      ts-autotag.enable = false;
+      ts-autotag.enable = true;
 
-      emmet.enable = false;
+      emmet.enable = true;
 
       nvim-colorizer.enable = true;
 
       vim-matchup = {
-        enable = false;
+        enable = true;
 
         #delete (ds%)
         #change (cs%)
