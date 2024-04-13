@@ -5,7 +5,7 @@
 
     imports =
     [
-        ../../plugins/nvim-cmp.nix
+        ../../plugins/nvim-cmp2.nix
 
 
     ]:
