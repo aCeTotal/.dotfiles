@@ -2,7 +2,13 @@
 
 {
 
-  home.file.".config/nvim/settings.lua".source = ~/.dotfiles/modules/nvim/lua/init.lua;
+
+    imports =
+    [
+        ../../plugins/nvim-cmp.nix
+
+
+    ]:
 
 
   programs.neovim = {
@@ -12,7 +18,7 @@
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
         extraConfig = ''
-          luafile ~/.config/nvim/settings.lua
+            luafile ~/.dotfiles/modules/nvim/settings.lua 
         '';
 
         plugins = with pkgs.vimPlugins; [ 
