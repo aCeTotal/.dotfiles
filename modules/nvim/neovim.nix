@@ -2,64 +2,64 @@
 
 {
 
-  #home.file.".config/nvim/settings.lua".source = nvim/lua/init.lua;
-
-
   programs.neovim = {
   	    enable = true;
-	      viAlias = true;
-	      vimAlias = true;
+	    viAlias = true;
+	    vimAlias = true;
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
         extraConfig = ''
+            luafile ~/.dotfiles/modules/nvim/lua/settings.lua
+            luafile ~/.dotfiles/modules/nvim/lua/bufferline.lua
         '';
 
-                plugins = with pkgs.vimPlugins; [ 
-                  vim-nix
-                  indentLine
-                  nvim-compe
-                {
-                    plugin = impatient-nvim;
-                    config = "lua require('impatient')";
-                }
-                {
-                    plugin = lualine-nvim;
-                    config = "lua require('lualine').setup()";
-                }
-                {
-                    plugin = telescope-nvim;
-                    config = "lua require('telescope').setup()";
-                }
+        plugins = with pkgs.vimPlugins; [ 
+            vim-nix
+            indentLine
+            nvim-compe
 
-                {
-                    plugin = nvim-lspconfig;
-                    config = ''
-                        lua << EOF
-                        require('lspconfig').dockerls.setup{}
-                        require('lspconfig').clangd.setup{}
-                        require('lspconfig').csharp_ls.setup{}
-                        require('lspconfig').cmake.setup{}
-                        require('lspconfig').lua_ls.setup{}
-                        require('lspconfig').rust_analyzer.setup{}
-                        require('lspconfig').pyright.setup{}
+            {
+                plugin = impatient-nvim;
+                config = "lua require('impatient')";
+            }
+            {
+                plugin = lualine-nvim;
+                config = "lua require('lualine').setup()";
+            }
+            {
+                plugin = telescope-nvim;
+                config = "lua require('telescope').setup()";
+            }
 
-                        vim.o.completeopt = "menuone,noselect"
+            {
+                plugin = nvim-lspconfig;
+                config = ''
+                    lua << EOF
+                    require('lspconfig').dockerls.setup{}
+                    require('lspconfig').clangd.setup{}
+                    require('lspconfig').csharp_ls.setup{}
+                    require('lspconfig').cmake.setup{}
+                    require('lspconfig').lua_ls.setup{}
+                    require('lspconfig').rust_analyzer.setup{}
+                    require('lspconfig').pyright.setup{}
 
-                        require('compe').setup {
-                          enabled = true;
-                          autocomplete = true;
-                          debug = true;
-                          min_length = 1;
-                          preselect = 'enable';
-                          throttle_time = 80;
-                          source_timeout = 200;
-                          incomplete_delay = 400;
-                          max_abbr_width = 100;
-                          max_kind_width = 100;
-                          max_menu_Width = 100;
-                          documentation = true;
+                    vim.o.completeopt = "menuone,noselect"
 
-                          source = {
+                    require('compe').setup {
+                        enabled = true;
+                        autocomplete = true;
+                        debug = true;
+                        min_length = 1;
+                        preselect = 'enable';
+                        throttle_time = 80;
+                        source_timeout = 200;
+                        incomplete_delay = 400;
+                        max_abbr_width = 100;
+                        max_kind_width = 100;
+                        max_menu_Width = 100;
+                        documentation = true;
+
+                        source = {
                             path = true;
                             buffer = true;
                             vsnip = true;
@@ -68,8 +68,8 @@
                             tags = true;
                             snippets_nvim = true;
                             treesitter = true;
-                          };
                         };
+                    };
  
                         EOF
                     '';

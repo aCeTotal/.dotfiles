@@ -2,9 +2,6 @@
 
 {
 
-  home.file.".config/nvim/settings.lua".source = nvim/lua/init.lua;
-
-
   programs.neovim = {
   	    enable = true;
 	      viAlias = true;
