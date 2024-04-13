@@ -20,10 +20,10 @@
             indentLine
             nvim-compe
 
-            {
-                plugin = impatient-nvim;
-                config = "lua require('impatient')";
-            }
+            #{
+            #    plugin = impatient-nvim;
+            #    config = "lua require('impatient')";
+            #}
             {
                 plugin = lualine-nvim;
                 config = "lua require('lualine').setup()";

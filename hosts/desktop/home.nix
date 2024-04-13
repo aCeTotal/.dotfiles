@@ -30,11 +30,6 @@
 
     services.ssh-agent.enable = true;
 
-    # Manage dotfiles
-    home.file = {
-      #".config/hyprland/hyprland.conf".source = ./hyprland.conf;
-    };
-
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {
           autoconnect = ["qemu:///system"];
