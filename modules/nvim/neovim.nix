@@ -2,8 +2,6 @@
 
 {
 
-  #home.file.".config/nvim/init.lua".source = ~/.dotfiles/modules/nvim/lua/init.lua;
-
 
   programs.neovim = {
   	    enable = true;
@@ -12,7 +10,6 @@
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
         extraConfig = ''
-            #luafile ~/.config/nvim/init.lua
         '';
 
         plugins = with pkgs.vimPlugins; [ 
