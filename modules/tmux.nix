@@ -57,7 +57,7 @@ in
 
   programs.tmux = {
     enable = true;
-    shell = "${pkgs.bash}/bin/bash";
+    #shell = "/bin/bash";
     terminal = "tmux-256color";
     historyLimit = 100000;
     plugins = with pkgs;
