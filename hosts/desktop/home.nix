@@ -6,6 +6,7 @@
     [
 
       #programs
+      ../../modules/default.nix
       ../../modules/git.nix
       ../../modules/bash.nix
       ../../modules/alacritty.nix
@@ -23,58 +24,6 @@
     };
 
     home.packages = with pkgs; [
-      brave
-      firefox
-      gimp
-      mpv
-      librepcb
-      spotify
-      blender
-      prusa-slicer
-      slurp
-      grim
-      swappy
-      #pureref
-      pamixer
-      ripgrep
-      chatgpt-cli
-
-      wl-clipboard
-      grimblast
-
-     #Work (Testing)
-     libreoffice-fresh
-     teams-for-linux
-     onedriver
-     onedrive
-     onedrivegui
-
-     # Dev 
-     gcc-arm-embedded
-     stm32cubemx
-     stlink-gui
-     platformio
-     clang-tools
-     haskellPackages.vulkan
-     vulkan-headers
-     vulkan-helper
-     vulkan-loader
-     vulkan-tools
-     imgui
-     cmake
-     boost
-     catch2
-     cmake
-     gnumake
-     ccache
-     pkg-config
-     meson
-     ninja
-     perl
-     bison
-     flex
-     bashmount udisks udiskie
-
     ];
 
     services.ssh-agent.enable = true;
