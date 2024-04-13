@@ -15,6 +15,7 @@
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix
+      ../../modules/tmux.nix
     ];
 
     home = {
