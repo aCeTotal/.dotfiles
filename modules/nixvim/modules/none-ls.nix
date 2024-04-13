@@ -25,10 +25,10 @@
           action = "help_tags";
           desc = "Telescope Help Tags";
         };
-        "<C-p>" = {
-          action = "git_files";
-          desc = "Telescope Git Files";
-        };
+        #"<C-p>" = {
+        #  action = "git_files";
+        #  desc = "Telescope Git Files";
+        #};
       };
       extensions.fzf-native = { enable = true; };
     };
