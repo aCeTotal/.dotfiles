@@ -24,10 +24,10 @@
         action = "find_files, {}";
         desc = "Find project files";
       };
-      "<leader>/" = {
-        action = "live_grep";
-        desc = "Grep (root dir)";
-      };
+     # "<leader>/" = {
+     #   action = "live_grep";
+     #   desc = "Grep (root dir)";
+     # };
       "<leader>:" = {
         action = "command_history, {}";
         desc = "Command History";
@@ -56,10 +56,10 @@
         action = "buffers, {}";
         desc = "Buffers";
       };
-      "<C-p>" = {
-        action = "git_files, {}";
-        desc = "Search git files";
-      };
+      #"<C-p>" = {
+      #  action = "git_files, {}";
+      #  desc = "Search git files";
+      #};
       "<leader>gc" = {
         action = "git_commits, {}";
         desc = "Commits";

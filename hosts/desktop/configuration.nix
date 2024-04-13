@@ -80,6 +80,11 @@
 	WLR_NO_HARDWARE_CURSORS = "1";
 	# Hint electron apps to use wayland
 	NIXOS_OZONE_WL = "1";
+      };
+
+  environment.variables = {
+    EDITOR = "nvim";
+    OPENAI_API_KEY = "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";
   };
 
   # Power Management

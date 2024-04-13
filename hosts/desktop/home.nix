@@ -11,7 +11,8 @@
       ../../modules/bash.nix
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
-      ../../modules/nixvim/nixvim.nix
+      #../../modules/nixvim/nixvim.nix #Buggy
+      ../../modules/neovim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix

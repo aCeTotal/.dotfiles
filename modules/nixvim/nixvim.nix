@@ -10,10 +10,10 @@
       ./modules/cmp.nix
       ./modules/lsp.nix
       ./modules/treesitter.nix
-      ./modules/telescope.nix
+      #./modules/telescope.nix
       ./modules/luasnip.nix
       ./modules/lualine.nix
-      ./modules/none-ls.nix
+      #./modules/none-ls.nix
       ./modules/colorscheme.nix
       ./modules/lspkind.nix
       ./modules/lspsaga.nix

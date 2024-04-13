@@ -11,7 +11,8 @@
 	      vimAlias = true;
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
-        extraConfig = lib.fileContents ../path/to/your/init.lua;
+        extraConfig = ''
+        '';
 
                 plugins = with pkgs.vimPlugins; [ 
                   vim-nix
