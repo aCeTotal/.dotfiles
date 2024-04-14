@@ -5,10 +5,8 @@
 
     imports =
     [
-        ../../plugins/nvim-cmp2.nix
 
-
-    ]:
+    ];
 
 
   programs.neovim = {
@@ -18,7 +16,8 @@
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
         extraConfig = ''
-            luafile ~/.dotfiles/modules/nvim/settings.lua 
+            luafile ~/.dotfiles/modules/nvim/settings.lua
+            luafile ~/.dotfiles/modules/nvim/lua/nvim-cmp.lua 
         '';
 
         plugins = with pkgs.vimPlugins; [ 

@@ -1,33 +1,22 @@
-{ config, pkgs, lib, ... }:
+-- Setup nvim-cmp.
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 
-{
-
-    programs.neovim.plugins = with pkgs.vimPlugins; [ 
-
-            {
-                plugin = nvim-cmp;
-                config = ''
-                    lua << EOF
-
-                    -- Setup nvim-cmp.
-                    local cmp = require("cmp")
-                    local lspkind = require("lspkind")
-
-                    cmp.setup {
-                        snippet = {
-                            expand = function(args)
-                                -- For `ultisnips` user.
-                                vim.fn["UltiSnips#Anon"](args.body)
-                                    end,
-                        },
-                        mapping = cmp.mapping.preset.insert {
-                            ["<Tab>"] = function(fallback)
-                                if cmp.visible() then
-                                    cmp.select_next_item()
-                                else
-                                    fallback()
-                                end
-                            end,
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      -- For `ultisnips` user.
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
     ["<S-Tab>"] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -100,16 +89,3 @@ vim.cmd([[
   highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
   highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 ]])
-
-
-
-
-                EOF
-                '';
-            }
-    ];
-
-    home.packages = with pkgs; [
-    ];
-
-}
