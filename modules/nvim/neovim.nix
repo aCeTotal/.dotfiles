@@ -1,26 +1,18 @@
 { config, pkgs, lib, ... }:
 
 {
-
-
-    imports =
-    [
-
-    ];
-
-
     programs.neovim = 
       let
         toLua = str: "lua << EOF\n${str}\nEOF\n";
         toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
       in
     {
-  	    enable = true;
-	    viAlias = true;
-	    vimAlias = true;
-        vimdiffAlias = true;
-        package = pkgs.neovim-unwrapped;
-        extraConfig = ''
+  	  enable = true;
+	  viAlias = true;
+	  vimAlias = true;
+          vimdiffAlias = true;
+          package = pkgs.neovim-unwrapped;
+          extraConfig = ''
         '';
 
         extraLuaConfig = ''
@@ -28,77 +20,24 @@
 
         '';
 
-        plugins = with pkgs.vimPlugins; [ 
-            vim-nix
-            indentLine
-            nvim-compe
+        plugins = with pkgs.vimPlugins; [
+          {
+            plugin = nvim-lspconfig;
+            config = toLuaFile ./lua/lsp.lua;
+          }
 
-            {
-                plugin = lualine-nvim;
-                config = "lua require('lualine').setup()";
-            }
-            {
-                plugin = telescope-nvim;
-                config = "lua require('telescope').setup()";
-            }
+          {
+            plugin = comment-nvim;
+            config = toLua "require(\"Comment\").setup()";
+          }
 
-            {
-                plugin = nvim-lspconfig;
-                config = ''
-                    lua << EOF
-                    require('lspconfig').dockerls.setup{}
-                    require('lspconfig').clangd.setup{}
-                    require('lspconfig').csharp_ls.setup{}
-                    require('lspconfig').cmake.setup{}
-                    require('lspconfig').lua_ls.setup{}
-                    require('lspconfig').rust_analyzer.setup{}
-                    require('lspconfig').pyright.setup{}
+          {   
+            plugin = gruvbox-nvim;
+            config = "colorscheme gruvbox";
+          }
+          nvim-lsputils
 
-                    vim.o.completeopt = "menuone,noselect"
-
-                    require('compe').setup {
-                        enabled = true;
-                        autocomplete = true;
-                        debug = true;
-                        min_length = 1;
-                        preselect = 'enable';
-                        throttle_time = 80;
-                        source_timeout = 200;
-                        incomplete_delay = 400;
-                        max_abbr_width = 100;
-                        max_kind_width = 100;
-                        max_menu_Width = 100;
-                        documentation = true;
-
-                        source = {
-                            path = true;
-                            buffer = true;
-                            vsnip = true;
-                            nvim_lsp = true;
-                            nvim_lua = true;
-                            tags = true;
-                            snippets_nvim = true;
-                            treesitter = true;
-                        };
-                    };
- 
-                        EOF
-                    '';
-                }
-                {
-                    plugin = nvim-treesitter.withAllGrammars;
-                    config = ''
-                    lua << EOF
-                      require('nvim-treesitter.configs').setup {
-                        highlight = {
-                            enable = true,
-                            additional_vim_regex_highlighting = true,
-                        },
-                    }
-                    EOF
-                    '';
-                }
-            ];
+        ];
 
 
 
