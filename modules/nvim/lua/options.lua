@@ -1,33 +1,6 @@
 local o = vim.opt
 local g = vim.g
 
--- Autocmds
-vim.cmd [[
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
-autocmd FileType nix setlocal shiftwidth=4
-]]
-
--- Keybinds
-local map = vim.api.nvim_set_keymap
-local opts = { silent = true, noremap = true }
-
-map("n", "<C-h>", "<C-w>h", opts)
-map("n", "<C-j>", "<C-w>j", opts)
-map("n", "<C-k>", "<C-w>k", opts)
-map("n", "<C-l>", "<C-w>l", opts)
-map('n', '<C-n>', ':Telescope live_grep <CR>', opts)
-map('n', '<C-f>', ':Telescope find_files <CR>', opts)
-map('n', 'j', 'gj', opts)
-map('n', 'k', 'gk', opts)
-map('n', ';', ':', { noremap = true } )
-
 g.mapleader = ' '
 
 -- Performance

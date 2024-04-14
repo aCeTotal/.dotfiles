@@ -181,8 +181,7 @@
 
 
 
-  services.xserver.displayManager.defaultSession = "hyprland";
-  #services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.defaultSession = "hyprland";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {

@@ -9,15 +9,23 @@
     ];
 
 
-  programs.neovim = {
+    programs.neovim = 
+      let
+        toLua = str: "lua << EOF\n${str}\nEOF\n";
+        toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+      in
+    {
   	    enable = true;
 	    viAlias = true;
 	    vimAlias = true;
         vimdiffAlias = true;
         package = pkgs.neovim-unwrapped;
         extraConfig = ''
-            luafile ~/.dotfiles/modules/nvim/settings.lua
-            luafile ~/.dotfiles/modules/nvim/lua/nvim-cmp.lua 
+        '';
+
+        extraLuaConfig = ''
+        ${builtins.readFile ./lua/options.lua}
+
         '';
 
         plugins = with pkgs.vimPlugins; [ 
@@ -25,10 +33,6 @@
             indentLine
             nvim-compe
 
-            #{
-            #    plugin = impatient-nvim;
-            #    config = "lua require('impatient')";
-            #}
             {
                 plugin = lualine-nvim;
                 config = "lua require('lualine').setup()";
