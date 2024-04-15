@@ -12,7 +12,8 @@
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
       #../../modules/nixvim/nixvim.nix #Buggy
-      ../../modules/nvim/neovim.nix
+      #../../modules/nvim/neovim.nix
+      ../../modules/neovim-test/neovim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix
