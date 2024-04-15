@@ -1,5 +1,20 @@
 local o = vim.opt
 local g = vim.g
+local map = vim.api.nvim_set_keymap
+local opts = { silent = true, noremap = true }
+
+vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})
+
+
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
+map('n', '<C-n>', ':Telescope live_grep <CR>', opts)
+map('n', '<C-f>', ':Telescope find_files <CR>', opts)
+map('n', 'j', 'gj', opts)
+map('n', 'k', 'gk', opts)
+map('n', ';', ':', { noremap = true } )
 
 g.mapleader = ' '
 
@@ -16,8 +31,8 @@ o.undofile = true
 
 -- Indentation
 o.smartindent = true
-o.tabstop = 4
-o.shiftwidth = 4
+o.tabstop = 2
+o.shiftwidth = 2
 o.shiftround = true
 o.expandtab = true
 o.scrolloff = 3
@@ -53,4 +68,3 @@ o.pumheight = 6
 o.splitright = true
 o.splitbelow = true
 o.completeopt = "menuone,noselect"
-

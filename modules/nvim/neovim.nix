@@ -7,16 +7,17 @@
         toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
       in
     {
-  	  enable = true;
-	  viAlias = true;
-	  vimAlias = true;
+  	      enable = true;
+	        viAlias = true;
+	        vimAlias = true;
           vimdiffAlias = true;
           package = pkgs.neovim-unwrapped;
           extraConfig = ''
         '';
 
         extraLuaConfig = ''
-          ${builtins.readFile ./lua/options.lua}
+        ${builtins.readFile ./lua/options.lua}
+        ${builtins.readFile ./lua/icons.lua}
         '';
 
         plugins = with pkgs.vimPlugins; [
@@ -46,28 +47,21 @@
           }
 
           {
-            plugin = (nvim-treesitter.withPlugins (p: [
-              p.tree-sitter-nix
-              p.tree-sitter-vim
-              p.tree-sitter-bash
-              p.tree-sitter-lua
-              p.tree-sitter-python
-              p.tree-sitter-json
-            ]));
+            plugin = nvim-treesitter.withAllGrammars;
             config = toLuaFile ./lua/plugins/treesitter.lua;
           }
 
+          #indentLine
           cmp_luasnip
+          telescope-fzf-native-nvim
           vim-nix
+          cmp-vsnip
           nvim-cmp
           neodev-nvim
           cmp-nvim-lsp
 
           luasnip
           friendly-snippets
-          lualine-nvim
-          nvim-web-devicons
-
         ];
 
 
@@ -81,12 +75,13 @@
 
     home.packages = with pkgs; [
       ripgrep
+      nixd
       csharp-ls
       clang-tools clang
       stylua
       pyright
       dockerfile-language-server-nodejs
-      lua-language-server
+      luajitPackages.lua-lsp
       cmake-language-server
     ];
 }

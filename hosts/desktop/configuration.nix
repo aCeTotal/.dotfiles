@@ -6,7 +6,7 @@
     [
         ./hardware_configuration.nix
 
-    ];
+      ];
 
   # Boot Loader
   boot.loader = {
@@ -22,7 +22,6 @@
     };
     timeout = 1;
   };
-
 
   # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;
