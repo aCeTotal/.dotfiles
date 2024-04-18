@@ -1,48 +1,86 @@
-local on_attach = function(_, bufnr)
+local cmp = require('cmp')
+local cmp_lsp = require("cmp_nvim_lsp")
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  local bufmap = function(keys, func)
-    vim.keymap.set('n', keys, func, { buffer = bufnr })
-  end
+require'lspconfig'.clangd.setup{
+  cmd = {
+    -- see clangd --help-hidden
+    "clangd",
+    "--background-index",
+    -- by default, clang-tidy use -checks=clang-diagnostic-*,clang-analyzer-*
+    -- to add more checks, create .clang-tidy file in the root directory
+    -- and add Checks key, see https://clang.llvm.org/extra/clang-tidy/
+    "--clang-tidy",
+    "--completion-style=bundled",
+    "--cross-file-rename",
+    "--header-insertion=iwyu",
+  },
+  capabilities=capabilities
+}
 
-  bufmap('<leader>r', vim.lsp.buf.rename)
-  bufmap('<leader>a', vim.lsp.buf.code_action)
 
-  bufmap('gd', vim.lsp.buf.definition)
-  bufmap('gD', vim.lsp.buf.declaration)
-  bufmap('gI', vim.lsp.buf.implementation)
-  bufmap('<leader>D', vim.lsp.buf.type_definition)
 
-  bufmap('gr', require('telescope.builtin').lsp_references)
-  bufmap('<leader>s', require('telescope.builtin').lsp_document_symbols)
-  bufmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+require'lspconfig'.lua_ls.setup{capabilities=capabilities}
+require'lspconfig'.rust_analyzer.setup{capabilities=capabilities}
+require'lspconfig'.cmake.setup{capabilities=capabilities}
+require'lspconfig'.dockerls.setup{capabilities=capabilities}
+require'lspconfig'.nixd.setup{capabilities=capabilities}
+require'lspconfig'.pyright.setup{
+  capabilities=capabilities,
+  settings = {
+    python = {
+      analysis = {       
+        typeCheckingMode = "off",                                                                                          
+      }
+    }
+  }   
+}
 
-  bufmap('K', vim.lsp.buf.hover)
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, {})
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
+
+  mapping = cmp.mapping.preset.insert({
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-Space>"] = cmp.mapping.complete(),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-require('neodev').setup()
-require('lspconfig').lua_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-	root_dir = function()
-        return vim.loop.cwd()
-    end,
-	cmd = { "lua-lsp" },
-    settings = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    }
-}
-
-require('lspconfig').nixd.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
+-- You will likely want to reduce updatetime which affects CursorHold
+-- note: this setting is global and should be set only once
+vim.o.updatetime = 100
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]

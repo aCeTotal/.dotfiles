@@ -5,7 +5,6 @@
   imports =
     [
         ./hardware_configuration.nix
-
       ];
 
   # Boot Loader
@@ -22,6 +21,7 @@
     };
     timeout = 1;
   };
+
 
   # Kernel setup
   boot.kernelPackages = pkgs.linuxPackages_zen;

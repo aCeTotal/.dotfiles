@@ -10,7 +10,7 @@
     ./plugins/lspsaga.nix
     ./plugins/ui/default.nix
     ./plugins/nvim-tree.nix
-    ./plugins/autosave.nix
+    #./plugins/autosave.nix
     ./plugins/autopairs.nix
     ./plugins/telescope.nix
     ./plugins/cmp.nix

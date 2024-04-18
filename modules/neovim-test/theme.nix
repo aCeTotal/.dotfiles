@@ -4,7 +4,7 @@
   imports = [ ./plugins/ayu.nix ];
 
   # leaving below as examples and also in case I wanna change quickly
-  colorschemes = {
+  programs.neovim.colorschemes = {
     catppuccin = {
       enable = false;
       background = { dark = "mocha"; };

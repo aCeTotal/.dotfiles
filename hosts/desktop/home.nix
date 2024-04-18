@@ -12,8 +12,8 @@
       ../../modules/alacritty.nix
       ../../modules/rofi.nix
       #../../modules/nixvim/nixvim.nix #Buggy
-      #../../modules/nvim/neovim.nix
-      ../../modules/neovim-test/neovim.nix
+      ../../modules/nvim/neovim.nix
+      #../../modules/neovim-test/neovim.nix
       ../../modules/cursor_icons.nix
       ../../modules/hyprland.nix
       ../../modules/waybar.nix
@@ -27,6 +27,7 @@
     };
 
     home.packages = with pkgs; [
+    lazygit
     ];
 
     services.ssh-agent.enable = true;
