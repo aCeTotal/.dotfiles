@@ -162,9 +162,11 @@ bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
 bind = $mainMod, D, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
-bind = $mainMod, S, exec, grim -g "$(slurp)" - | swappy -f - # take a screenshot
-bind = , Print, exec, grimblast copy area
+bind = $mainMod, S, exec, grimblast --notify --cursor copy area
+bind = , Print, exec, grimblast --notify --cursor copy area
+
 bind = $mainMod, F12, exec, wdisplays
+
 
 # Move focus with mainMod + arrow keys
 bind = $mainMod, left, movefocus, l
@@ -214,6 +216,8 @@ env = LIBVA_DRIVER_NAME,nvidia
         swaybg
         rofi-wayland
         grim
+        swappy
+        shotman
         slurp
         xfce.thunar
         foot

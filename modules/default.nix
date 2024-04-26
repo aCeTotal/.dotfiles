@@ -8,6 +8,7 @@
     bashmount udisks udiskie
     mpv spotify
     librepcb
+    zoxide
     pamixer
     ripgrep
     chatgpt-cli

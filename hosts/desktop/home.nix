@@ -28,6 +28,20 @@
 
     home.packages = with pkgs; [
     lazygit
+    libreoffice
+    zellij
+
+    #Testing
+    notesnook
+
+    # Crypto Testing
+    python311Packages.python-binance
+    gnomeExtensions.crypto-price-tracker
+    rPackages.binancer
+    exodus
+    
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+
     ];
 
     services.ssh-agent.enable = true;

@@ -61,6 +61,21 @@
             #config = toLuaFile ./lua/plugins/fugitive.lua;
           }
 
+          {
+            plugin = lualine-nvim;
+            config = toLuaFile ./lua/plugins/lualine.lua;
+          }
+
+          {
+            plugin = nvim-autopairs;
+            config = toLuaFile ./lua/plugins/autopairs.lua;
+          }
+
+          {
+            plugin = autosave-nvim;
+            config = toLuaFile ./lua/plugins/autosave.lua;
+          }
+
           undotree
           telescope-fzf-native-nvim
           lazygit-nvim
@@ -106,6 +121,7 @@
           gruvbox-nvim
           rose-pine
           onedarkpro-nvim
+          
         ];
 
 
