@@ -374,7 +374,7 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
 
-
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
