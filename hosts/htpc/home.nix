@@ -27,11 +27,6 @@
     home.packages = with pkgs; [
     libreoffice
     zellij
-    shell_gpt
-    aichat
-    tgpt
-    heygpt
-    yai
     
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 

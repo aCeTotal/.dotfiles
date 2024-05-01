@@ -24,7 +24,7 @@
 
 
   # Kernel setup
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable.xone;
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;                             # SysRQ for is rebooting their machine properly if it freezes: SOURCE: https://oglo.dev/tutorials/sysrq/index.html
@@ -52,7 +52,7 @@
 
   # Extra BOOT settings
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
-  boot.kernelModules = [ "btrfs" "nvidia" "nvidia_uvm" "tcp_bbr" ];
+  boot.kernelModules = [ "btrfs" "tcp_bbr" ];
   boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
@@ -79,8 +79,6 @@
 	WLR_NO_HARDWARE_CURSORS = "1";
 	# Hint electron apps to use wayland
 	NIXOS_OZONE_WL = "1";
-	#Steam GE-Proton support
-	STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/total/.steam/root/compatibilitytools.d/";
       };
 
   environment.variables = {
@@ -92,37 +90,12 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   # NVIDIA STUFF
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-
-    modesetting.enable = true;                # Modesetting is required.
-    nvidiaPersistenced = false;                # Ensures all GPUs stay awake even during headless mode
-
-    powerManagement.enable = false;           # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-	  # accessible via `nvidia-settings`.
-    nvidiaSettings = false;
-  };
+  services.xserver.videoDrivers = ["intel"];
 
   # Networking
   networking.networkmanager.enable = true;
  # programs.nm-applet.enable = true;
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nix-htpc"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
@@ -201,7 +174,6 @@
   # Unstable packages
   (with pkgs; [
     wget
-    freecad
     gamescope
     gnumake
     appimage-run
@@ -225,25 +197,12 @@
     protontricks
     q4wine
     wine-wayland
-    waylandpp
-    wayland
-    clang
-    gcc
-    protonup
   ])
 
   ++
 
   #Stable packages
   (with pkgs-stable; [
-    sstp
-    waybar
-    quickemu
-    quickgui
-    networkmanager-sstp
-    citrix_workspace
-    usbutils
-    screen
   ]);
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -266,8 +225,6 @@
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  gamescopeSession.enable = true;
-
   };
 
   programs.gamemode.enable = true;
@@ -336,22 +293,6 @@
     };
   };
 
-
-  systemd.user.services = {
-      nm-applet = {
-        description = "Network manager applet";
-
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-
-        serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-      };
-  };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "freeimage-unstable-2021-11-01"
-  ];
-
   # Allow Unfree packages on both stable and unstable
   nixpkgs.config.allowUnfree = true;
 
@@ -361,27 +302,6 @@
        inherit (pkgs.stdenv.hostPlatform) system;
     };
   };
-
-  # Enable the libvirt daemon
-  virtualisation.libvirtd = {
-      enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [(pkgs.OVMFFull.override {
-          secureBoot = true;
-          tpmSupport = true;
-        }).fd];
-      };
-    };
-  };
-
-  programs.virt-manager.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
-
 
   systemd.services.NetworkManager-wait-online.enable = false;
 

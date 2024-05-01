@@ -4,7 +4,8 @@
   home.packages = with pkgs; [
     brave
     gimp blender prusa-slicer
-    stlink-gui stm32cubemx
+    stlink 
+    #stm32cubemx
     bashmount udisks udiskie
     mpv spotify
     librepcb
