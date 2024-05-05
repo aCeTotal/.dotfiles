@@ -10,7 +10,7 @@
 	  #mono5
     ];
 
-    services.lorri.enable = true;
+    #services.lorri.enable = true;
     programs.direnv.enable = true;
 
 }
