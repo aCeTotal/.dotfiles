@@ -4,6 +4,9 @@
     # Bash
     programs.bash = {
       enable = true;
+      enableCompletion = true;
+      enableLsColors = true;
+
       shellAliases = {
 	"z" = "zoxide";
 	"zs" = "zoxide query";
