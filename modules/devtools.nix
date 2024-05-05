@@ -3,7 +3,6 @@
 {
 
   home.packages = with pkgs; [
-	  direnv
 	  #jetbrains.rider
 	  #vscode-with-extensions
 	  #nodejs_21
@@ -12,5 +11,6 @@
     ];
 
     services.lorri.enable = true;
+    programs.direnv.enable = true;
 
 }

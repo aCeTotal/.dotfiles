@@ -232,6 +232,13 @@ services.xserver.displayManager.gdm.wayland = true;
     layout = "no";
   };
 
+  #NFS
+  fileSystems."/mnt/nfs/Bigdisk1" = {
+      device = "192.168.0.40:/bigdisk1";
+      fsType = "nfs";
+      options = [ "rw" "nofail" "x-systemd.automount" "noauto" ];
+    };
+
   programs.steam = {
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
