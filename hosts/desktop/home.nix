@@ -6,16 +6,16 @@
     [
 
       #programs
-      ../../modules/default.nix
-      ../../modules/git.nix
-      ../../modules/bash.nix
-      ../../modules/alacritty.nix
-      ../../modules/rofi.nix
-      ../../modules/nvim/neovim.nix
-      ../../modules/cursor_icons.nix
-      ../../modules/hyprland.nix
-      ../../modules/waybar.nix
-    #  ../../modules/tmux.nix
+      ../../modules/user/default.nix
+      ../../modules/user/git.nix
+      ../../modules/user/bash.nix
+      ../../modules/user/alacritty.nix
+      ../../modules/user/rofi.nix
+      ../../modules/user/nvim/neovim.nix
+      ../../modules/user/cursor_icons.nix
+      ../../modules/user/hyprland.nix
+      ../../modules/user/waybar.nix
+    #  ../../modules/user/tmux.nix
     ];
 
     home = {
@@ -32,6 +32,7 @@
     tgpt
     heygpt
     yai
+    irssi
     
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 
