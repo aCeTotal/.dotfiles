@@ -11,6 +11,7 @@
 	../../modules/system/nvidia.nix
 	../../modules/system/hyprland.nix
 	../../modules/system/packages.nix
+        ../../modules/system/gaming.nix
       ];
 
   # Zram
@@ -18,17 +19,6 @@
     enable = true;
     swapDevices = 1;
     algorithm = "zstd";
-  };
-
-
-  environment.sessionVariables = {
-	#Steam GE-Proton support
-	STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/total/.steam/root/compatibilitytools.d/";
-      };
-
-  environment.variables = {
-    EDITOR = "nvim";
-    OPENAI_API_KEY = "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";
   };
 
   # Power Management
@@ -64,20 +54,20 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.sddm = {
-  #	enable = true;
-  #	wayland.enable = true;
-  #	autoNumlock = true;
-  #	theme = "tokyo-night-sddm";
-  #  };
+  services.xserver.displayManager.sddm = {
+  	enable = true;
+  	wayland.enable = true;
+  	autoNumlock = true;
+  	theme = "tokyo-night-sddm";
+    };
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.gdm.wayland = true;
 #  services.desktopManager.plasma6.enable = true;
 
 
 
-  #services.displayManager.defaultSession = "hyprland";
+  services.displayManager.defaultSession = "hyprland";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.total = {
@@ -102,16 +92,6 @@
     layout = "no";
   };
 
-
-  programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  gamescopeSession.enable = true;
-
-  };
-
-  programs.gamemode.enable = true;
 
   console = {
     packages=[ pkgs.terminus_font ];

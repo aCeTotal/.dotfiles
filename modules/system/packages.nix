@@ -7,34 +7,28 @@
     (with pkgs; [
      wget
      freecad
-     gamescope
      gnumake
      appimage-run
      pavucontrol
      gh
      neofetch
-     discord
      unzip
      unrar
      libnotify
      clinfo
      lm_sensors
      virtualglLib
-     vulkan-tools
      nfs-utils
      networkmanagerapplet
      nfstrace
      cmatrix
      htop
      btop
-     protontricks
      q4wine
-     wine-wayland
      waylandpp
      wayland
      clang
      gcc
-     protonup
      ])
 
   ++
