@@ -15,4 +15,8 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  services.displayManager.defaultSession = "hyprland";
+
+  services.xserver.enable = true;
+
 }

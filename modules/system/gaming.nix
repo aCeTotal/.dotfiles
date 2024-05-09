@@ -33,15 +33,4 @@
   ]);
 
 
-
-# Allow Unfree packages on both stable and unstable
-  nixpkgs.config.allowUnfree = true;
-
-  _module.args = {
-    pkgs-stable = import inputs.nixpkgs-stable {
-      inherit (config.nixpkgs) config;
-      inherit (pkgs.stdenv.hostPlatform) system;
-    };
-  };
-
 }
