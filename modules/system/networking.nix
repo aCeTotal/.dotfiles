@@ -26,8 +26,6 @@
   networking.enableIPv6 = true;
 
 
-
-
   environment.systemPackages = 
 
 # Unstable packages

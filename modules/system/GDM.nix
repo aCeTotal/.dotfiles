@@ -5,7 +5,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
 
-  penvironment.systemPackages = 
+  environment.systemPackages = 
 
 # Unstable packages
     (with pkgs; [

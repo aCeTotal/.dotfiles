@@ -12,7 +12,7 @@
 
 
 
-  penvironment.systemPackages = 
+  environment.systemPackages = 
 
 # Unstable packages
     (with pkgs; [

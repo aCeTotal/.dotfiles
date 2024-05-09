@@ -19,11 +19,14 @@
     };
   };
 
+  boot.kernelParams = [ "intel_iommu=on" "iommu=pt"];
+  boot.kernelModules = [ "kvm-intel" "vfio-pci" ];
+
 
   programs.virt-manager.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
-  penvironment.systemPackages = 
+  environment.systemPackages = 
 
 # Unstable packages
     (with pkgs; [
