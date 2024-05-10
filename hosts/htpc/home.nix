@@ -6,16 +6,13 @@
     [
 
       #programs
-      ../../modules/default.nix
-      ../../modules/git.nix
-      ../../modules/bash.nix
-      ../../modules/alacritty.nix
-      ../../modules/rofi.nix
-      ../../modules/nvim/neovim.nix
-      ../../modules/cursor_icons.nix
-      ../../modules/hyprland.nix
-      ../../modules/waybar.nix
-    #  ../../modules/tmux.nix
+      ../../modules/user/git.nix
+      ../../modules/user/bash.nix
+      ../../modules/user/alacritty.nix
+      ../../modules/user/rofi.nix
+      ../../modules/user/nvim/neovim.nix
+      ../../modules/user/cursor_icons.nix
+      ../../modules/user/htpc_hyprland.nix
     ];
 
     home = {
@@ -24,20 +21,14 @@
     stateVersion = "24.05";
     };
 
+    shellAliases = {
+      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#htpc";
+      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#htpc";
+    };
+
     home.packages = with pkgs; [
-    libreoffice
-    zellij
-    
-    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 
     ];
-
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-          autoconnect = ["qemu:///system"];
-          uris = ["qemu:///system"];
-     };
-    };
 
     # Manage Environment variables
     home.sessionVariables = {

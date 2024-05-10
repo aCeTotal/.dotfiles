@@ -25,6 +25,12 @@
     stateVersion = "24.05";
     };
 
+    shellAliases = {
+      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
+      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
+    };
+
+
     home.packages = with pkgs; [
     libreoffice
     zellij
@@ -34,6 +40,7 @@
     heygpt
     yai
     irssi
+    stlink
     
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 

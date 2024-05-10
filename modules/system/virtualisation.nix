@@ -30,6 +30,7 @@
 
 # Unstable packages
     (with pkgs; [
+      iproute2
     ])
 
     ++

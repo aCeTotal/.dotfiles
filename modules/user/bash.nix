@@ -20,8 +20,6 @@
 	"demo" = "cd /mnt/nfs/Bigdisk1/dev/imgui/src/bin/Linux64/ && ./securitydrone";
 	
 	"shell" = "nix-shell";
-	"update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
-	"upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
 
 	"editconf" = "nvim ~/.dotfiles/hosts/desktop/configuration.nix";
 	"edithome" = "nvim ~/.dotfiles/hosts/desktop/home.nix";

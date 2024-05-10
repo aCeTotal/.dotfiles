@@ -1,0 +1,10 @@
+sudo modprobe tun tap
+sudo ip link add br0 type bridge
+sudo ip tuntap add dev tap0 mode tap
+sudo ip link set dev enp0s31f6 master br0
+sudo ip link set dev tap0 master br0
+sudo ip link set dev br0 up
+
+ip address delete 192.168.0.30/24 dev enp0s31f6
+ip address add 192.168.0.30/24 dev br0
+
