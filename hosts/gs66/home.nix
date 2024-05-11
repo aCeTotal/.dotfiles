@@ -4,47 +4,62 @@
 
     imports = 
     [
-      ../../modules/git.nix
-      ../../modules/bash.nix
-      ../../modules/devtools.nix
-      ../../modules/nvim/neovim.nix
-      ../../modules/cursor_icons.nix
-      ../../modules/hyprland.nix
-      ../../modules/alacritty.nix
-      ../../modules/rofi.nix
-      ../../modules/waybar.nix
+
+      #programs
+      ../../modules/user/default.nix
+      ../../modules/user/git.nix
+      ../../modules/user/bash.nix
+      ../../modules/user/alacritty.nix
+      ../../modules/user/rofi.nix
+      ../../modules/user/nvim/neovim.nix
+      ../../modules/user/cursor_icons.nix
+      ../../modules/user/hyprland.nix
+      ../../modules/user/waybar.nix
+      ../../modules/user/virtualisation.nix
+    #  ../../modules/user/tmux.nix
     ];
 
-    home.username = "total";
-    home.homeDirectory = "/home/total";
-    home.stateVersion = "24.05";
+    home = {
+    username = "total";
+    homeDirectory = "/home/total";
+    stateVersion = "24.05";
+    };
+
+    shellAliases = {
+      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#gs66";
+      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#gs66";
+    };
+
 
     home.packages = with pkgs; [
-      brave
-      spotify
-      blender
-      firefox
-      slurp
-      grim
-      swappy
-      pamixer
-      libreoffice-fresh
-      teams-for-linux
+    libreoffice
+    zellij
+    shell_gpt
+    aichat
+    tgpt
+    heygpt
+    yai
+    irssi
+    stlink
+    
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+
     ];
 
-    services.ssh-agent.enable = true;
-
-    # Manage dotfiles
-    home.file = {
-      #".config/hyprland/hyprland.conf".source = ./hyprland.conf;
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+          autoconnect = ["qemu:///system"];
+          uris = ["qemu:///system"];
+     };
     };
 
     # Manage Environment variables
     home.sessionVariables = {
-      Editor = "neovim";
+      Editor = "vim";
     };
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+    
 
 }
