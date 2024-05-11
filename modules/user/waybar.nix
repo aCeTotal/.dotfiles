@@ -316,7 +316,7 @@ tooltip {
     '';
 
     home.packages = with pkgs; [
-        #waybar
+        waybar
     ];
 
 }
