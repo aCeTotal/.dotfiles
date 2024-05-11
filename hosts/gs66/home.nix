@@ -25,7 +25,8 @@
     stateVersion = "24.05";
     };
 
-    shellAliases = {
+    
+    programs.bash.shellAliases = {
       "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#gs66";
       "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#gs66";
     };
@@ -34,7 +35,6 @@
     home.packages = with pkgs; [
     libreoffice
     zellij
-    shell_gpt
     aichat
     tgpt
     heygpt
