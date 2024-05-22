@@ -162,8 +162,8 @@ bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
 bind = $mainMod, D, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
-bind = $mainMod, S, exec, grimblast --notify --cursor copy area
-bind = , Print, exec, grimblast --notify --cursor copy area
+bind = $mainMod, S, exec, grimblast --notify --cursor copysave area
+bind = , Print, exec, grimblast --notify --cursor copysave area
 
 bind = $mainMod, F12, exec, wdisplays
 

@@ -11,5 +11,6 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = false;
+      package = "linuxPackages.nvidiaPackages.beta";
   };
 }
