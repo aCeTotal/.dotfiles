@@ -1,17 +1,10 @@
-{ ... }:
+{ config, ... }:
 
 {
 
   services.xserver.videoDrivers = ["nvidia"];
 
-  hardware.nvidia = {
-      modesetting.enable = true;                # Modesetting is required.
-      nvidiaPersistenced = true;               # Ensures all GPUs stay awake even during headless mode
-      powerManagement.enable = false;           # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = false;
-
+  hardware.nvidia = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "555.42.02";
       sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
       sha256_aarch64 = "sha256-ekx0s0LRxxTBoqOzpcBhEKIj/JnuRCSSHjtwng9qAc0=";

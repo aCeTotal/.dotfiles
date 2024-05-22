@@ -10,7 +10,8 @@
 	../../modules/system/hardware.nix
         ../../modules/system/sound.nix
         ../../modules/system/GDM.nix #SDDM
-	../../modules/system/nvidia.nix #amd #intel
+	#../../modules/system/nvidia.nix #amd #intel
+        ../../modules/system/nvidia_555.nix
 	../../modules/system/hyprland.nix
 	../../modules/system/packages.nix
         ../../modules/system/gaming.nix
