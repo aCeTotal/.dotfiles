@@ -42,7 +42,8 @@
     irssi
     stlink
     ryujinx
-    
+    # dev
+ 
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 
     ];

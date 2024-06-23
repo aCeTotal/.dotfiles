@@ -29,7 +29,12 @@
      wayland
      clang
      gcc
+    gtk4-layer-shell
+    gtk4
+
      ])
+
+
 
   ++
 
