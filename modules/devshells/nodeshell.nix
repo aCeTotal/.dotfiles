@@ -8,7 +8,7 @@
           nodePackages.pnpm
           nushell
       ];
-    in pkgs.runCommand "dev-shell" {
+    in pkgs.runCommand "nodeshell" {
       # Dependencies that should exist in the runtime environment
       buildInputs = packages;
       # Dependencies that should only exist in the build environment
