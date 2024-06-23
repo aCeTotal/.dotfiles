@@ -23,6 +23,7 @@
 
       # Dev Shells
       ../../modules/devshells/nodeshell.nix
+      ../../modules/devshells/cppshell.nix
       ];
 
 
