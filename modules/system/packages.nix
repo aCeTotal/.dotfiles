@@ -45,7 +45,7 @@
    quickemu
    quickgui
    networkmanager-sstp
-   citrix_workspace
+   #citrix_workspace
    usbutils
    screen
 # STM32 DEV
