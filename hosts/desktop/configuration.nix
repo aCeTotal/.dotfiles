@@ -20,10 +20,6 @@
         ../../modules/system/ssh.nix
         ../../modules/system/nfs.nix
         ../../modules/system/system_services.nix
-
-      # Dev Shells
-      ../../modules/devshells/nodeshell.nix
-      ../../modules/devshells/cppshell.nix
       ];
 
 
