@@ -16,6 +16,7 @@
       ../../modules/user/hyprland.nix
       ../../modules/user/waybar.nix
       ../../modules/user/virtualisation.nix
+      ../../modules/user/derivations.nix
     #  ../../modules/user/tmux.nix
     ];
 

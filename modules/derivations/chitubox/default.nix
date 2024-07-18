@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   };
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ stdenv.cc.cc.lib libglvnd libgcrypt zlib glib fontconfig freetype libdrm ];
+  buildInputs = [ stdenv.cc.cc.lib libglvnd libgcrypt zlib glib fontconfig freetype libdrm dbus icoutils ];
 
   buildPhase = ''
     mkdir -p bin
