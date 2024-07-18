@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
 
   src = builtins.fetchTarball {
     url = "https://sac.chitubox.com/software/download.do?softwareId=17839&softwareVersionId=v${version}&fileName=CHITUBOX_V${version}.tar.gz";
-    sha256 = "9b14dce266132a08c0534076e1c93b5f7186b35885e96746a6b1836285071743";
+    sha256 = "1gbdi3g6jbb60mr8qp0h16z2x0ng3dwn26j09lvf2656gd1g3zf5";
   };
   nativeBuildInputs = [ autoPatchelfHook ];
 
