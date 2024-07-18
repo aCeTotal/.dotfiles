@@ -4,9 +4,9 @@
   hardware.enableAllFirmware = true;
 
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    anable32Bit = true;
   };
 
    # Bluetooth
