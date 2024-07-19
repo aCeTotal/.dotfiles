@@ -6,7 +6,7 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
-    anable32Bit = true;
+    enable32Bit = true;
   };
 
    # Bluetooth
