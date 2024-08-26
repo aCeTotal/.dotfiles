@@ -11,7 +11,7 @@
       ../../modules/user/bash.nix
       ../../modules/user/alacritty.nix
       ../../modules/user/rofi.nix
-      ../../modules/user/nvim/neovim.nix
+      ../../modules/user/neovim/default.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
       ../../modules/user/waybar.nix
