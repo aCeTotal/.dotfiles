@@ -55,7 +55,6 @@ let
     p.regex
     p.python
     p.perl
-    p.Godot
     p.gdshader
   ]));
 
