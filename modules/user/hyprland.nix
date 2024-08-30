@@ -37,7 +37,7 @@
       exec-once = swww init
       exec-once = waybar
       exec-once = mako
-      exec-one = dunst
+      exec-once = dunst
       exec-once = blueman-applet
       exec-once = nm-applet --indicator
       exec-once = wl-paste --watch cliphist store
@@ -253,7 +253,7 @@ bindm = $mainMod, mouse:273, resizewindow # Resize window
 # ----------------------------------------------------- 
 # Full documentation https://wiki.hyprland.org
 
-    source = ~/.config/hypr/conf/monitor.conf
+    source = ~/.config/hypr/conf/monitors.conf
     source = ~/.config/hypr/conf/autostart.conf
     source = ~/.config/hypr/conf/environments.conf
     source = ~/.config/hypr/conf/input.conf

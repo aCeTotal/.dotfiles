@@ -6,9 +6,7 @@
 # Unstable packages
     (with pkgs; [
      wget
-     freecad
      gnumake
-     appimage-run
      pavucontrol
      gh
      neofetch
@@ -69,6 +67,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "freeimage-unstable-2021-11-01"
+    "electron-29.4.6"
   ];
 
 # Allow Unfree packages on both stable and unstable

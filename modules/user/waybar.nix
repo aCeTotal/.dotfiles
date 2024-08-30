@@ -347,7 +347,6 @@ label:focus {
     home.file.".config/waybar/config.jsonc".text = ''
 
 {
-{
     // "layer": "top", // Waybar at top layer
     
     // "position": "bottom", // Waybar position (top|bottom|left|right)
