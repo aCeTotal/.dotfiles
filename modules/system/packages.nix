@@ -6,16 +6,10 @@
 # Unstable packages
     (with pkgs; [
      wget
-     gnumake
      pavucontrol
-     gh
-     neofetch
      unzip
      unrar
      libnotify
-     clinfo
-     lm_sensors
-     virtualglLib
      nfs-utils
      networkmanagerapplet
      nfstrace
@@ -25,10 +19,6 @@
      q4wine
      waylandpp
      wayland
-     clang
-     gcc
-    gtk4-layer-shell
-    gtk4
 
      ])
 
