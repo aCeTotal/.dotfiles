@@ -16,7 +16,7 @@
     slurp grim swappy wl-clipboard
 
     #Work
-    teams-for-linux
+    #teams-for-linux
 
     (blender.override { cudaSupport = true;})
     
