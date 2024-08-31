@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     brave
-    pureref
     gimp prusa-slicer
     stlink 
     #stm32cubemx
