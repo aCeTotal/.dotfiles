@@ -14,6 +14,7 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  #opentabletdriver for drawing/graphics tablets
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = true;
