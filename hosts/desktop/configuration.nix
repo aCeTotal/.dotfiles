@@ -9,7 +9,7 @@
 	../../modules/system/boot.nix
 	../../modules/system/hardware.nix
         ../../modules/system/sound.nix
-        ../../modules/system/GDM.nix #SDDM
+        ../../modules/system/ly.nix #SDDM #GDM
 	../../modules/system/nvidia.nix #amd #intel
 	../../modules/system/hyprland.nix
 	../../modules/system/packages.nix
