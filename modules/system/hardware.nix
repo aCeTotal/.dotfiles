@@ -14,4 +14,10 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = true;
+    blacklistedKernelModules = [  "hid-uclogic" "wacom"];
+  };
+
 }
