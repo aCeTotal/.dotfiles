@@ -20,6 +20,7 @@
         ../../modules/system/ssh.nix
         ../../modules/system/nfs.nix
         ../../modules/system/system_services.nix
+        ../../modules/system/distrobox.nix
       ];
 
 

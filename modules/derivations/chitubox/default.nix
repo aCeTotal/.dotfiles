@@ -1,51 +1,49 @@
 { pkgs ? import <nixpkgs> { } }:
-with pkgs;
 
-stdenv.mkDerivation rec {
-  pname = "chitubox-basic";
+let
+  steam-run = pkgs.steam-run-native;
+in
+pkgs.stdenv.mkDerivation rec {
+  pname = "chitubox-free-bin";
   version = "2.1.0";
 
-  src = builtins.fetchTarball {
+  src = pkgs.fetchurl {
     url = "https://sac.chitubox.com/software/download.do?softwareId=17839&softwareVersionId=v${version}&fileName=CHITUBOX_V${version}.tar.gz";
-    sha256 = "1gbdi3g6jbb60mr8qp0h16z2x0ng3dwn26j09lvf2656gd1g3zf5";
+    sha256 = "9b14dce266132a08c0534076e1c93b5f7186b35885e96746a6b1836285071743";
   };
-  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ stdenv.cc.cc.lib libglvnd libgcrypt zlib glib fontconfig freetype libdrm dbus icoutils ];
+  buildInputs = [ steam-run ];
 
-  buildPhase = ''
-    mkdir -p bin
-    mv CHITUBOX bin/chitubox
-
-    # Remove unused stuff
-    rm AppRun
-
-    # Place resources where ChiTuBox can expect to find them
-    mkdir ChiTuBox
-    mv resource ChiTuBox/
-
-    # Configure Qt paths
-    cat << EOF > bin/qt.conf
-      [Paths]
-      Prefix = $out
-      Plugins = plugins
-      Imports = qml
-      Qml2Imports = qml
-    EOF
+  unpackPhase = ''
+    mkdir -p $TMPDIR/source
+    cd $TMPDIR/source
+    tar -xzf $src
+    echo "Innhold etter utpakking:"
+    ls -la
   '';
 
   installPhase = ''
-    mkdir -p $out
-    mv * $out/
+    export INSTALL_ROOT=$TMPDIR/CHITUBOX_Basic
+    export OPT_DIR=$out/opt
+    export APP_DIR=$OPT_DIR/CHITUBOX_Basic
+
+    echo "Innholdet i source-katalogen etter utpakking:"
+    ls -la $TMPDIR/source
+
+    if [ ! -f $TMPDIR/source/CHITUBOX_Basic_Linux_Installer_V2.1.run ]; then
+      echo "Filen finnes ikke i source-katalogen."
+      exit 1
+    fi
+
+    # Kjør installasjonsprogrammet med steam-run
+    ${steam-run}/bin/steam-run $TMPDIR/source/CHITUBOX_Basic_Linux_Installer_V2.1.run --root $INSTALL_ROOT --accept-licenses --no-size-checking --accept-messages --confirm-command install
   '';
 
-  meta = {
-    description = "A Revolutionary Tool to Change 3D Printing Processes within One Click";
-    homepage = "https://www.chitubox.com";
-    license = {
-      fullName = "ChiTuBox EULA";
-      shortName = "ChiTuBox";
-      url = "https://www.chitubox.com";
-    };
+  meta = with pkgs.lib; {
+    description = "All-in-one SLA/DLP/LCD Slicer";
+    homepage = "https://www.chitubox.com/download.html";
+    license = licenses.unfree;
+    platforms = platforms.linux;
   };
 }
+
