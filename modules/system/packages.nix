@@ -60,6 +60,8 @@
     "electron-29.4.6"
   ];
 
+  programs.appimage.binfmt = true;
+
 # Allow Unfree packages on both stable and unstable
   nixpkgs.config.allowUnfree = true;
 

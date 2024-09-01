@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     brave
-    gimp prusa-slicer
+    gimp prusa-slicer freecad
     stlink 
     #stm32cubemx
     bashmount udisks udiskie

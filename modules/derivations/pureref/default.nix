@@ -1,26 +1,44 @@
 { pkgs ? import <nixpkgs> { } }:
-with pkgs;
 
-{ lib, appimageTools, runCommand, curl, gnugrep, cacert }:
+let
+  # Bruk builtins.path for å referere til den lokale filen
+  localDeb = builtins.path {
+    path = ~/.dotfiles/packages/PureRef-2.0.2_x64.deb;
+  };
+in
 
-appimageTools.wrapType1 rec {
+pkgs.stdenv.mkDerivation rec {
   pname = "pureref";
   version = "1.11.1";
 
-  src = runCommand "PureRef-${version}_x64.Appimage" {
-    nativeBuildInputs = [ curl gnugrep cacert ];
-    outputHash = "sha256-da/dH0ruI562JylpvE9f2zMUSJ56+T7Y0xlP/xr3yhY=";
-  } ''
-    key="$(curl "https://www.pureref.com/download.php" --silent | grep '%3D%3D' | cut -d '"' -f2)"
-    curl "https://www.pureref.com/files/build.php?build=LINUX64.Appimage&version=${version}&downloadKey=$key" --output $out
+  src = localDeb; # Bruker den lokale filen som kilde
+
+  nativeBuildInputs = [ pkgs.dpkg pkgs.xz pkgs.coreutils ];
+
+  unpackPhase = "true"; # Vi hopper over den vanlige unpackPhase.
+
+  buildPhase = ''
+    echo "Starting buildPhase"
+
+    # Pakk ut .deb-filen
+    echo "Extracting .deb file..."
+    dpkg-deb -x $src $TMPDIR/pureref || { echo "Failed to extract .deb file"; exit 1; }
+
+    echo "BuildPhase complete"
   '';
 
-  meta = with lib; {
+  installPhase = ''
+    echo "Starting installPhase"
+    cp -r $TMPDIR/pureref/* $out/
+    echo "InstallPhase complete"
+  '';
+
+  meta = with pkgs.lib; {
     description = "Reference Image Viewer";
-    homepage = "https://www.pureref.com";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ elnudev ];
+    homepage = "http://www.pureref.com";
+    license = licenses.unfree; # License is unknown, but not free
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with maintainers; [ ];
   };
 }
+
