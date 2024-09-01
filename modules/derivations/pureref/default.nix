@@ -1,35 +1,32 @@
 { pkgs ? import <nixpkgs> { } }:
 
-let
-  # Bruk builtins.path for å referere til den lokale filen
-  localDeb = builtins.path {
-    path = ~/.dotfiles/packages/PureRef-2.0.2_x64.deb;
-  };
-in
-
 pkgs.stdenv.mkDerivation rec {
   pname = "pureref";
-  version = "1.11.1";
+  version = "2.0.2";
 
-  src = localDeb; # Bruker den lokale filen som kilde
+  # Bruker den lokale .AppImage-filen som kilde
+  src = /home/total/.dotfiles/packages/PureRef-2.0.2_x64.Appimage;
 
-  nativeBuildInputs = [ pkgs.dpkg pkgs.xz pkgs.coreutils ];
+  nativeBuildInputs = [ pkgs.coreutils pkgs.bash ];
 
   unpackPhase = "true"; # Vi hopper over den vanlige unpackPhase.
 
   buildPhase = ''
     echo "Starting buildPhase"
 
-    # Pakk ut .deb-filen
-    echo "Extracting .deb file..."
-    dpkg-deb -x $src $TMPDIR/pureref || { echo "Failed to extract .deb file"; exit 1; }
+    # Sørg for at AppImage-filen er kjørbar
+    chmod +x $src
+
+    # Pakk ut AppImage-filen
+    mkdir -p $TMPDIR/appimage
+    $src --appimage-extract || { echo "Failed to extract AppImage"; exit 1; }
 
     echo "BuildPhase complete"
   '';
 
   installPhase = ''
     echo "Starting installPhase"
-    cp -r $TMPDIR/pureref/* $out/
+    cp -r $TMPDIR/appimage/squashfs-root/* $out/ || { echo "Failed to copy extracted files"; exit 1; }
     echo "InstallPhase complete"
   '';
 
