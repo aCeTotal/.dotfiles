@@ -9,6 +9,6 @@ in
 
     home.packages = [
     pureref
-    lycheeslicer
+    #lycheeslicer
     ];
 }

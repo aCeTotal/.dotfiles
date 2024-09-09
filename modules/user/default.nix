@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    brave
+    firefox
     gimp prusa-slicer freecad
     stlink 
     #stm32cubemx
