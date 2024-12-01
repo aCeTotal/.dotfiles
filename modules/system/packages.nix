@@ -45,10 +45,7 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    nerdfonts
+    noto-fonts-cfonts
     fira-code
     fira-code-symbols
     mplus-outline-fonts.githubRelease
