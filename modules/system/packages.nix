@@ -28,6 +28,7 @@
 
 #Stable packages
   (with pkgs-stable; [
+   (blender.override { cudaSupport = true;})
    sstp
    waybar
    quickemu

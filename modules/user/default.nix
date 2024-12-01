@@ -18,7 +18,7 @@
     #Work
     #teams-for-linux
 
-    (blender.override { cudaSupport = true;})
+    #(blender.override { cudaSupport = true;})
     
 
   ];

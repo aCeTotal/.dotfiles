@@ -34,6 +34,8 @@
 
     home.packages = with pkgs; [
     libreoffice
+    krita
+    inkscape-with-extensions
     zellij
     #shell_gpt
     aichat
