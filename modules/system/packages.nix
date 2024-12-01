@@ -44,8 +44,6 @@
 
 
   fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cfonts
     fira-code
     fira-code-symbols
     mplus-outline-fonts.githubRelease
