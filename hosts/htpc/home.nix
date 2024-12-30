@@ -21,10 +21,10 @@
     stateVersion = "24.05";
     };
 
-    shellAliases = {
-      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#htpc";
-      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#htpc";
-    };
+  #    shellAliases = {
+  #    "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#htpc";
+  #    "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#htpc";
+  #  };
 
     home.packages = with pkgs; [
 
