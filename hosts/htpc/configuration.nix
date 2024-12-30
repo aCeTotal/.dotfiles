@@ -6,12 +6,12 @@
     [
         ./hardware_configuration.nix
 	../../modules/system/nix.nix
-	../../modules/system/htpc_boot.nix
-	../../modules/system/hardware.nix
+	../../modules/system/htpc/htpc_boot.nix
+	../../modules/system/htpc/hardware.nix
         ../../modules/system/sound.nix
-        ../../modules/system/GDM.nix #SDDM
+        ../../modules/system/ly.nix #SDDM #GDM
 	../../modules/system/hyprland.nix
-	../../modules/system/packages.nix
+	../../modules/system/htpc/packages.nix
         ../../modules/system/gaming.nix
         ../../modules/system/networking.nix
         ../../modules/system/timezone_locale.nix

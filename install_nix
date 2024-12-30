@@ -259,7 +259,6 @@ programs.bash.shellAliases = {
     jack.enable = true;
   };
   hardware.pulseaudio.enable = false;
-  sound.enable = true;
   security.rtkit.enable = true;
   
   nixpkgs.config.allowUnfree = true;
