@@ -19,8 +19,6 @@
           	url = "github:nix-community/nixvim";
           	inputs.nixpkgs.follows = "nixpkgs";
         };
-
-       nix-gaming.url = "github:fufexan/nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
@@ -66,7 +64,7 @@
 		            ];
               };
 
-        # MSI GS66 Stealth 10UE
+              # MSI GS66 Stealth 10UE
 	      gs66 = lib.nixosSystem {
                 specialArgs = { inherit inputs; inherit system; };
                   modules = [ ./hosts/gs66/configuration.nix 
@@ -86,7 +84,7 @@
 
 
 
-        # X11 VM
+            # X11 VM
             x11vm = lib.nixosSystem {
               specialArgs = { inherit inputs; inherit system; };
                 modules = [ ./hosts/x11vm/configuration.nix
@@ -102,7 +100,7 @@
 		          ];
             };
 
-        # HomeServer
+              # HomeServer
 	      homeserver = lib.nixosSystem {
                 specialArgs = { inherit inputs; inherit system; };
                   modules = [ ./hosts/homeserver/configuration.nix 

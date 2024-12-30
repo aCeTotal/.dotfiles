@@ -14,10 +14,10 @@
       ../../modules/user/nvim/neovim.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
-      ../../modules/user/waybar.nix
-      ../../modules/user/virtualisation.nix
-      ../../modules/user/derivations.nix
-    #  ../../modules/user/tmux.nix
+      #      ../../imodules/user/waybar.nix
+      #../../modules/user/virtualisation.nix
+      #../../modules/user/derivations.nix
+      #../../modules/user/tmux.nix
     ];
 
     home = {
@@ -36,15 +36,6 @@
     libreoffice
     krita
     inkscape-with-extensions
-    zellij
-    #shell_gpt
-    aichat
-    tgpt
-    heygpt
-    yai
-    irssi
-    stlink
-    ryujinx
     # dev
  
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast

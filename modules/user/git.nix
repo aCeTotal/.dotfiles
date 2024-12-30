@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -13,7 +13,6 @@
             userEmail = "lars.oksendal@gmail.com";
         };
 
-
 	programs.ssh = {
         enable = true;
         compression = true;
@@ -25,5 +24,4 @@
           };
         };
       };
-
 }

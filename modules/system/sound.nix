@@ -1,7 +1,4 @@
-{ config, pkgs, pkgs-stable, inputs, ... }:
-
 {
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -10,6 +7,4 @@
     jack.enable = true;
   };
   hardware.pulseaudio.enable = false;
-
-
 }

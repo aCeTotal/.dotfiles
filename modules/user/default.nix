@@ -3,16 +3,17 @@
 {
   home.packages = with pkgs; [
     firefox
+    google-chrome netflix
+    kitty
     gimp prusa-slicer freecad
-    stlink 
+    #stlink 
     #stm32cubemx
     bashmount udisks udiskie
-    mpv spotify
-    librepcb
+    mpv 
+    spotify
     zoxide
     pamixer
     ripgrep
-    chatgpt-cli
     slurp grim swappy wl-clipboard
 
     #Work

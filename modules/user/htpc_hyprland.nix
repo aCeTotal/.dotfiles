@@ -34,13 +34,6 @@
       exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-      exec-once = swww init
-      exec-once = waybar
-      exec-once = mako
-      exec-once = dunst
-      exec-once = blueman-applet
-      exec-once = nm-applet --indicator
-      exec-once = wl-paste --watch cliphist store
       '';
 
     home.file.".config/hypr/conf/binds.conf".text = ''
@@ -137,7 +130,7 @@ bindm = $mainMod, mouse:273, resizewindow # Resize window
       env = MOZ_ENABLE_WAYLAND,1
 
       # Set the cursor size for xcursor
-      env = XCURSOR_SIZE,18
+      env = XCURSOR_SIZE,21
 
       # Disable appimage launcher by default
       env = APPIMAGELAUNCHER_DISABLE,1
@@ -148,15 +141,6 @@ bindm = $mainMod, mouse:273, resizewindow # Resize window
       # For KVM virtual machines
       # env = WLR_NO_HARDWARE_CURSORS, 1
       # env = WLR_RENDERER_ALLOW_SOFTWARE, 1
-
-      # NVIDIA https://wiki.hyprland.org/Nvidia/
-      env = LIBVA_DRIVER_NAME,nvidia
-      env = GBM_BACKEND,nvidia-drm
-      env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-      env = __GL_VRR_ALLOWED,1
-      env = WLR_DRM_NO_ATOMIC,1
-
-
     '';
 
     home.file.".config/hypr/conf/general.conf".text = ''
@@ -741,13 +725,8 @@ bindm = $mainMod, mouse:273, resizewindow # Resize window
     home.packages = with pkgs; [
         swaybg
         rofi-wayland
-        grim
-        swappy
-        shotman
-        slurp
         xfce.thunar
         foot
-        dunst
     ];
 
 }

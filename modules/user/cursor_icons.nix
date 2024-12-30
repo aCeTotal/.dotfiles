@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -7,7 +7,7 @@
       # x11.enable = true;
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
-      size = 24;
+      size = 21;
     };
 
     gtk = {
@@ -26,8 +26,6 @@
       name = "Sans";
       size = 11;
     };
-
-
 };
 
 }

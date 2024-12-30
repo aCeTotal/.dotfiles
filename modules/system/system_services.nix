@@ -1,5 +1,3 @@
-{ config, pkgs, pkgs-stable, inputs, ... }:
-
 {
 
   programs.neovim.defaultEditor = true;
