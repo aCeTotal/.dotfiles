@@ -45,6 +45,25 @@
 		          ];
             };
 
+
+
+            # HTPC
+              htpc = lib.nixosSystem {
+              specialArgs = { inherit inputs; inherit system; };
+                modules = [ ./hosts/htpc/configuration.nix
+                home-manager.nixosModules.home-manager {
+                    home-manager = {
+                      extraSpecialArgs = { inherit inputs; };
+	    			          useGlobalPkgs = true;
+            			    useUserPackages = true;
+            			    backupFileExtension = "backup";
+	    			          users.total = import ./hosts/htpc/home.nix;
+                    };
+	    	      	}
+		          ];
+            };
+
+
 	    # LENOVO THINKPAD T480
 	    t480 = lib.nixosSystem {
               specialArgs = { inherit inputs; inherit system; };
