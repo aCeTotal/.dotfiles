@@ -6,7 +6,7 @@
     [
         ./hardware_configuration.nix
 	../../modules/system/nix.nix
-	../../modules/system/htpc/htpc_boot.nix
+	../../modules/system/boot.nix
 	../../modules/system/htpc/hardware.nix
         ../../modules/system/sound.nix
         ../../modules/system/ly.nix #SDDM #GDM
