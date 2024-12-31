@@ -23,6 +23,9 @@
      protontricks
      protonup
      discord
+     retroarchFull
+     retroarch-assets
+     retroarch-joypad-autoconfig
      ])
 
   ++
