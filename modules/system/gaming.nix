@@ -23,15 +23,15 @@
      protontricks
      protonup
      discord
-     retroarchFull
-     retroarch-assets
-     retroarch-joypad-autoconfig
      ])
 
   ++
 
 #Stable packages
   (with pkgs-stable; [
+     retroarchFull
+     retroarch-assets
+     retroarch-joypad-autoconfig
 
   ]);
 
