@@ -52,7 +52,7 @@
 # BOOT settings
     supportedFilesystems = [ "btrfs" "ntfs" ];
     kernelModules = [ "btrfs" "nvidia" "nvidia_uvm" "tcp_bbr" ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen.xone;
+    kernelPackages = pkgs.linuxPackages_zen;
     tmp.cleanOnBoot = true;
     modprobeConfig.enable = true;
     extraModprobeConfig = ''
