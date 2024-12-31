@@ -10,6 +10,7 @@
     };
     settings = {
       max-jobs = 40;
+      download-buffer-size = 80000000;
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       substituters = [
