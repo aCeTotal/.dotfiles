@@ -15,8 +15,8 @@
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
       #      ../../imodules/user/waybar.nix
-      #../../modules/user/virtualisation.nix
-      #../../modules/user/derivations.nix
+      ../../modules/user/virtualisation.nix
+      ../../modules/user/derivations.nix
       #../../modules/user/tmux.nix
     ];
 
@@ -27,8 +27,8 @@
     };
 
     programs.bash.shellAliases = {
-      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
-      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
+      "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --impure --flake .#desktop";
+      "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --impure --flake .#desktop";
     };
 
 

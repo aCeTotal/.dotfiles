@@ -28,12 +28,10 @@
 #Stable packages
   (with pkgs-stable; [
    (blender.override { cudaSupport = true;})
-   sstp
+      #sstp
    #waybar
-   quickemu
-   quickgui
-   #networkmanager-sstp
-   #citrix_workspace
+      #networkmanager-sstp
+      #citrix_workspace
    usbutils
    screen
 # STM32 DEV

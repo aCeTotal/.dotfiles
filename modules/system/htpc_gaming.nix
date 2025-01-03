@@ -29,6 +29,10 @@
 
 #Stable packages
   (with pkgs-stable; [
+     retroarchFull
+     retroarch-assets
+     retroarch-joypad-autoconfig
+
   ]);
 
 
