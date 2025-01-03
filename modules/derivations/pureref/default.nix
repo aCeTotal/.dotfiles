@@ -4,7 +4,7 @@ pkgs.stdenv.mkDerivation rec {
   pname = "pureref";
   version = "2.0.2";
 
-  src = /home/total/.dotfiles/packages/PureRef-2.0.2_x64.Appimage;
+  src = if src != null then src else builtins.abort "\e[1;31mERROR: PureRef AppImage ikke funnet. Last ned manuelt fra https://www.pureref.com/download.php og kjør:\n\nnix-store --add-fixed sha256 PureRef-2.0.2_x64.AppImage\n\nDeretter, oppdater 'src' med stien gitt av kommandoen.\e[0m";
 
   nativeBuildInputs = [ pkgs.coreutils pkgs.bash pkgs.steam-run ];
 

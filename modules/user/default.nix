@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     firefox
     google-chrome netflix
+    pureref
     kitty
     gimp prusa-slicer freecad
     #stlink 
