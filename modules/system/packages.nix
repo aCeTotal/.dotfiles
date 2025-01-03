@@ -28,11 +28,13 @@
 
 #Stable packages
   (with pkgs-stable; [
+   gcc13
    sstp
    networkmanager-sstp
    citrix_workspace
    usbutils
    screen
+   
   ]);
 
 
