@@ -51,10 +51,10 @@
 $mainMod = SUPER
 
 # Actions
-bind = $mainMod, RETURN, exec, alacritty  #open the terminal
+bind = $mainMod, RETURN, exec, kitty  #open the terminal
 bind = $mainMod, Q, killactive, # close the active window
 bind = $mainMod, P, exec, rofi -show run
-bind = $mainMod, BACKSPACE, exec, brave
+bind = $mainMod, BACKSPACE, exec, google-chrome-stable
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
