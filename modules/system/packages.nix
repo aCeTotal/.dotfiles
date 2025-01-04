@@ -28,7 +28,7 @@
 
 #Stable packages
   (with pkgs-stable; [
-   gcc13
+   dbus
    sstp
    networkmanager-sstp
    citrix_workspace
@@ -54,6 +54,7 @@
   ];
 
   programs.appimage.binfmt = true;
+  programs.dconf.enable = true;
 
 # Allow Unfree packages on both stable and unstable
   nixpkgs.config.allowUnfree = true;

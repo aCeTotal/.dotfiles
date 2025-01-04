@@ -10,7 +10,15 @@ pkgs.stdenv.mkDerivation rec {
   };
 
 nativeBuildInputs = [
+    pkgs.libsForQt5.qt5.wrapQtAppsHook
     pkgs.coreutils
+    pkgs.qt5.qtwayland
+    pkgs.libsForQt5.qt5.qtwayland
+    pkgs.libsForQt5.qt5.qttools
+    pkgs.dbus
+    pkgs.gtk3
+    pkgs.qt5.qtbase
+    pkgs.mono
     pkgs.bash
     pkgs.steam-run
     pkgs.icu
