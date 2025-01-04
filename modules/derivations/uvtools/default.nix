@@ -4,7 +4,6 @@ pkgs.stdenv.mkDerivation rec {
   pname = "uvtools";
   version = "v5.0.3";
 
-  # Last ned AppImage-filen fra GitHub med fast versjon
   src = builtins.fetchurl {
     url = "https://github.com/sn4k3/UVtools/releases/download/${version}/UVtools_linux-x64_${version}.AppImage";
     sha256 = "0685idp886rpzdhqkknhsg7y3yrmvs3lm3yvhnzlpxcalbchc2nh";
@@ -28,7 +27,6 @@ nativeBuildInputs = [
     pkgs.zlib
   ];
 
-# Deaktiver all form for utpakking
   unpackPhase = "true";
   buildPhase = "true";
 
@@ -36,7 +34,6 @@ nativeBuildInputs = [
     echo "Creating a wrapper for UVtools"
     mkdir -p $out/bin
 
-    # Wrapper som peker direkte på AppImage-filen i Nix-butikken
     cat > $out/bin/uvtools <<EOF
 #!/bin/sh
 exec env LD_LIBRARY_PATH=${pkgs.icu}/lib:\$LD_LIBRARY_PATH \
