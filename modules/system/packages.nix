@@ -19,7 +19,6 @@
      q4wine
      waylandpp
      wayland
-     (blender.override { cudaSupport = true;})
      ])
 
 
@@ -28,7 +27,7 @@
 
 #Stable packages
   (with pkgs-stable; [
-   dbus
+   (blender.override { cudaSupport = true;})
    sstp
    networkmanager-sstp
    citrix_workspace
