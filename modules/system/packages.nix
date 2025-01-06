@@ -35,6 +35,8 @@
    screen
    teams-for-linux
    hexchat
+   zip
+   rar
    
   ]);
 
