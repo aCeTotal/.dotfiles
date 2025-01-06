@@ -93,12 +93,16 @@ services.mysql = {
   ensureUsers = [
     {
       name = "nixos";
-      password = "nixos";
       ensurePermissions = {
         "exampledb.*" = "ALL PRIVILEGES";
       };
     }
   ];
+  initialScript = pkgs.writeText "mysql-init" ''
+    CREATE USER 'exampleuser'@'localhost' IDENTIFIED BY 'securepassword';
+    GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
+    FLUSH PRIVILEGES;
+  '';
 };
 
 
