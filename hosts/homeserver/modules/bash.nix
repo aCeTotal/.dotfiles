@@ -8,8 +8,8 @@
         ll = "ls -l";
         ".." = "cd ..";
 	"v" = "nvim";
-	"update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
-	"upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
+	"update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#homeserver";
+	"upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#homeserver";
 
 
 	"editconf" = "nvim ~/.dotfiles/hosts/desktop/configuration.nix";
