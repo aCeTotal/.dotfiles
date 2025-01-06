@@ -66,14 +66,34 @@
     algorithm = "zstd";
   };
 
-  services.mysql = {
+
+services.httpd = {
+  enable = true;
+  adminAddr = "webmaster@Linux.org";
+  enablePHP = true;
+  phpPackage = pkgs.php;
+  virtualHosts = {
+    "example.org" = {
+      documentRoot = "/mnt/bigdisk1";
+      extraConfig = ''
+        <Directory "/var/www/example.org">
+          Options Indexes FollowSymLinks
+          AllowOverride All
+          Require all granted
+        </Directory>
+      '';
+    };
+  };
+};
+
+services.mysql = {
   enable = true;
   package = pkgs.mariadb;
   ensureDatabases = [ "exampledb" ];
   ensureUsers = [
     {
-      name = "exampleuser";
-      password = "securepassword";
+      name = "nixos";
+      password = "nixos";
       ensurePermissions = {
         "exampledb.*" = "ALL PRIVILEGES";
       };
@@ -82,20 +102,6 @@
 };
 
 
-
-  services.nginx = {
-  enable = true;
-  virtualHosts."example.com" = {
-    root = "/var/www/example";
-    index = "index.php";
-    locations."/".tryFiles = "$uri $uri/ =404";
-    locations."~ \.php$" = {
-      fastcgiSplitPathInfo = "^(.+\.php)(/.+)$";
-      fastcgiPass = "unix:${config.services.phpfpm.pools.example.socket}";
-      include = [ "${pkgs.nginx}/conf/fastcgi.conf" ];
-    };
-  };
-};
 
 
   # NFS Server
