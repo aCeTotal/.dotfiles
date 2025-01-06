@@ -8,7 +8,6 @@
       #programs
       ./modules/git.nix
       ./modules/bash.nix
-      ./modules/nixvim.nix
     ];
 
     home = {
