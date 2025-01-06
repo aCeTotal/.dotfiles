@@ -66,6 +66,51 @@
     algorithm = "zstd";
   };
 
+  services.phpfpm = {
+  enable = true;
+  pools.example = {
+    user = "nginx";
+    group = "nginx";
+    listen = "/run/phpfpm-example.sock";
+    phpOptions = {
+      "php_admin_value[open_basedir]" = "/var/www/example:/tmp";
+      "php_admin_value[error_log]" = "/var/log/php-fpm.log";
+    };
+  };
+};
+
+  services.mysql = {
+  enable = true;
+  package = pkgs.mariadb;
+  ensureDatabases = [ "exampledb" ];
+  ensureUsers = [
+    {
+      name = "exampleuser";
+      password = "securepassword";
+      ensurePermissions = {
+        "exampledb.*" = "ALL PRIVILEGES";
+      };
+    }
+  ];
+};
+
+
+
+  services.nginx = {
+  enable = true;
+  virtualHosts."example.com" = {
+    root = "/var/www/example";
+    index = "index.php";
+    locations."/".tryFiles = "$uri $uri/ =404";
+    locations."~ \.php$" = {
+      fastcgiSplitPathInfo = "^(.+\.php)(/.+)$";
+      fastcgiPass = "unix:${config.services.phpfpm.pools.example.socket}";
+      include = [ "${pkgs.nginx}/conf/fastcgi.conf" ];
+    };
+  };
+};
+
+
   # NFS Server
   services.nfs.server = {
     enable = true;
