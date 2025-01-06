@@ -34,6 +34,7 @@
    usbutils
    screen
    teams-for-linux
+   hexchat
    
   ]);
 
