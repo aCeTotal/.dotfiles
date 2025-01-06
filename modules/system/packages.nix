@@ -33,6 +33,7 @@
    citrix_workspace
    usbutils
    screen
+   teams-for-linux
    
   ]);
 
