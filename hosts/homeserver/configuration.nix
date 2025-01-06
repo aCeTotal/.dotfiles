@@ -66,19 +66,6 @@
     algorithm = "zstd";
   };
 
-  services.phpfpm = {
-  enable = true;
-  pools.example = {
-    user = "nginx";
-    group = "nginx";
-    listen = "/run/phpfpm-example.sock";
-    phpOptions = {
-      "php_admin_value[open_basedir]" = "/var/www/example:/tmp";
-      "php_admin_value[error_log]" = "/var/log/php-fpm.log";
-    };
-  };
-};
-
   services.mysql = {
   enable = true;
   package = pkgs.mariadb;
