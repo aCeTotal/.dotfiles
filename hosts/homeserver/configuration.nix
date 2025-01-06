@@ -74,7 +74,7 @@ services.httpd = {
   phpPackage = pkgs.php;
   virtualHosts = {
     "example.org" = {
-      documentRoot = "/mnt/bigdisk1";
+      documentRoot = "/mnt/bigdisk1/www";
       extraConfig = ''
         <Directory "/var/www/example.org">
           Options Indexes FollowSymLinks
