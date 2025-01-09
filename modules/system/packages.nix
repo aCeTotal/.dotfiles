@@ -5,7 +5,6 @@
 
 # Unstable packages
     (with pkgs; [
-    (blender.override { cudaSupport = true;})
      wget
      pavucontrol
      unzip
@@ -28,6 +27,7 @@
 
 #Stable packages
   (with pkgs-stable; [
+   (blender.override { cudaSupport = true;})
    sstp
    networkmanager-sstp
    citrix_workspace
