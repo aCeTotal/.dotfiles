@@ -58,7 +58,7 @@
 
           {
             plugin = vim-fugitive;
-            config = toLuaFile ./lua/plugins/fugitive.lua;
+          #config = toLuaFile ./lua/plugins/fugitive.lua;
           }
 
           {
