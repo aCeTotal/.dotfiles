@@ -36,10 +36,10 @@
             config = toLuaFile ./lua/plugins/telescope.lua;
           }
 
-          #{
-          #  plugin = nvim-cmp;
-          #  config = toLuaFile ./lua/plugins/cmp.lua;
-          #}
+          {
+            plugin = nvim-cmp;
+            config = toLuaFile ./lua/plugins/cmp.lua;
+          }
 
           {
             plugin = nvim-lspconfig;
@@ -58,7 +58,7 @@
 
           {
             plugin = vim-fugitive;
-            #config = toLuaFile ./lua/plugins/fugitive.lua;
+            config = toLuaFile ./lua/plugins/fugitive.lua;
           }
 
           {
