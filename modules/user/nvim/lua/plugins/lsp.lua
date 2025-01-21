@@ -18,9 +18,9 @@ require'lspconfig'.clangd.setup{
   capabilities=capabilities
 }
 
-
-
-require'lspconfig'.lua_ls.setup{capabilities=capabilities}
+require'lspconfig'.html.setup {}
+require'lspconfig'.cssls.setup {}
+require'lspconfig'.tsserver.setup {}
 require'lspconfig'.rust_analyzer.setup{capabilities=capabilities}
 require'lspconfig'.cmake.setup{capabilities=capabilities}
 require'lspconfig'.dockerls.setup{capabilities=capabilities}

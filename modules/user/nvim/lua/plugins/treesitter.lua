@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   sync_install = false,
-  ensure_installed = {},
+  ensure_installed = {"html", "css", "javascript", "clang"},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
