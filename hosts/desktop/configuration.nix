@@ -21,6 +21,7 @@
         ../../modules/system/nfs.nix
         ../../modules/system/system_services.nix
         ../../modules/system/distrobox.nix
+        ../../modules/system/webdev.nix
       ];
 
 
