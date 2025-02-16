@@ -89,7 +89,7 @@ services.httpd = {
 services.mysql = {
   enable = true;
   package = pkgs.mariadb;
-  ensureDatabases = [ "exampledb" ];
+  ensureDatabases = [ "pfodb" ];
   ensureUsers = [
     {
       name = "nixos";
