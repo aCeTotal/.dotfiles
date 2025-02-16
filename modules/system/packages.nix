@@ -19,6 +19,8 @@
      q4wine
      waylandpp
      wayland
+     makemkv
+     mkvtoolnix
      ])
 
 

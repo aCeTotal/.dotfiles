@@ -234,6 +234,8 @@ programs.neovim.defaultEditor = true;
   (with pkgs-stable; [
     usbutils
     screen
+    nodejs_23
+    mariadb
   ]);
 
 
