@@ -217,7 +217,6 @@ programs.neovim.defaultEditor = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
-  <LeftMouse># started in user sessions.
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
