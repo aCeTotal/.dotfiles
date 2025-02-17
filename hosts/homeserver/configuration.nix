@@ -57,8 +57,6 @@
   boot.extraModprobeConfig = ''
 '';
 
-  hardware.enableAllFirmware = true;
-
   # Zram
   zramSwap = {
     enable = true;
