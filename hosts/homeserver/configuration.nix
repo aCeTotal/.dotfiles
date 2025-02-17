@@ -180,22 +180,9 @@ programs.neovim.defaultEditor = true;
 
   environment.systemPackages = with pkgs; [
     vim
-    wget
-    unzip
-    unrar
     nodejs_23
     mariadb
-    libblockdev
   ];
-
-  nixpkgs.overlays = [
-    (self: super: {
-      systemd = super.systemd.override {
-        withFido2 = false;
-      };
-    })
-  ];
-
 
   # Some programs need SUID wrappers, can be configured further or are
   programs.mtr.enable = true;
