@@ -67,6 +67,27 @@
   };
 
 
+services.mysql = {
+  enable = true;
+  package = pkgs.mariadb;
+  ensureDatabases = [ "pfodb" ];
+  ensureUsers = [
+    {
+      name = "nixos";
+      ensurePermissions = {
+        "exampledb.*" = "ALL PRIVILEGES";
+      };
+    }
+  ];
+  initialScript = pkgs.writeText "mysql-init" ''
+    CREATE USER 'exampleuser'@'localhost' IDENTIFIED BY 'securepassword';
+    GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
+    FLUSH PRIVILEGES;
+  '';
+};
+
+
+
 services.caddy = {
   enable = true;
   virtualHosts."example.org" = {
@@ -76,6 +97,17 @@ services.caddy = {
     '';
   };
 };
+
+{
+  nixpkgs.overlays = [
+    (self: super: {
+      python3Packages.pytest-httpbin = super.python3Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
+        doCheck = false;
+      });
+    })
+  ];
+}
+
 
 
 
