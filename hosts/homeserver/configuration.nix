@@ -188,6 +188,14 @@ programs.neovim.defaultEditor = true;
     libblockdev
   ];
 
+  nixpkgs.overlays = [
+    (self: super: {
+      systemd = super.systemd.override {
+        withFido2 = false;
+      };
+    })
+  ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   programs.mtr.enable = true;
