@@ -49,12 +49,12 @@
         ];
         x11vm = mkNixosConfig "x11vm" [];
 
-        # 🔹 HomeServer bruker en gammel versjon av nixpkgs
         homeserver = lib.nixosSystem {
           specialArgs = { inherit inputs system; };
           modules = [
             ./hosts/homeserver/configuration.nix
-            { nixpkgs.pkgs = pkgs-homeserver; }  # Sikrer at homeserver bruker gammelt nixpkgs
+            { nixpkgs.pkgs = pkgs-homeserver; }  # 🔹 Bruker gammel nixpkgs
+            { nixpkgs.config.allowUnfree = true; }  # 🔹 Flytt allowUnfree hit!
             home-manager.nixosModules.home-manager {
               home-manager = {
                 extraSpecialArgs = { inherit inputs; };
@@ -66,6 +66,8 @@
             }
           ];
         };
+
+
       };
     };
 }

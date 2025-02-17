@@ -55,7 +55,8 @@
   boot.tmp.cleanOnBoot = true;
   boot.modprobeConfig.enable = true;
   boot.extraModprobeConfig = ''
-''; 
+'';
+
   hardware.enableAllFirmware = true;
 
   # Zram
@@ -216,7 +217,7 @@ programs.neovim.defaultEditor = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
+  <LeftMouse># started in user sessions.
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
@@ -266,7 +267,6 @@ programs.neovim.defaultEditor = true;
   };
 
 # Allow Unfree packages on both stable and unstable
-nixpkgs.config.allowUnfree = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
