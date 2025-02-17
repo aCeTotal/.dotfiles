@@ -86,8 +86,6 @@ services.mysql = {
   '';
 };
 
-
-
 services.caddy = {
   enable = true;
   virtualHosts."example.org" = {
@@ -97,18 +95,6 @@ services.caddy = {
     '';
   };
 };
-
-nixpkgs.overlays = [
-  (self: super: {
-    python312Packages.flake8 = super.python312Packages.flake8 or super.python312Packages.flake8_6;
-    python312Packages.requests = super.python312Packages.requests or super.python3Packages.requests;
-
-    python312Packages.pytest-httpbin = super.python312Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
-      doCheck = false; # Deaktiverer tester for å unngå feilmeldinger
-    });
-  })
-];
-
 
 
   # NFS Server
