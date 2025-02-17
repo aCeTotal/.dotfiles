@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-homeserver.url = "github:nixos/nixpkgs/42f3a5b56d243b6b89f41d85091b6c203f2e2e77";  #Nixpkgs 2024
+    nixpkgs-homeserver.url = "github:nixos/nixpkgs/70bdadeb94ffc8806c0570eb5c2695ad29f0e421";  #Nixpkgs 2024
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
