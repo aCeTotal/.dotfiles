@@ -62,12 +62,13 @@
 
         # HomeServer with Stable-packages
         homeserver = lib.nixosSystem {
-          specialArgs = { inherit inputs system; pkgs = pkgs-stable; };
+          specialArgs = { inherit inputs system; };
           modules = [
+            { nixpkgs.config.allowUnfree = true; }  # Sikrer at unfree pakker er tillatt
             ./hosts/homeserver/configuration.nix
             home-manager.nixosModules.home-manager {
               home-manager = {
-                extraSpecialArgs = { inherit inputs; pkgs = pkgs-stable; }; # HER ER ENDRINGEN
+                extraSpecialArgs = { inherit inputs; };
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 backupFileExtension = "backup";
@@ -76,6 +77,8 @@
             }
           ];
         };
+
+
       };
     };
 }
