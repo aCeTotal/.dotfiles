@@ -234,6 +234,7 @@ programs.neovim.defaultEditor = true;
     screen
     nodejs_23
     mariadb
+    flake8
   ]);
 
 
