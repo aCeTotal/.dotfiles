@@ -53,8 +53,8 @@
           specialArgs = { inherit inputs system; };
           modules = [
             ./hosts/homeserver/configuration.nix
-            { nixpkgs.pkgs = pkgs-homeserver; }
-            { environment.systemPackages = with pkgs-stable; [ systemd ]; } # 🔹 Hent systemd fra stable
+            { nixpkgs.pkgs = pkgs-homeserver; }  # Sikrer at homeserver bruker riktig nixpkgs
+            { environment.systemPackages = with pkgs-homeserver; [ systemd ]; }  # 🔹 Sikrer riktig systemd
             home-manager.nixosModules.home-manager {
               home-manager = {
                 extraSpecialArgs = { inherit inputs; };
