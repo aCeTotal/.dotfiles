@@ -67,24 +67,28 @@
   };
 
 
-services.httpd = {
+services.nginx = {
   enable = true;
-  adminAddr = "webmaster@Linux.org";
-  enablePHP = true;
-  phpPackage = pkgs.php;
   virtualHosts = {
     "example.org" = {
-      documentRoot = "/mnt/bigdisk1/www";
-      extraConfig = ''
-        <Directory "/var/www/example.org">
-          Options Indexes FollowSymLinks
-          AllowOverride All
-          Require all granted
-        </Directory>
-      '';
+      root = "/mnt/bigdisk1/www";
+      locations."/" = {
+        index = "index.php index.html";
+      };
+      locations."~ \.php$" = {
+        fastcgiPass = "unix:/run/phpfpm/www.sock";
+        extraConfig = ''
+          include ${pkgs.nginx}/conf/fastcgi_params;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        '';
+      };
     };
   };
 };
+services.phpfpm.enable = true; # PHP-støtte for Nginx
+
+
 
 services.mysql = {
   enable = true;
@@ -248,7 +252,7 @@ programs.neovim.defaultEditor = true;
   };
 
   # List services that you want to enable:
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
   services.xserver.xkb = {
     layout = "no";
   };
