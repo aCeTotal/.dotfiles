@@ -62,7 +62,7 @@ services.mysql = {
 
 services.caddy = {
   enable = true;
-  virtualHosts."example.org" = {
+    virtualHosts."pfoprod.ddns.net" = {
     extraConfig = ''
       root * /mnt/bigdisk1/www
       file_server
