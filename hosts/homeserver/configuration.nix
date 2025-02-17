@@ -79,29 +79,6 @@ services.caddy = {
 
 
 
-
-services.mysql = {
-  enable = true;
-  package = pkgs.mariadb;
-  ensureDatabases = [ "pfodb" ];
-  ensureUsers = [
-    {
-      name = "nixos";
-      ensurePermissions = {
-        "exampledb.*" = "ALL PRIVILEGES";
-      };
-    }
-  ];
-  initialScript = pkgs.writeText "mysql-init" ''
-    CREATE USER 'exampleuser'@'localhost' IDENTIFIED BY 'securepassword';
-    GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
-    FLUSH PRIVILEGES;
-  '';
-};
-
-
-
-
   # NFS Server
   services.nfs.server = {
     enable = true;
