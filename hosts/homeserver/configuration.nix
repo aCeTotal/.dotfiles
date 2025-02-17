@@ -98,13 +98,19 @@ services.caddy = {
   };
 };
 
-nixpkgs.overlays = [
+  {
+  nixpkgs.overlays = [
     (self: super: {
+      python3Packages.flake8 = super.python3Packages.flake8 or super.python3Packages.flake8_6;
+
       python3Packages.pytest-httpbin = super.python3Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
-        doCheck = false;
+        doCheck = false; # Deaktiverer tester for å unngå feilmeldinger
       });
     })
   ];
+}
+
+
 
   # NFS Server
   services.nfs.server = {
