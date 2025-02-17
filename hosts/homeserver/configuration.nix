@@ -73,7 +73,6 @@ services.caddy = {
     extraConfig = ''
       root * /mnt/bigdisk1/www
       file_server
-      php_fastcgi unix//run/phpfpm/www.sock
     '';
   };
 };
