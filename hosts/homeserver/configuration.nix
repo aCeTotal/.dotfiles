@@ -67,26 +67,18 @@
   };
 
 
-services.nginx = {
+services.caddy = {
   enable = true;
-  virtualHosts = {
-    "example.org" = {
-      root = "/mnt/bigdisk1/www";
-      locations."/" = {
-        index = "index.php index.html";
-      };
-      locations."~ \.php$" = {
-        fastcgiPass = "unix:/run/phpfpm/www.sock";
-        extraConfig = ''
-          include ${pkgs.nginx}/conf/fastcgi_params;
-          fastcgi_index index.php;
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        '';
-      };
-    };
+  virtualHosts."example.org" = {
+    extraConfig = ''
+      root * /mnt/bigdisk1/www
+      file_server
+      php_fastcgi unix//run/phpfpm/www.sock
+    '';
   };
 };
-services.phpfpm.enable = true; # PHP-støtte for Nginx
+services.phpfpm.enable = true; # PHP-støtte for Caddy
+
 
 
 
