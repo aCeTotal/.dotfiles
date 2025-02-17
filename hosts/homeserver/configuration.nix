@@ -98,15 +98,16 @@ services.caddy = {
   };
 };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      python3Packages.flake8 = super.python3Packages.flake8 or super.python3Packages.flake8_6;
+nixpkgs.overlays = [
+  (self: super: {
+    python312Packages.flake8 = super.python312Packages.flake8 or super.python312Packages.flake8_6;
+    python312Packages.requests = super.python312Packages.requests or super.python3Packages.requests;
 
-      python3Packages.pytest-httpbin = super.python3Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
-        doCheck = false; # Deaktiverer tester for å unngå feilmeldinger
-      });
-    })
-  ];
+    python312Packages.pytest-httpbin = super.python312Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
+      doCheck = false; # Deaktiverer tester for å unngå feilmeldinger
+    });
+  })
+];
 
 
 
@@ -238,7 +239,8 @@ programs.neovim.defaultEditor = true;
     screen
     nodejs_23
     mariadb
-    flake8
+    python312Packages.flake8
+    python312Packages.requests
   ]);
 
 
