@@ -203,31 +203,15 @@ programs.neovim.defaultEditor = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = 
 
-  # Unstable packages
-  (with pkgs; [
+  environment.systemPackages = with pkgs; [
     vim
     wget
-    fail2ban
     unzip
     unrar
-    nfs-utils
-    nfstrace
-    htop
-  ])
-
-  ++
-
-  #Stable packages
-  (with pkgs-stable; [
-    usbutils
-    screen
     nodejs_23
     mariadb
-    python312Packages.flake8
-    python312Packages.requests
-  ]);
+  ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -282,14 +266,6 @@ programs.neovim.defaultEditor = true;
 
 # Allow Unfree packages on both stable and unstable
 nixpkgs.config.allowUnfree = true;
-
-_module.args = {
-  pkgs-stable = import inputs.nixpkgs-stable {
-      inherit (config.nixpkgs) config;
-      inherit (pkgs.stdenv.hostPlatform) system;
-  };
-};
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
