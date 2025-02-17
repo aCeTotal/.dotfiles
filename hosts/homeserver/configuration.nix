@@ -77,7 +77,6 @@ services.caddy = {
     '';
   };
 };
-services.phpfpm.enable = true; # PHP-støtte for Caddy
 
 
 
