@@ -98,7 +98,6 @@ services.caddy = {
   };
 };
 
-  {
   nixpkgs.overlays = [
     (self: super: {
       python3Packages.flake8 = super.python3Packages.flake8 or super.python3Packages.flake8_6;
@@ -108,7 +107,6 @@ services.caddy = {
       });
     })
   ];
-}
 
 
 
