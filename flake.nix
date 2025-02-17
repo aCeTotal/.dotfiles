@@ -1,36 +1,25 @@
+
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-homeserver.url = "github:nixos/nixpkgs/42f3a5b56d243b6b89f41d85091b6c203f2e2e77";  #Nixpkgs 2024
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixpkgs-homeserver, nixos-hardware, home-manager, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+      pkgs-homeserver = nixpkgs-homeserver.legacyPackages.${system};  # 🔹 Bruker gammel nixpkgs for homeserver
 
-      # Funksjon for å opprette en NixOS-konfig
-      mkNixosConfig = name: extraModules:
+      mkNixosConfig = name: pkgsOverride: extraModules:
         lib.nixosSystem {
-          specialArgs = { inherit inputs system; };
+          specialArgs = { inherit inputs system; pkgs = pkgsOverride; };
           modules = [
             ./hosts/${name}/configuration.nix
             home-manager.nixosModules.home-manager {
@@ -47,39 +36,20 @@
 
     in {
       nixosConfigurations = {
-        desktop = mkNixosConfig "desktop" [];
-        htpc = mkNixosConfig "htpc" [];
-        t480 = mkNixosConfig "t480" [
+        desktop = mkNixosConfig "desktop" pkgs [];
+        htpc = mkNixosConfig "htpc" pkgs [];
+        t480 = mkNixosConfig "t480" pkgs [
           nixos-hardware.nixosModules.lenovo-thinkpad-t480
           nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
           nixos-hardware.nixosModules.common-gpu-intel
         ];
-        gs66 = mkNixosConfig "gs66" [
+        gs66 = mkNixosConfig "gs66" pkgs [
           nixos-hardware.nixosModules.common-cpu-intel-cpu-only
           nixos-hardware.nixosModules.common-gpu-intel
         ];
-        x11vm = mkNixosConfig "x11vm" [];
+        x11vm = mkNixosConfig "x11vm" pkgs [];
 
-        # HomeServer with Stable-packages
-        homeserver = lib.nixosSystem {
-          specialArgs = { inherit inputs system; };
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }  # Sikrer at unfree pakker er tillatt
-            ./hosts/homeserver/configuration.nix
-            home-manager.nixosModules.home-manager {
-              home-manager = {
-                extraSpecialArgs = { inherit inputs; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                users.total = import ./hosts/homeserver/home.nix;
-              };
-            }
-          ];
-        };
-
-
+        homeserver = mkNixosConfig "homeserver" pkgs-homeserver [];
       };
     };
 }
-
