@@ -53,8 +53,12 @@
           specialArgs = { inherit inputs system; };
           modules = [
             ./hosts/homeserver/configuration.nix
-            { nixpkgs.pkgs = pkgs-homeserver; }  # 🔹 Bruker gammel nixpkgs
-            { nixpkgs.config.allowUnfree = true; }  # 🔹 Flytt allowUnfree hit!
+            { 
+              nixpkgs.pkgs = import nixpkgs-homeserver {
+                system = "x86_64-linux";
+                config.allowUnfree = true;  # 🔹 Flytt allowUnfree hit!
+              };
+            }
             home-manager.nixosModules.home-manager {
               home-manager = {
                 extraSpecialArgs = { inherit inputs; };
