@@ -64,11 +64,14 @@
 
         homeserver = lib.nixosSystem {
           specialArgs = { inherit inputs system; };
-          modules = baseModules "homeserver" ++ [
-            { nixpkgs.pkgs = pkgs-stable; }
+          modules = [
+            ./hosts/homeserver/configuration.nix
+            { nixpkgs.pkgs = pkgs-stable; }  # 🔹 Bruk kun nixpkgs-stable
             { nixpkgs.overlays = []; }
           ];
         };
+
+
       };
     };
 }
