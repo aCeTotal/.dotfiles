@@ -211,6 +211,7 @@ programs.neovim.defaultEditor = true;
     unrar
     nodejs_23
     mariadb
+    libblockdev
   ];
 
 
