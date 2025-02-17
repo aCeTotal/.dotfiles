@@ -98,18 +98,13 @@ services.caddy = {
   };
 };
 
-{
-  nixpkgs.overlays = [
+nixpkgs.overlays = [
     (self: super: {
       python3Packages.pytest-httpbin = super.python3Packages.pytest-httpbin.overrideAttrs (oldAttrs: {
         doCheck = false;
       });
     })
   ];
-}
-
-
-
 
   # NFS Server
   services.nfs.server = {
