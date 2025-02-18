@@ -79,6 +79,22 @@ services.caddy = {
   };
 };
 
+systemd.services.pfo-server = {
+  enable = true;
+  description = "Node.js server for PFO";
+  after = [ "network.target" ];  # Starter etter nettverket er oppe
+  wantedBy = [ "multi-user.target" ];
+  serviceConfig = {
+    ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO/server.js";
+    Restart = "always";  # Restart ved krasj
+    User = "total";  # Endre til brukeren som skal kjøre tjenesten
+    WorkingDirectory = "/mnt/bigdisk1/www/PFO";
+    StandardOutput = "journal";
+    StandardError = "journal";
+  };
+};
+
+
 
   # NFS Server
   services.nfs.server = {
