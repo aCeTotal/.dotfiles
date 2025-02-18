@@ -48,7 +48,7 @@ services.mysql = {
   ensureUsers = [
     {
       name = "nixos";
-      password = "nixos";  # Legg til passordfeltet
+      password = "nixos";  # Legger til passord her
       ensurePermissions = {
         "pfo_db.*" = "ALL PRIVILEGES";
       };
