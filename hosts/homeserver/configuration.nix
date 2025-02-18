@@ -66,7 +66,7 @@ security.acme = {
 };
 
 security.acme.certs."pfoprod.ddns.net" = {
-  listenHTTP = true;
+  listenHTTP = "0.0.0.0:80";
 };
 
 services.caddy = {
