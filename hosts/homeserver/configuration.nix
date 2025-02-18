@@ -65,6 +65,10 @@ security.acme = {
   defaults.email = "lars.oksendal@oneco.no";
 };
 
+security.acme.certs."pfoprod.ddns.net" = {
+  listenHTTP = true;
+};
+
 services.caddy = {
   enable = true;
   virtualHosts."pfoprod.ddns.net" = {
