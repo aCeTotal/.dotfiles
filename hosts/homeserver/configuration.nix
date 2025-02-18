@@ -60,6 +60,11 @@ services.mysql = {
   '';
 };
 
+security.acme = {
+  acceptTerms = true;
+  defaults.email = "lars.oksendal@oneco.no";
+};
+
 services.caddy = {
   enable = true;
   virtualHosts."pfoprod.ddns.net" = {
