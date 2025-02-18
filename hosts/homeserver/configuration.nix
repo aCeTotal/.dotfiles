@@ -62,10 +62,9 @@ services.mysql = {
 
 services.caddy = {
   enable = true;
-    virtualHosts."pfoprod.ddns.net" = {
+  virtualHosts."pfoprod.ddns.net" = {
     extraConfig = ''
-      root * /mnt/bigdisk1/www
-      file_server
+      reverse_proxy localhost:4500
     '';
   };
 };
