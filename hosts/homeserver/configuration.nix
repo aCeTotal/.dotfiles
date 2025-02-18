@@ -48,20 +48,15 @@ services.mysql = {
   ensureUsers = [
     {
       name = "nixos";
-      password = "nixos";
+      password = "nixos";  # Legg til passordfeltet
       ensurePermissions = {
-        "*.*" = "ALL PRIVILEGES";
+        "pfo_db.*" = "ALL PRIVILEGES";
       };
     }
   ];
   initialScript = pkgs.writeText "mysql-init" ''
-    -- Sett passord for root, men vi bruker nixos i stedet
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'nixos';
-
-    -- Opprett brukeren "nixos" med full kontroll over ALT
     CREATE USER 'nixos'@'localhost' IDENTIFIED BY 'nixos';
-    GRANT ALL PRIVILEGES ON *.* TO 'nixos'@'localhost' WITH GRANT OPTION;
-
+    GRANT ALL PRIVILEGES ON pfo_db.* TO 'nixos'@'localhost';
     FLUSH PRIVILEGES;
   '';
 };
