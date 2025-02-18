@@ -63,6 +63,7 @@ services.mysql = {
 services.caddy = {
   enable = true;
   virtualHosts."pfoprod.ddns.net" = {
+    useACMEHost = "pfoprod.ddns.net";
     extraConfig = ''
       reverse_proxy localhost:4500
     '';
