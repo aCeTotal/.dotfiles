@@ -80,19 +80,19 @@ services.caddy = {
 };
 
 systemd.services.pfo-server = {
-  enable = true;
   description = "Node.js server for PFO";
   after = [ "network.target" ];
+  wants = [ "network.target" ];
   wantedBy = [ "multi-user.target" ];
-
+  
   serviceConfig = {
     ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO/server.js";
-    WorkingDirectory = "/mnt/bigdisk1/www/PFO";
-    Restart = "always";
-    User = "total";  # Endre til riktig bruker
-    Group = "users"; # Endre til riktig gruppe
-    Environment = "NODE_ENV=production PORT=4500";
-    StandardOutput = "journal";
+    WorkingDirectory = "/mnt/bigdisk1/www/PFO";  # Setter riktig katalog
+    User = "total";  # Kjører som riktig bruker
+    Group = "users"; 
+    EnvironmentFile = "/mnt/bigdisk1/www/PFO/.env"; # Laster inn miljøvariabler hvis nødvendig
+    Restart = "always"; # Starter på nytt hvis den krasjer
+    StandardOutput = "journal"; 
     StandardError = "journal";
   };
 };
