@@ -82,13 +82,16 @@ services.caddy = {
 systemd.services.pfo-server = {
   enable = true;
   description = "Node.js server for PFO";
-  after = [ "network.target" ];  # Starter etter nettverket er oppe
+  after = [ "network.target" ];
   wantedBy = [ "multi-user.target" ];
+
   serviceConfig = {
     ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO/server.js";
-    Restart = "always";  # Restart ved krasj
-    User = "total";  # Endre til brukeren som skal kjøre tjenesten
     WorkingDirectory = "/mnt/bigdisk1/www/PFO";
+    Restart = "always";
+    User = "total";  # Endre til riktig bruker
+    Group = "users"; # Endre til riktig gruppe
+    Environment = "NODE_ENV=production PORT=4500";
     StandardOutput = "journal";
     StandardError = "journal";
   };
