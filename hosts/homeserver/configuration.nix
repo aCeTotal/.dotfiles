@@ -44,21 +44,28 @@
 services.mysql = {
   enable = true;
   package = pkgs.mariadb;
-  ensureDatabases = [ "pfodb" ];
+  ensureDatabases = [ "pfo_db" ];
   ensureUsers = [
     {
       name = "nixos";
+      password = "nixos";
       ensurePermissions = {
-        "exampledb.*" = "ALL PRIVILEGES";
+        "*.*" = "ALL PRIVILEGES";
       };
     }
   ];
   initialScript = pkgs.writeText "mysql-init" ''
-    CREATE USER 'exampleuser'@'localhost' IDENTIFIED BY 'securepassword';
-    GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
+    -- Sett passord for root, men vi bruker nixos i stedet
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'nixos';
+
+    -- Opprett brukeren "nixos" med full kontroll over ALT
+    CREATE USER 'nixos'@'localhost' IDENTIFIED BY 'nixos';
+    GRANT ALL PRIVILEGES ON *.* TO 'nixos'@'localhost' WITH GRANT OPTION;
+
     FLUSH PRIVILEGES;
   '';
 };
+
 
 security.acme = {
   acceptTerms = true;
