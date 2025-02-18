@@ -79,6 +79,7 @@ services.caddy = {
   };
 };
 
+
 systemd.services.pfo-server = {
   description = "Node.js server for PFO";
   after = [ "network.target" ];
@@ -87,16 +88,14 @@ systemd.services.pfo-server = {
   
   serviceConfig = {
     ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO/server.js";
-    WorkingDirectory = "/mnt/bigdisk1/www/PFO";  # Setter riktig katalog
-    User = "total";  # Kjører som riktig bruker
-    Group = "users"; 
-    EnvironmentFile = "/mnt/bigdisk1/www/PFO/.env"; # Laster inn miljøvariabler hvis nødvendig
-    Restart = "always"; # Starter på nytt hvis den krasjer
-    StandardOutput = "journal"; 
+    WorkingDirectory = "/mnt/bigdisk1/www/PFO";
+    User = "total";  # Kjør tjenesten som bruker "total"
+    Group = "users"; # Valgfritt, men setter gruppen for bedre tilgangskontroll
+    Restart = "always";
+    StandardOutput = "journal";
     StandardError = "journal";
   };
 };
-
 
 
   # NFS Server
