@@ -10,9 +10,7 @@
      unzip
      unrar
      libnotify
-     nfs-utils
      networkmanagerapplet
-     nfstrace
      cmatrix
      htop
      btop
@@ -40,7 +38,8 @@
    hexchat
    zip
    rar
-   
+   nfstrace
+   nfs-utils
   ]);
 
 
