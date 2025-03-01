@@ -6,7 +6,7 @@
     google-chrome netflix
     pureref
     kitty
-    gimp prusa-slicer freecad
+    gimp freecad
     #stlink 
     #stm32cubemx
     bashmount udisks udiskie

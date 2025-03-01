@@ -21,6 +21,7 @@
      wayland
      makemkv
      mkvtoolnix
+     prusa-slicer
      ])
 
 

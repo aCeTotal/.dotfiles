@@ -118,7 +118,7 @@
                 ];
             };
 
-            # HomeServer - 🔹 Bruker nå nixpkgs-stable som standard uten `specialArgs.pkgs`
+            # HomeServer`
             homeserver = nixpkgs-stable.lib.nixosSystem {
                 specialArgs = { inherit inputs system; };
                 modules = [
