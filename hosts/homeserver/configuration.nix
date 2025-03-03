@@ -61,6 +61,52 @@ services.mysql = {
 };
 
 
+# Automatisk databasebackup til to steder
+  services.systemd.services.mysql-backup = {
+    script = pkgs.writeShellScript "mysql-backup" ''
+      #!/bin/bash
+      BACKUP_DIR1="/var/backups/mysql"
+      BACKUP_DIR2="/mnt/bigdisk1/VIKTIG/backup"
+      DB_NAME="pfo_db"
+      TIMESTAMP=$(date +"%Y%m%d%H%M")
+
+      # Sikre at backup-mappene finnes
+      mkdir -p "$BACKUP_DIR1"
+      mkdir -p "$BACKUP_DIR2"
+
+      # Funksjon for å rotere backup i en gitt mappe
+      rotate_backup() {
+        local DIR="$1"
+        mv "$DIR/backup2.sql" "$DIR/backup1.sql" 2>/dev/null
+        mv "$DIR/backup1.sql" "$DIR/backup.sql" 2>/dev/null
+      }
+
+      rotate_backup "$BACKUP_DIR1"
+      rotate_backup "$BACKUP_DIR2"
+
+      # Ta ny backup uten å angi passord i scriptet (leser fra /root/.my.cnf)
+      mysqldump --defaults-extra-file=/root/.my.cnf "$DB_NAME" | tee "$BACKUP_DIR1/backup.sql" > "$BACKUP_DIR2/backup.sql"
+    '';
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      Restart = "always";  # Restart ved feil
+      RestartSec = "10s";  # Vent 10 sekunder før restart
+    };
+
+    wantedBy = [ "multi-user.target" ];  # Startes ved oppstart
+  };
+
+  services.systemd.timers.mysql-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";  # Kjører hver time
+      Persistent = true;       # Kjør selv om maskinen var av
+      AccuracySec = "1m";      # Unngå forsinkelser
+    };
+  };
+
 security.acme = {
   acceptTerms = true;
   defaults.email = "lars.oksendal@oneco.no";

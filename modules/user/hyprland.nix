@@ -152,7 +152,7 @@ bindm = $mainMod, mouse:273, resizewindow # Resize window
       # NVIDIA https://wiki.hyprland.org/Nvidia/
       env = LIBVA_DRIVER_NAME,nvidia
       env = GBM_BACKEND,nvidia-drm
-      env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+      #env = __GLX_VENDOR_LIBRARY_NAME,nvidia
       env = __GL_VRR_ALLOWED,1
       env = WLR_DRM_NO_ATOMIC,1
 
