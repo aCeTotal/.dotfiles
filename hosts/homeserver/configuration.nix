@@ -69,7 +69,6 @@ services.mysqlBackup = {
   location = "/var/backup/mysql";
   calendar = "03:00:00";
   user = "nixos";
-  passwordFile = "/etc/mysql-backup-secret";
 };
 
 
