@@ -67,8 +67,7 @@ services.mysqlBackup = {
   enable = true;
   databases = [ "pfo_db" ];
   location = "/var/backup/mysql";
-  startAt = "03:00";
-  maxAge = "2d";
+  calender = "03:00:00";
   user = "nixos";
   passwordFile = "/etc/mysql-backup-secret";
 };
