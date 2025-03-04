@@ -67,7 +67,6 @@ services.mysqlBackup = {
   enable = true;
   databases = [ "pfo_db" ];
   location = "/var/backup/mysql";
-  compression = "gzip";
   startAt = "03:00";
   maxAge = "2d";
   user = "nixos";
