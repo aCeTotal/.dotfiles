@@ -69,7 +69,7 @@ services.mysqlBackup = {
   location = "/var/backup/mysql";
   compression = "gzip";
   startAt = "03:00";
-  maxAge = "7d";
+  maxAge = "2d";
   user = "nixos";
   passwordFile = "/etc/mysql-backup-secret";
 };
