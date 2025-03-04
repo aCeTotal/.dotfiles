@@ -62,7 +62,7 @@ services.mysql = {
 
 
 # Automatisk databasebackup til to steder
-  services.systemd.services.mysql-backup = {
+  systemd.services.mysql-backup = {
     script = pkgs.writeShellScript "mysql-backup" ''
       #!/bin/bash
       BACKUP_DIR1="/var/backups/mysql"
@@ -98,7 +98,7 @@ services.mysql = {
     wantedBy = [ "multi-user.target" ];  # Startes ved oppstart
   };
 
-  services.systemd.timers.mysql-backup = {
+  systemd.timers.mysql-backup = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "hourly";  # Kjører hver time
