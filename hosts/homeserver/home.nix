@@ -2,7 +2,7 @@
 
 {
 
-    imports = 
+  imports = 
     [
 
       #programs
@@ -10,24 +10,29 @@
       ./modules/bash.nix
     ];
 
-    home = {
+  home = {
     username = "total";
     homeDirectory = "/home/total";
     stateVersion = "24.05";
-    };
+  };
 
-    home.packages = with pkgs; [
+  programs.bash.shellAliases = {
+    "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#homeserver";
+    "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#homeserver";
+  };
 
-    ];
+  home.packages = with pkgs; [
 
-    services.ssh-agent.enable = true;
+  ];
 
-    # Manage Environment variables
-    home.sessionVariables = {
-      Editor = "vim";
-    };
+  services.ssh-agent.enable = true;
 
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
+  # Manage Environment variables
+  home.sessionVariables = {
+    Editor = "vim";
+  };
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 
 }
