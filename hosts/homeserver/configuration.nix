@@ -87,7 +87,7 @@ services.caddy = {
     useACMEHost = "pfoprod.ddns.net";
     extraConfig = ''
       reverse_proxy localhost:4500
-      reverse_proxy localhost:6000
+      reverse_proxy localhost:9000
     '';
   };
 };
