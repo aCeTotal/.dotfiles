@@ -70,18 +70,20 @@ in {
 services.mysql = {
   enable = true;
   package = pkgs.mariadb;
-  ensureDatabases = [ "pfo_db" ];
+  ensureDatabases = [ "pfo_db" "pfo_testing" ];
   ensureUsers = [
     {
       name = "nixos";
       ensurePermissions = {
         "pfo_db.*" = "ALL PRIVILEGES";
+        "pfo_testing.*" = "ALL PRIVILEGES";
       };
     }
   ];
   initialScript = pkgs.writeText "mysql-init" ''
     CREATE USER 'nixos'@'localhost' IDENTIFIED BY 'nixos';
     GRANT ALL PRIVILEGES ON pfo_db.* TO 'nixos'@'localhost';
+    GRANT ALL PRIVILEGES ON pfo_testing.* TO 'nixos'@'localhost';
     FLUSH PRIVILEGES;
   '';
 };
@@ -126,6 +128,7 @@ services.caddy = {
     useACMEHost = "pfoprod.ddns.net";
     extraConfig = ''
       reverse_proxy localhost:4500
+      reverse_proxy localhost:6000
     '';
   };
 };
@@ -140,8 +143,25 @@ systemd.services.pfo-server = {
   serviceConfig = {
     ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO/server.js";
     WorkingDirectory = "/mnt/bigdisk1/www/PFO";
-    User = "total";  # Kjør tjenesten som bruker "total"
-    Group = "users"; # Valgfritt, men setter gruppen for bedre tilgangskontroll
+    User = "total";
+    Group = "users";
+    Restart = "always";
+    StandardOutput = "journal";
+    StandardError = "journal";
+  };
+};
+
+systemd.services.pfo-testingserver = {
+  description = "Node.js server for PFO (TESTING ONLY)";
+  after = [ "network.target" ];
+  wants = [ "network.target" ];
+  wantedBy = [ "multi-user.target" ];
+  
+  serviceConfig = {
+    ExecStart = "/run/current-system/sw/bin/node /mnt/bigdisk1/www/PFO_testing/server.js";
+    WorkingDirectory = "/mnt/bigdisk1/www/PFO_testing";
+    User = "total";
+    Group = "users";
     Restart = "always";
     StandardOutput = "journal";
     StandardError = "journal";
