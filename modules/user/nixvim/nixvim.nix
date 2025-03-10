@@ -10,18 +10,18 @@
       ./modules/cmp.nix
       ./modules/lsp.nix
       ./modules/treesitter.nix
-      #./modules/telescope.nix
+      ./modules/telescope.nix
       ./modules/luasnip.nix
       ./modules/lualine.nix
-      #./modules/none-ls.nix
+      ./modules/none-ls.nix
       ./modules/colorscheme.nix
       ./modules/lspkind.nix
       ./modules/lspsaga.nix
       ./modules/which-key.nix
-      #./modules/lazygit.nix
-      #./modules/worktree.nix
-      #./modules/gitsigns.nix
-      #./modules/conform.nix 
+      ./modules/lazygit.nix
+      ./modules/worktree.nix
+      ./modules/gitsigns.nix
+      ./modules/conform.nix 
       ./modules/fidget.nix
       ./modules/indent-blankline.nix
     ];
