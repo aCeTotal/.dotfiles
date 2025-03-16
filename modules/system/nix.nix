@@ -11,8 +11,7 @@
     settings = {
       max-jobs = 25;
       download-buffer-size = 80000000000000;
-      sandbox = true;
-      extra-sandbox-paths = [ "/etc" "/var" "/home" ];
+      sandbox = false;
       keep-going = true;
       builders-use-substitutes = true;
       experimental-features = [ "nix-command" "flakes" ];
