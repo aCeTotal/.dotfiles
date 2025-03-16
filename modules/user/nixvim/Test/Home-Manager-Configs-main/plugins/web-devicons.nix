@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins = {
-    which-key = {
+    web-devicons = {
       enable = true;
     };
   };

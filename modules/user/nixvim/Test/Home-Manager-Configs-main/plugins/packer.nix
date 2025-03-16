@@ -1,7 +1,8 @@
 {
   programs.nixvim.plugins = {
-    which-key = {
+    packer = {
       enable = true;
+      plugins = [ "~/Code/Sandbox/rduck.nvim" ];
     };
   };
 }

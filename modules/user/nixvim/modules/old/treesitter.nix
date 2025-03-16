@@ -2,10 +2,11 @@
 
 
 {
-    programs.nixvim = {
-      plugins = {
-        treesitter = {
-          enable = true;
+  programs.nixvim = {
+    plugins = {
+      treesitter = {
+        enable = true;
+        settings = {
           ensureInstalled = "all";
           folding = true;
           nixvimInjections = true;
@@ -13,6 +14,7 @@
         };
       };
     };
+  };
 }
 
 
