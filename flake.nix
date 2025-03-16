@@ -17,10 +17,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        #Locking nixvim to a specific commit to avoid making changes every time nixvim updates. 
         nixvim = {
-            url = "github:nix-community/nixvim";
+            url = "github:nix-community/nixvim/33097dc";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
     };
 
     outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
