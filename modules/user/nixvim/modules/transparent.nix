@@ -4,7 +4,7 @@
 {
   programs.nixvim = {
     plugins = {
-      comment = {
+      transparent = {
         enable = true;
         autoLoad = true;
       };

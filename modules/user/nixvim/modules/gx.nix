@@ -4,7 +4,7 @@
 {
   programs.nixvim = {
     plugins = {
-      comment = {
+      gx = {
         enable = true;
         autoLoad = true;
       };

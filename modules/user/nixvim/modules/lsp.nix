@@ -1,42 +1,89 @@
+{ config, pkgs, inputs, ... }:
+
+
 {
   programs.nixvim = {
+
     plugins = {
+      lsp-format.settings = {
+        enable = false;
+        lspServersToEnable = "all";
+        setup.eslint.sync = true;
+      };
+
       lsp = {
         enable = true;
-
-        keymaps = {
-          silent = true;
-          diagnostic = {
-            # Navigate in diagnostics
-            "<leader>k" = "goto_prev";
-            "<leader>j" = "goto_next";
-          };
-
-          lspBuf = {
-            gd = "definition";
-            gD = "references";
-            gt = "type_definition";
-            gi = "implementation";
-            K = "hover";
-            "<F2>" = "rename";
-          };
-        };
-
         servers = {
+          bashls.enable = true;
+          clangd.enable = true;
           gopls.enable = true;
-          golangci_lint_ls.enable = true;
-          lua_ls.enable = true;
           nil_ls.enable = true;
-          pyright.enable = true;
-          pylsp.enable = true;
-          tflint.enable = true;
-          templ.enable = true;
+          lua_ls = {
+            enable = true;
+            settings.telemetry.enable = false;
+          };
+          rust_analyzer = {
+            enable = true;
+            installRustc = true;
+            installCargo = true;
+          };
+          marksman.enable = true;
+          # Frontend 
           html.enable = true;
-          htmx.enable = true;
+          astro.enable = true;
           tailwindcss.enable = true;
-          protols.enable = true;
+          ts_ls.enable = true;
+          dockerls.enable = true;
+          cssls.enable = true;
+          emmet_ls.enable = true;
+          eslint.enable = true;
+        };
+        keymaps = {
+          lspBuf = {
+            "<leader>gd" = {
+              action = "definition";
+              desc = "Goto Definitions";
+            };
+            "<leader>gr" = {
+              action = "rename";
+              desc = "Rename text across file";
+            };
+            "<leader>gD" = {
+              action = "references";
+              desc = "Goto References";
+            };
+            "<leader>gt" = {
+              action = "type_definition";
+              desc = "Goto Type Definitions";
+            };
+            "<leader>gi" = {
+              action = "implementation";
+              desc = "Goto implementation";
+            };
+            "K" = "hover";
+            "<leader>ca" = {
+              action = "code_action";
+              desc = "Code Actions";
+            };
+          };
+          diagnostic = {
+            "<leader>dd" = {
+              action = "open_float";
+              desc = "Open Diagnostic List";
+            };
+            "<leader>d[" = {
+              action = "goto_next";
+              desc = "Goto Next Issue";
+            };
+            "<leader>d]" = {
+              action = "goto_prev";
+              desc = "Goto Prev Issue";
+            };
+          };
         };
       };
     };
   };
 }
+
+

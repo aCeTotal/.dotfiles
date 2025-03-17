@@ -1,62 +1,92 @@
+{ config, pkgs, inputs, ... }:
+
+
 {
-  programs.nixvim = {
-    globals = {
-      # Disable useless providers
-      loaded_ruby_provider = 0; # Ruby
-      loaded_perl_provider = 0; # Perl
-      loaded_python_provider = 0; # Python 2
-    };
+   programs.nixvim.opts = {
+    # Enable relative line numbers
+      number = true;
+      relativenumber = true;
 
-    clipboard = {
-      # Use system clipboard
-      register = "unnamedplus";
+      # Set tabs to 2 spaces
+      tabstop = 2;
+      softtabstop = 2;
+      showtabline = 2;
+      expandtab = true;
 
-      providers.wl-copy.enable = true;
-    };
+      # Enable auto indenting and set it to spaces
+      smartindent = true;
+      shiftwidth = 2;
 
-    opts = {
-      updatetime = 100; # Faster completion
+      # Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
+      breakindent = true;
 
-      # Line numbers
-      relativenumber = false; # Relative line numbers
-      number = true; # Display the absolute line number of the current line
-      hidden = true; # Keep closed buffer open in the background
-      mouse = "a"; # Enable mouse control
-      mousemodel = "extend"; # Mouse right-click extends the current selection
-      splitbelow = true; # A new window is put below the current one
-      splitright = true; # A new window is put right of the current one
+      # Enable incremental searching
+      hlsearch = true;
+      incsearch = true;
 
-      swapfile = false; # Disable the swap file
-      modeline = true; # Tags such as 'vim:ft=sh'
-      modelines = 100; # Sets the type of modelines
-      undofile = true; # Automatically save and restore undo history
-      incsearch = true; # Incremental search: show match for partly typed search command
-      inccommand = "split"; # Search and replace: preview changes in quickfix list
-      ignorecase = true; # When the search query is lower-case, match both lower and upper-case
-      #   patterns
-      smartcase = true; # Override the 'ignorecase' option if the search pattern contains upper
-      #   case characters
-      scrolloff = 8; # Number of screen lines to show around the cursor
-      cursorline = false; # Highlight the screen line of the cursor
-      cursorcolumn = false; # Highlight the screen column of the cursor
-      signcolumn = "yes"; # Whether to show the signcolumn
-      laststatus = 3; # When to use a status line for the last window
-      fileencoding = "utf-8"; # File-content encoding for the current buffer
-      termguicolors = true; # Enables 24-bit RGB color in the |TUI|
-      spell = false; # Highlight spelling mistakes (local to window)
-      wrap = false; # Prevent text from wrapping
+      # Enable text wrap
+      wrap = false;
 
-      # Tab options
-      tabstop = 4; # Number of spaces a <Tab> in the text stands for (local to buffer)
-      shiftwidth = 4; # Number of spaces used for each step of (auto)indent (local to buffer)
-      expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
-      autoindent = true; # Do clever autoindenting
+      # Better splitting
+      splitbelow = true;
+      splitright = true;
 
-      textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be
-      #   broken after white space to get this width.
+      # Enable mouse mode
+      mouse = "a"; # Mouse
 
-      # Folding
-      foldlevel = 300; # Folds with a level higher than this number will be closed
-    };
+      # Enable ignorecase + smartcase for better searching
+      ignorecase = true;
+      smartcase = true; # Don't ignore case with capitals
+      grepprg = "rg --vimgrep";
+      grepformat = "%f:%l:%c:%m";
+
+      # Decrease updatetime
+      updatetime = 50; # faster completion (4000ms default)
+
+      # Set completeopt to have a better completion experience
+      completeopt = ["menuone" "noselect" "noinsert"]; # mostly just for cmp
+
+      # Enable persistent undo history
+      swapfile = false;
+      backup = false;
+      undofile = true;
+
+      # Enable 24-bit colors
+      termguicolors = true;
+
+      # Enable the sign column to prevent the screen from jumping
+      signcolumn = "yes";
+
+      # Enable cursor line highlight
+      cursorline = true; # Highlight the line where the cursor is located
+
+      # Set fold settings
+      # These options were reccommended by nvim-ufo
+      # See: https://github.com/kevinhwang91/nvim-ufo#minimal-configuration
+      foldcolumn = "0";
+      foldlevel = 99;
+      foldlevelstart = 99;
+      foldenable = true;
+
+      # Always keep 8 lines above/below cursor unless at start/end of file
+      scrolloff = 8;
+
+      # Place a column line
+      # colorcolumn = "80";
+
+      # Reduce which-key timeout to 10ms
+      timeoutlen = 10;
+
+      # Set encoding type
+      encoding = "utf-8";
+      fileencoding = "utf-8";
+
+      # More space in the neovim command line for displaying messages
+      cmdheight = 0;
+
+      # We don't need to see things like INSERT anymore
+      showmode = false;
   };
 }
+
+

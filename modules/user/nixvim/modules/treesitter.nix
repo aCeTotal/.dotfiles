@@ -6,6 +6,7 @@
     plugins = {
       treesitter = {
         enable = true;
+        autoLoad = true;
         settings = {
           ensureInstalled = "all";
           folding = true;
