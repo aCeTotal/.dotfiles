@@ -17,7 +17,6 @@
         autopairs.nvim-autopairs.enable = true;
         statusline.lualine.enable = true;
         comments.comment-nvim.enable = true;
-        vim.navigation.harpoon.enable = true;
         treesitter.indent.enable = true;
         telescope.enable = true;
 
