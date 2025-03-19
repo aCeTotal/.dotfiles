@@ -17,10 +17,15 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        #Locking nixvim to a specific commit to avoid making changes every time nixvim updates. 
+        #Locking nixvim to a specific commit to avoid making changes every time nixvim changes something. 
         nixvim = {
             url = "github:nix-community/nixvim/33097dc";
             inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        nvf = {
+          url = "github:notashelf/nvf";
+          inputs.nixpkgs.follows = "nixpkgs-stable";
         };
 
     };
@@ -120,7 +125,7 @@
                 ];
             };
 
-            # HomeServer`
+            # HomeServer with stable packages
             homeserver = nixpkgs-stable.lib.nixosSystem {
                 specialArgs = { inherit inputs system; };
                 modules = [
