@@ -44,17 +44,6 @@
           enableDAP = true;
           enableTreesitter = true;
 
-          rust.lsp.opts = 
-      ''
-        ['rust-analyzer'] = {
-          cargo = {allFeature = true},
-          checkOnSave = true,
-          procMacro = {
-            enable = true,
-            },
-          },
-      '';
-
           nix = {
             enable = true;
             format.type = "alejandra";
