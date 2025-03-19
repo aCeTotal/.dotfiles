@@ -106,13 +106,13 @@
           hover = "<leader>dh";
           restart = "<leader>dR";
           runLast = "<leader>d.";
-          runToCursor = "<leader>dgc";
+          runToCursor = "<leader>dg";
           stepBack = "<leader>dgk";
           stepInto = "<leader>dgi";
           stepOut = "<leader>dgo";
           stepOver = "<leader>dgj";
           terminate = "<leader>dq";
-          toggleBreakpoint = "<leader>db";
+          toggleBreakpoint = "<leader>b";
           toggleDapUI = "<leader>du";
           toggleRepl = "<leader>dr";
         };
