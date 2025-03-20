@@ -13,8 +13,8 @@
       ../../modules/user/bash.nix
       ../../modules/user/alacritty.nix
       ../../modules/user/rofi.nix
-      #../../modules/user/nixvim/nixvim.nix
-      ../../modules/user/neovim.nix
+      ../../modules/user/nixvim/nixvim.nix
+      #../../modules/user/neovim.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
       #      ../../imodules/user/waybar.nix
