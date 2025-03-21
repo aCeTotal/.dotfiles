@@ -19,6 +19,7 @@
         formatting = {fields = ["kind" "abbr" "menu"];};
         sources = [
           {name = "nvim_lsp";}
+          {name = "nvim_lua";}
           {name = "emoji";}
           {
             name = "buffer"; # text within current buffer
@@ -58,6 +59,7 @@
     };
     cmp-nvim-lsp = {enable = true;}; # lsp
     cmp-buffer = {enable = true;};
+    cmp-nvim-lua = {enable = true;};
     cmp-path = {enable = true;}; # file system paths
     cmp_luasnip = {enable = true;}; # snippets
     cmp-cmdline = {enable = true;}; # autocomplete for cmdline

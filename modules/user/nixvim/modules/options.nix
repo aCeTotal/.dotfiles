@@ -1,21 +1,30 @@
-{ config, pkgs, inputs, ... }:
+{ ... }:
 
 
 {
-   programs.nixvim.opts = {
-    # Enable relative line numbers
+  programs.nixvim = {
+    globals = {
+      mapleader = " ";
+      # Disable useless providers
+      loaded_ruby_provider = 0; # Ruby
+      loaded_perl_provider = 0; # Perl
+      loaded_python_provider = 0; # Python 2
+    };
+    opts = {
+      # Enable relative line numbers
       number = true;
       relativenumber = true;
+      hidden = true;
 
       # Set tabs to 2 spaces
-      tabstop = 2;
-      softtabstop = 2;
+      tabstop = 4;
       showtabline = 2;
       expandtab = true;
+      autoindent = true;
 
       # Enable auto indenting and set it to spaces
       smartindent = true;
-      shiftwidth = 2;
+      shiftwidth = 4;
 
       # Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
       breakindent = true;
@@ -41,7 +50,7 @@
       grepformat = "%f:%l:%c:%m";
 
       # Decrease updatetime
-      updatetime = 50; # faster completion (4000ms default)
+      updatetime = 100; # faster completion (4000ms default)
 
       # Set completeopt to have a better completion experience
       completeopt = ["menuone" "noselect" "noinsert"]; # mostly just for cmp
@@ -71,8 +80,7 @@
       # Always keep 8 lines above/below cursor unless at start/end of file
       scrolloff = 8;
 
-      # Place a column line
-      # colorcolumn = "80";
+      colorcolumn = "100";
 
       # Reduce which-key timeout to 10ms
       timeoutlen = 10;
@@ -86,6 +94,13 @@
 
       # We don't need to see things like INSERT anymore
       showmode = false;
+    };
+    clipboard = {
+      # Use system clipboard
+      register = "unnamedplus";
+
+      providers.wl-copy.enable = true;
+    };
   };
 }
 

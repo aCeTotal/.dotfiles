@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ ... }:
 
 
 {
@@ -6,13 +6,14 @@
 
     plugins = {
       lsp-format.settings = {
-        enable = false;
+        enable = true;
         lspServersToEnable = "all";
         setup.eslint.sync = true;
       };
 
       lsp = {
         enable = true;
+        inlayHints = true;
         servers = {
           bashls.enable = true;
           clangd.enable = true;
@@ -37,49 +38,6 @@
           cssls.enable = true;
           emmet_ls.enable = true;
           eslint.enable = true;
-        };
-        keymaps = {
-          lspBuf = {
-            "<leader>gd" = {
-              action = "definition";
-              desc = "Goto Definitions";
-            };
-            "<leader>gr" = {
-              action = "rename";
-              desc = "Rename text across file";
-            };
-            "<leader>gD" = {
-              action = "references";
-              desc = "Goto References";
-            };
-            "<leader>gt" = {
-              action = "type_definition";
-              desc = "Goto Type Definitions";
-            };
-            "<leader>gi" = {
-              action = "implementation";
-              desc = "Goto implementation";
-            };
-            "K" = "hover";
-            "<leader>ca" = {
-              action = "code_action";
-              desc = "Code Actions";
-            };
-          };
-          diagnostic = {
-            "<leader>dd" = {
-              action = "open_float";
-              desc = "Open Diagnostic List";
-            };
-            "<leader>d[" = {
-              action = "goto_next";
-              desc = "Goto Next Issue";
-            };
-            "<leader>d]" = {
-              action = "goto_prev";
-              desc = "Goto Prev Issue";
-            };
-          };
         };
       };
     };
