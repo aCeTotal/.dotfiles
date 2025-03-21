@@ -18,9 +18,9 @@
 
       # Set tabs to 2 spaces
       tabstop = 4;
-      showtabline = 2;
+      softtabstop = 4;
+      showtabline = 4;
       expandtab = true;
-      autoindent = true;
 
       # Enable auto indenting and set it to spaces
       smartindent = true;
@@ -80,10 +80,10 @@
       # Always keep 8 lines above/below cursor unless at start/end of file
       scrolloff = 8;
 
-      colorcolumn = "100";
+      # colorcolumn = "80";
 
-      # Reduce which-key timeout to 10ms
-      timeoutlen = 10;
+      # Reduce which-key timeout
+      timeoutlen = 300;
 
       # Set encoding type
       encoding = "utf-8";

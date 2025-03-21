@@ -32,7 +32,6 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-    };
     keymaps =
       [
         {
@@ -99,6 +98,7 @@
             desc = "Search grep";
           };
         }
+
         # Telescope search buffers
         {
           action = ":Telescope buffers<CR>";
