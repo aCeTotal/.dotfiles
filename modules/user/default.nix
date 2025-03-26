@@ -16,6 +16,7 @@
     pamixer
     ripgrep
     slurp grim swappy wl-clipboard
+    nix-index
 
     #Work
     #teams-for-linux
