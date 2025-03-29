@@ -25,7 +25,10 @@
 
 
         #O3DE - Game Engine
-        o3de-fork.url = "github:aCeTotal/o3de";
+        o3de-fork = {
+        url = "github:aCeTotal/o3de";
+        flake = false;
+        };
 
         o3de-flake = {
             url = "github:aCeTotal/o3de-flake";
