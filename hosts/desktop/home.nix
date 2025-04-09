@@ -4,9 +4,6 @@
 
     imports = 
     [
-      #Imports from flake
-      inputs.nvf.homeManagerModules.default
-
       #modules
       ../../modules/user/default.nix
       ../../modules/user/git.nix
