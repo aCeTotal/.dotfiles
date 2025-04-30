@@ -11,10 +11,9 @@
       ../../modules/user/bash.nix
       ../../modules/user/alacritty.nix
       ../../modules/user/rofi.nix
-      ../../modules/user/nvim/neovim.nix
+      ../../modules/user/nixvim/nixvim.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
-      ../../modules/user/waybar.nix
       ../../modules/user/virtualisation.nix
     #  ../../modules/user/tmux.nix
     ];
@@ -33,17 +32,7 @@
 
 
     home.packages = with pkgs; [
-    libreoffice
-    zellij
-    aichat
-    tgpt
-    heygpt
-    yai
-    irssi
-    stlink
-    
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-
     ];
 
     dconf.settings = {

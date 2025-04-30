@@ -33,13 +33,7 @@
 
 
     home.packages = with pkgs; [
-    libreoffice
-    krita
-    inkscape-with-extensions
-    # dev
- 
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-
     ];
 
     dconf.settings = {

@@ -13,4 +13,5 @@
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
+
 }
