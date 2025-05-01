@@ -1,76 +1,80 @@
 { pkgs, pkgs-stable, config, inputs, ... }:
 
+let
+  blenderCustom = (pkgs.blender.overrideAttrs (old: {
+    makeFlags = [ "-j2" ];
+  })).override {
+    cudaSupport = true;
+  };
+in
+
 {
-    environment.systemPackages = 
+  environment.systemPackages =
 
-        # Unstable packages
-        (with pkgs; [
-            wget
-            pavucontrol
-            unzip
-            unrar
-            libnotify
-            networkmanagerapplet
-            cmatrix
-            htop
-            btop
-            q4wine
-            waylandpp
-            wayland
-            makemkv
-            mkvtoolnix
-            prusa-slicer
-        ])
+      # Unstable packages
+      (with pkgs; [
+          blenderCustom
+          wget
+          pavucontrol
+          unzip
+          unrar
+          libnotify
+          networkmanagerapplet
+          cmatrix
+          htop
+          btop
+          q4wine
+          waylandpp
+          wayland
+          makemkv
+          mkvtoolnix
+          prusa-slicer
+      ])
 
+      ++
 
+      # Stable packages
+      (with pkgs-stable; [
+          sstp
+          networkmanager-sstp
+          #citrix_workspace
+          usbutils
+          screen
+          teams-for-linux
+          hexchat
+          zip
+          rar
+          nfstrace
+          nfs-utils
+          opentabletdriver
+      ]);
 
-        ++
+  fonts.packages = with pkgs; [
+      fira-code
+      fira-code-symbols
+      dina-font
+      proggyfonts
+  ];
 
-        #Stable packages
-        (with pkgs-stable; [
-            (blender.override { cudaSupport = true;})
-            sstp
-            networkmanager-sstp
-            citrix_workspace
-            usbutils
-            screen
-            teams-for-linux
-            hexchat
-            zip
-            rar
-            nfstrace
-            nfs-utils
-            opentabletdriver
-        ]);
+  nixpkgs.config.permittedInsecurePackages = [
+      "freeimage-unstable-2021-11-01"
+      "electron-29.4.6"
+      "dotnet-sdk-6.0.428"
+      "dotnet-runtime-6.0.36"
+      "dotnet-sdk-wrapped-6.0.428"
+  ];
 
+  programs.appimage.binfmt = true;
+  programs.dconf.enable = true;
 
-    fonts.packages = with pkgs; [
-        fira-code
-        fira-code-symbols
-        dina-font
-        proggyfonts
-    ];
+  # Allow Unfree packages on both stable and unstable
+  nixpkgs.config.allowUnfree = true;
 
-    nixpkgs.config.permittedInsecurePackages = [
-        "freeimage-unstable-2021-11-01"
-        "electron-29.4.6"
-        "dotnet-sdk-6.0.428"
-        "dotnet-runtime-6.0.36"
-        "dotnet-sdk-wrapped-6.0.428"
-    ];
-
-    programs.appimage.binfmt = true;
-    programs.dconf.enable = true;
-
-    # Allow Unfree packages on both stable and unstable
-    nixpkgs.config.allowUnfree = true;
-
-    _module.args = {
-        pkgs-stable = import inputs.nixpkgs-stable {
-            inherit (config.nixpkgs) config;
-            inherit (pkgs.stdenv.hostPlatform) system;
-        };
-    };
-
-
+  _module.args = {
+      pkgs-stable = import inputs.nixpkgs-stable {
+          inherit (config.nixpkgs) config;
+          inherit (pkgs.stdenv.hostPlatform) system;
+      };
+  };
 }
+
