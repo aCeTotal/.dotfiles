@@ -29,6 +29,7 @@
     programs.bash.shellAliases = {
       "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#desktop";
       "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
+      "mesh" = "cd ~/.meshtree && nix develop";
     };
 
 
