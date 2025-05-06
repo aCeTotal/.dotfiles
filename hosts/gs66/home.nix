@@ -29,6 +29,7 @@
       "update" = "cd $HOME/.dotfiles && sudo nixos-rebuild switch --flake .#gs66";
       "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#gs66";
       "mesh" = "cd ~/meshtree && nix develop";
+      "nvidia" = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia";
     };
 
 
