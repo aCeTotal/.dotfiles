@@ -15,7 +15,7 @@
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
       ../../modules/user/virtualisation.nix
-      ../../modules/derivations/speedtre/default.nix
+      ../../modules/user/derivations.nix
     ];
 
     home = {
