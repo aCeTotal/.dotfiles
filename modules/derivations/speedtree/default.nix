@@ -8,39 +8,36 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://pfoprod.ddns.net/Adrian/Programmer/SpeedTree_Modeler_v${version}_Linux.tar.gz";
-    sha256 = "sha256-rqjdbP6YtVbzl6jC0iAEXkl4MvIiqEFKUAYqViY3XX4=";
+    sha256 = "rqjdbP6YtVbzl6jC0iAEXkl4MvIiqEFKUAYqViY3XX4=";
   };
 
   # XCB-biblioteker for GUI
   buildInputs = [ xorg.libxcb xorg.xcbutil ];
 
   nativeBuildInputs = [ coreutils ];
-  parallelBuild = false;
+
+  # Kjør bare unpack + install
+  phases = [ "unpackPhase" "installPhase" ];
 
   unpackPhase = ''
-    # Pakk ut hoved-arkivet
-    tar xzf $src
-
-    # Pakk ut data-arkivet i den utpakkede katalogen
-    tar xzf \
-      SpeedTree_Modeler_v${version}_Linux/SpeedTree_Modeler_v${version}/data \
-      -C SpeedTree_Modeler_v${version}_Linux/SpeedTree_Modeler_v${version}
-
-    # Flytt kun data-mappa opp til arbeidstre
-    mv SpeedTree_Modeler_v${version}_Linux/SpeedTree_Modeler_v${version}/data ./
+    # Pakk ut kun innholdet av data-mappa direkte inn i ./data
+    mkdir data
+    tar xzf $src \
+      --strip-components=2 \
+      --wildcards \
+      SpeedTree_Modeler_v${version}_Linux/SpeedTree_Modeler_v${version}/data/* \
+      -C data
   '';
 
-  # Ingen install-skript kjøres lenger
-
   installPhase = ''
-    # Kopier kun data-mappa til utputten
+    # Kopier alt fra data/ til $out/data
     mkdir -p $out/data
     cp -r data/* $out/data/
 
-    # Gi kjørerettighet til start-scriptet
+    # Gjør start-script kjørbart
     chmod u+x $out/data/startSpeedTreeModeler.sh
 
-    # Lag .desktop
+    # Lag .desktop for rofi / meny
     mkdir -p $out/share/applications
     cat > $out/share/applications/SpeedTree-Modeler.desktop <<EOF
 [Desktop Entry]
@@ -61,5 +58,4 @@ EOF
     platforms   = platforms.linux;
   };
 }
-
 
