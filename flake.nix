@@ -23,19 +23,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-
-        #O3DE - Game Engine
-        o3de-fork = {
-        url = "github:aCeTotal/o3de";
-        flake = false;
-        };
-
-        o3de-flake = {
-            url = "github:aCeTotal/o3de-flake";
-            inputs.fork.follows = "o3de-fork";
-        };
-
-
     };
 
     outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
