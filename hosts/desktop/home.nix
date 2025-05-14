@@ -31,6 +31,7 @@
       "upgrade" = "cd $HOME/.dotfiles && nix flake update && sudo nixos-rebuild switch --flake .#desktop";
       "mesh" = "cd ~/meshtree && nix develop";
       "todo" = "cd ~/todo && vim";
+      "PFO" = "cd /mnt/nfs/Bigdisk1/www/PFO/";
     };
 
 

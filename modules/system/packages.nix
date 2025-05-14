@@ -37,7 +37,7 @@ in
       (with pkgs-stable; [
           sstp
           networkmanager-sstp
-          #citrix_workspace
+          citrix_workspace
           usbutils
           screen
           teams-for-linux

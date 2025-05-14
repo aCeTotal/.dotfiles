@@ -22,11 +22,6 @@
                         # compile_commands.json i root
                         cmd = [ "clangd" ];
                         # Ekstra flagg om du ønsker bakgrunnsindeksering
-                        extraOptions = {
-                            "--background-index" = null;
-                        };
-                        # Sørg for at root_dir er der compile_commands.json ligger
-                        rootMarkers = [ "compile_commands.json" ];
                     };
                     gopls.enable = true;
                     nil_ls.enable = true;
