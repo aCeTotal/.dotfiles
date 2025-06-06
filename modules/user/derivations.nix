@@ -5,7 +5,7 @@ let
     uvtools = import ../derivations/uvtools/default.nix { inherit pkgs; };
     #o3de = import ../derivations/o3de/default.nix { inherit pkgs; };
     #speedtree = import ../derivations/speedtree/default.nix { inherit pkgs; };
-    louvre = import ../derivations/louvre/default.nix { inherit pkgs; };
+    argon = pkgs.callPackage ../derivations/argon/default.nix {};
 
 
 in
@@ -16,6 +16,6 @@ in
         uvtools
         #o3de
         #speedtree
-        louvre
+        argon
     ];
 }
