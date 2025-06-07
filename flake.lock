@@ -33,6 +33,26 @@
         "type": "github"
       }
     },
+    "argonpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749247869,
+        "narHash": "sha256-suFHHZ3t5GW0aGKi98+5+F35g98GtRe+lLe7718MQAM=",
+        "owner": "aCeTotal",
+        "repo": "argonpkgs",
+        "rev": "b660d7f55f5e3051f02968aff43b3c7cd22e3cdd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aCeTotal",
+        "repo": "argonpkgs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -603,6 +623,7 @@
     },
     "root": {
       "inputs": {
+        "argonpkgs": "argonpkgs",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-contrib": "hyprland-contrib",

@@ -23,14 +23,19 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        argonpkgs = {
+            url = "github:aCeTotal/argonpkgs";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
     };
 
-    outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
+    outputs = inputs@{ self, nixpkgs, nixpkgs-stable, argonpkgs, nixos-hardware, home-manager, ... }:
         let
             system = "x86_64-linux";
         in {
         nixosConfigurations = {
-                # NVIDIA DESKTOP
+                # ──── NVIDIA DESKTOP ────────────────────────────────────────────────────────────────────────────────
                 desktop = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
@@ -47,7 +52,7 @@
                     ];
                 };
 
-                # HTPC
+                # ──── HTPC ────────────────────────────────────────────────────────────────────────────────────────
                 htpc = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
@@ -64,7 +69,7 @@
                     ];
                 };
 
-                # LENOVO THINKPAD T480
+                # ──── LENOVO THINKPAD T480 ────────────────────────────────────────────────────────────────────────
                 t480 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
@@ -84,7 +89,7 @@
                     ];
                 };
 
-                # MSI GS66 Stealth 10UE
+                # ──── MSI GS66 Stealth 10UE ────────────────────────────────────────────────────────────────────────
                 gs66 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
@@ -103,7 +108,7 @@
                     ];
                 };
 
-                # X11 VM
+                # ──── X11 VM ────────────────────────────────────────────────────────────────────────────────────────
                 x11vm = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
@@ -120,7 +125,7 @@
                     ];
                 };
 
-                # HomeServer with stable packages
+                # ──── HomeServer with stable packages ────────────────────────────────────────────────────────────────
                 homeserver = nixpkgs-stable.lib.nixosSystem {
                     specialArgs = { inherit inputs system; };
                     modules = [
