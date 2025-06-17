@@ -1,11 +1,9 @@
 { config, pkgs, pkgs-stable, inputs, system, ... }:
 
 let
-  # 1) Importer argonpkgs-flaken som et eget pakkesett
 argonpkgs = inputs.argonpkgs.packages.${system};
-  # 2) Egendefinert Blender fra Argon-settet
   blenderCustom = pkgs.blender.overrideAttrs (old: {
-    makeFlags = [ "-j2" ];
+    makeFlags = [ "-j4" ];
   }) // {
     cudaSupport = true;
   };
@@ -38,6 +36,8 @@ in {
   environment.systemPackages =
     (with pkgs; [
       wget
+            #citrix_workspace_24_08_0
+      windsurf
       pavucontrol
       unzip
       unrar
@@ -64,11 +64,12 @@ in {
       nfstrace
       nfs-utils
       opentabletdriver
+
     ])
     ++
      [
-      argonpkgs.louvre
-      argonpkgs.argon
+            #argonpkgs.louvre
+            #argonpkgs.argon
      ];
 
       _module.args = {
