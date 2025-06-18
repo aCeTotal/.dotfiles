@@ -36,7 +36,7 @@ in {
   environment.systemPackages =
     (with pkgs; [
       wget
-            #citrix_workspace_24_08_0
+      citrix_workspace_24_08_0
       windsurf
       pavucontrol
       unzip
@@ -61,7 +61,6 @@ in {
       hexchat
       zip
       rar
-      nfstrace
       nfs-utils
       opentabletdriver
 
