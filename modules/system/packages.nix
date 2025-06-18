@@ -1,7 +1,9 @@
 { config, pkgs, pkgs-stable, inputs, system, ... }:
 
 let
-argonpkgs = inputs.argonpkgs.packages.${system};
+
+  nixtile = pkgs.callPackage ../derivations/nixtile/package.nix {};
+
   blenderCustom = pkgs.blender.overrideAttrs (old: {
     makeFlags = [ "-j4" ];
   }) // {
@@ -35,6 +37,7 @@ in {
   # Systempakker: først nixpkgs-unstable, så nixpkgs-stable, så Argon
   environment.systemPackages =
     (with pkgs; [
+      nixtile
       wget
       citrix_workspace_24_08_0
       windsurf
@@ -64,13 +67,8 @@ in {
       nfs-utils
       opentabletdriver
 
-    ])
-    ++
-     [
-            #argonpkgs.louvre
-            #argonpkgs.argon
-     ];
-
+    ]);
+    
       _module.args = {
       pkgs-stable = import inputs.nixpkgs-stable {
           inherit (config.nixpkgs) config;

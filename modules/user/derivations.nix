@@ -5,7 +5,7 @@ let
     uvtools = import ../derivations/uvtools/default.nix { inherit pkgs; };
     #o3de = import ../derivations/o3de/default.nix { inherit pkgs; };
     #speedtree = import ../derivations/speedtree/default.nix { inherit pkgs; };
-    nixtile = pkgs.callPackage ../derivations/nixtile/package.nix {};
+    #nixtile = pkgs.callPackage ../derivations/nixtile/package.nix {};
 
 
 in
@@ -16,6 +16,6 @@ in
         uvtools
         #o3de
         #speedtree
-        nixtile
+        #nixtile
     ];
 }
