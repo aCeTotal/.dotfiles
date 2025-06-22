@@ -14,6 +14,7 @@
       #../../modules/user/neovim.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
+      ../../modules/user/waybar.nix
       #      ../../imodules/user/waybar.nix
       ../../modules/user/virtualisation.nix
       ../../modules/user/derivations.nix
