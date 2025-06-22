@@ -1,9 +1,16 @@
 { config, pkgs, ... }:
 
 {
+
+     home.packages = with pkgs; [
+        nerd-fonts.caskaydia-cove
+        font-awesome
+        waybar
+    ];
+
+
     home.file.".config/waybar/style.css".text = ''
 
-/* 全局设置 */
 * {
   font-family: "CaskaydiaCove Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
   font-weight: bold;
@@ -11,14 +18,12 @@
   color: #dcdfe1;
 }
 
-/* 透明 Waybar 背景 */
 #waybar {
   background-color: rgba(0, 0, 0, 0);
   border: none;
   box-shadow: none;
 }
 
-/* 所有模块统一风格 */
 #workspaces,
 #window,
 #tray{
@@ -181,19 +186,19 @@
   "format": "<span color='#00FFFF'>  </span>",
   "on-click": "hyprlock",
   "tooltip": true,
-  "tooltip-format": "锁屏"
+  "tooltip-format": "Lock your screen"
   },
   "custom/reboot": {
     "format": "<span color='#FFD700'>  </span>",
     "on-click": "systemctl reboot",
     "tooltip": true,
-    "tooltip-format": "重启"
+    "tooltip-format": "Reboot the system"
   },
   "custom/power": {
     "format": "<span color='#FF4040'>  </span>",
     "on-click": "systemctl poweroff",
     "tooltip": true,
-    "tooltip-format": "关机"
+    "tooltip-format": "Turn off the system"
   },
   "network": {
     "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",

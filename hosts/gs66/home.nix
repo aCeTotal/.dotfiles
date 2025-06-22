@@ -9,8 +9,6 @@
       ../../modules/user/default.nix
       ../../modules/user/git.nix
       ../../modules/user/bash.nix
-      ../../modules/user/alacritty.nix
-      ../../modules/user/rofi.nix
       ../../modules/user/nixvim/nixvim.nix
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix

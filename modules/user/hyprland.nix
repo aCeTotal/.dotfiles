@@ -2,17 +2,20 @@
 
 {
 
+    imports = [
+        ./waybar.nix
+        ./hyprpaper.nix
+        ./alacritty.nix
+        ./wofi.nix
+    ];
+
     home.packages = with pkgs; [
-        swaybg
-        rofi-wayland
-        waybar
-        grim
         swappy
-        shotman
         slurp
-        xfce.thunar
-        kdePackages.dolphin
-        dunst
+        nautilus
+        swaynotificationcenter
+        hyprshot
+        hyprlock
     ];
 
     home.file.".config/hypr/hyprland.conf".text = ''
@@ -23,6 +26,7 @@
 
 # See https://wiki.hyprland.org/Configuring/Monitors/
 monitor = DP-1, 3440x1440@165,0x0,1
+monitor = eDP-1, 1920x1080@300, auto, 1
 monitor = , preferred, auto, 1
 
 ###################
@@ -33,9 +37,10 @@ monitor = , preferred, auto, 1
 
 # Set programs that you use
 $terminal = alacritty
-$fileManager = dolphin
+$fileManager = nautilus
 $browser = google-chrome-stable
-$screenshot = grimblast --notify copysave area
+$screenshot = hyprshot -m region
+$launcher = wofi --show drun
 
 
 #################
@@ -45,11 +50,11 @@ $screenshot = grimblast --notify copysave area
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-exec-once = swaybg -i "$HOME/.dotfiles/wallpapers/current.jpg"
+exec-once = hyprpaper -i "$HOME/.dotfiles/wallpapers/current.jpg"
 exec-once = systemctl --user start hyprpolkitagent
 exec-once = waybar
 exec-once = mako
-exec-once = dunst
+exec-once = swaync
 exec-once = blueman-applet
 exec-once = nm-applet --indicator
 exec-once = wl-paste --watch cliphist store
@@ -237,7 +242,7 @@ binds {
 
 bind = $mainMod, RETURN, exec, $terminal
 bind = $mainMod, Q, killactive,
-bind = $mainMod, P, exec, rofi -show run
+bind = $mainMod, P, exec, $launcher
 bind = $mainMod, BACKSPACE, exec, $browser
 bind = $mainMod, F, fullscreen,
 bind = $mainMod, E, exec, $fileManager
@@ -246,6 +251,7 @@ bind = $mainMod, D, pseudo,
 bind = $mainMod, J, togglesplit,
 bind = $mainMod, S, exec, $screenshot
 bind = , Print, exec, $screenshot
+
 bind = $mainMod, left, movefocus, l
 bind = $mainMod, right, movefocus, r
 bind = $mainMod, up, movefocus, u
@@ -310,13 +316,6 @@ bindl = , XF86AudioPrev, exec, playerctl previous
 
 # Example windowrule
 # windowrule = float,class:^(kitty)$,title:^(kitty)$
-
-# Ignore maximize requests from apps. You'll probably like this.
-windowrule = suppressevent maximize, class:.*
-windowrule = maximize, class:chatterino
-workspace = 6, on-created-empty:steam
-windowrule = workspace 6, class:steam
-windowrule = maximize, class:steam
 
 # Fix some dragging issues with XWayland
 windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
