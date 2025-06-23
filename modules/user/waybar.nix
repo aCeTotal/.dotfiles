@@ -149,14 +149,12 @@
     "custom/reboot",
     "custom/power"
   ],
-  "modules-center": ["hyprland/window"],
   "modules-right": [
     "network",
     "battery",
     "bluetooth",
     "pulseaudio",
     "backlight",
-    "custom/temperature",
     "memory",
     "cpu",
     "clock"
@@ -228,16 +226,9 @@
       ]
     },
     "on-click-right": "pavucontrol -t 3",
-    "on-click": "pactl -- set-sink-mute 0 toggle",
+    "on-click": "sh -c 'wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q \"\\[MUTED\\]\" && wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 || wpctl set-mute @DEFAULT_AUDIO_SINK@ 1'",
     "tooltip": true,
     "tooltip-format": "当前系统声音: {volume}%"
-  },
-  "custom/temperature": {
-    "exec": "sensors | awk '/^Package id 0:/ {print int($4)}'",
-    "format": "<span color='#FFA500'> </span>{}°C ",
-    "interval": 5,
-    "tooltip": true,
-    "tooltip-format": "当前 CPU 温度: {}°C"
   },
   "memory": {
     "format": "<span color='#8A2BE2'>  </span>{used:0.1f}G/{total:0.1f}G ",
@@ -256,7 +247,7 @@
     "tooltip-format": "{:L%Y 年 %m 月 %d 日, %A}"
   },
   "tray": {
-    "icon-size": 17,
+    "icon-size": 20,
     "spacing": 6
   },
   "backlight": {
