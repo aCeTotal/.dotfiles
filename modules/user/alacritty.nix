@@ -1,67 +1,123 @@
-{ config, pkgs, inputs, ... }:
-
+{ pkgs, ... }:
 
 {
 
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      window = {
-	padding.x = 15;
-	padding.y = 15;
-	decorations = "none";
-	startup_mode = "Windowed";
-	dynamic_title = true;
-	opacity = 0.6;
-      };
-      cursor = {
-	style = {
-	  shape = "Beam";
-	  blinking = "On";
-	};
-      };
-      live_config_reload = true;
-      font = {
-	normal.family = "JetBrainsMono NFM";
-	bold.family = "JetBrainsMono NFM";
-	italic.family = "JetBrainsMono NFM";
-	bold_italic.family = "JetBrainsMono NFM";
-	size = 14;
-      };
-      colors = {
-	bright = {
-	  black = "#585B70";
-	  blue = "#89B4FA";
-	  cyan = "#94E2D5";
-	  green = "#A6E3A1";
-	  magenta = "#F5C2E7";
-	  red = "#F38BA8";
-	  white = "#A6ADC8";
-	  yellow = "#F9E2AF";
-	};
-	cursor = {
-	  cursor = "#F5E0DC";
-	  text = "#1E1E2E";
-	};
-	normal = {
-	  black = "#45475A";
-	  blue = "#89B4FA";
-	  cyan = "#94E2D5";
-	  green = "#A6E3A1";
-	  magenta = "#F5C2E7";
-	  red = "#F38BA8";
-	  white = "#BAC2DE";
-	  yellow = "#F9E2AF";
-	};
-	primary = {
-	  background = "#1E1E2E";
-	  foreground = "#CDD6F4";
-	};
-	draw_bold_text_with_bright_colors = true;
-      };
-    };
-  };
+    home.packages = with pkgs; [
+        alacritty
+    ];
+
+
+    home.file.".config/alacritty/alacritty.toml".text = ''
+
+general.import = [
+  "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 14.0
+
+[font.bold]
+# family = "MesloLGS Nerd Font Mono"
+family = "CaskaydiaCove Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "CaskaydiaCove Nerd Font"
+# family = "MesloLGS Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "CaskaydiaCove Nerd Font"
+# family = "MesloLGS Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+# family = "MesloLGS Nerd Font Mono"
+family = "CaskaydiaCove Nerd Font"
+style = "Regular"
+    '';
+
+
+    home.file.".config/alacritty/catppuccin-mocha.toml".text = ''
+[colors.primary]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+dim_foreground = "#CDD6F4"
+bright_foreground = "#CDD6F4"
+
+[colors.cursor]
+text = "#1E1E2E"
+cursor = "#F5E0DC"
+
+[colors.vi_mode_cursor]
+text = "#1E1E2E"
+cursor = "#B4BEFE"
+
+[colors.search.matches]
+foreground = "#1E1E2E"
+background = "#A6ADC8"
+
+[colors.search.focused_match]
+foreground = "#1E1E2E"
+background = "#A6E3A1"
+
+[colors.footer_bar]
+foreground = "#1E1E2E"
+background = "#A6ADC8"
+
+[colors.hints.start]
+foreground = "#1E1E2E"
+background = "#F9E2AF"
+
+[colors.hints.end]
+foreground = "#1E1E2E"
+background = "#A6ADC8"
+
+[colors.selection]
+text = "#1E1E2E"
+background = "#F5E0DC"
+
+[colors.normal]
+black = "#45475A"
+red = "#F38BA8"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+blue = "#89B4FA"
+magenta = "#F5C2E7"
+cyan = "#94E2D5"
+white = "#BAC2DE"
+
+[colors.bright]
+black = "#585B70"
+red = "#F38BA8"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+blue = "#89B4FA"
+magenta = "#F5C2E7"
+cyan = "#94E2D5"
+white = "#A6ADC8"
+
+[colors.dim]
+black = "#45475A"
+red = "#F38BA8"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+blue = "#89B4FA"
+magenta = "#F5C2E7"
+cyan = "#94E2D5"
+white = "#BAC2DE"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#FAB387"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#F5E0DC"
+    '';
 
 
 }
-

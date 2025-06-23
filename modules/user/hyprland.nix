@@ -5,8 +5,9 @@
     imports = [
         ./waybar.nix
         ./hyprpaper.nix
-        ./alacritty.nix
+        ./kitty.nix
         ./wofi.nix
+        ./starship.nix
     ];
 
     home.packages = with pkgs; [
@@ -36,7 +37,7 @@ monitor = , preferred, auto, 1
 # See https://wiki.hyprland.org/Configuring/Keywords/
 
 # Set programs that you use
-$terminal = alacritty
+$terminal = kitty
 $fileManager = nautilus
 $browser = google-chrome-stable
 $screenshot = hyprshot -m region
@@ -50,10 +51,9 @@ $launcher = wofi --show drun
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-exec-once = hyprpaper -i "$HOME/.dotfiles/wallpapers/current.jpg"
+exec-once = hyprpaper
 exec-once = systemctl --user start hyprpolkitagent
 exec-once = waybar
-exec-once = mako
 exec-once = swaync
 exec-once = blueman-applet
 exec-once = nm-applet --indicator

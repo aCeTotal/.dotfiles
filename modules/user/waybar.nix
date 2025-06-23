@@ -35,7 +35,7 @@
   margin-right: 6px; /* 外部间距增加 */
   border-radius: 10px;
   border-width: 0px;
-}
+  }
 
 #clock,
 #custom-power{
@@ -167,19 +167,10 @@
     "format": "{icon}",
     "on-click": "activate",
     "persistent-workspaces": {
-    "*":[1,2,3,4,5,6,7,8,9]
+    "*":[1,]
     },
     "format-icons": {
-      "1": "󰣇",
-      "2": "󰈹",
-      "3": "󰇮",
-      "4": "",
-      "5": "",
-      "6": "",
-      "7": "",
-      "8": "",
-      "9": "󰖳",
-      "default": ""
+      "1": "1",
     }
   },
   "custom/lock": {
@@ -251,7 +242,7 @@
   "memory": {
     "format": "<span color='#8A2BE2'>  </span>{used:0.1f}G/{total:0.1f}G ",
     "tooltip": true,
-    "tooltip-format": "当前内存占比: {used:0.2f}G/{total:0.2f}G"
+    "tooltip-format": "Memory used: {used:0.2f}G/{total:0.2f}G"
   },
   "cpu": {
     "format": "<span color='#FF9F0A'>  </span>{usage}% ",
@@ -259,8 +250,8 @@
   },
   "clock": {
     "interval": 1,
-    "timezone": "Asia/Chengdu",
-    "format": "<span color='#BF00FF'>  </span>{:%H:%M} ",
+    "timezone": "Europe/Oslo",
+    "format": "<span color='#BF00FF'>  </span>{:%H:%M:%S} ",
     "tooltip": true,
     "tooltip-format": "{:L%Y 年 %m 月 %d 日, %A}"
   },

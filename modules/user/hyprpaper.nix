@@ -9,8 +9,8 @@
 
     home.file.".config/hypr/hyprpaper.conf".text = ''
 
-    preload = "$HOME/.dotfiles/wallpapers/current.jpg"
-    wallpaper = "$HOME/.dotfiles/wallpapers/current.jpg"
+    preload = ~/.dotfiles/wallpapers/current.jpg
+    wallpaper = , ~/.dotfiles/wallpapers/current.jpg
 
     '';
 
