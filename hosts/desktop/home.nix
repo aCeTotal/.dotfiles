@@ -35,11 +35,6 @@
       "PFO" = "cd /mnt/nfs/Bigdisk1/www/PFO/";
     };
 
-
-    home.packages = with pkgs; [
-    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    ];
-
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {
           autoconnect = ["qemu:///system"];

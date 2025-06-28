@@ -34,7 +34,6 @@ in {
   # Systempakker: først nixpkgs-unstable, så nixpkgs-stable, så Argon
   environment.systemPackages =
     (with pkgs; [
-      nixtile
       wget
       citrix_workspace_24_08_0
       windsurf
