@@ -1,9 +1,6 @@
 { config, pkgs, pkgs-stable, inputs, system, ... }:
 
 let
-
-  nixtile = pkgs.callPackage ../derivations/nixtile/package.nix {};
-
   blenderCustom = pkgs.blender.overrideAttrs (old: {
     makeFlags = [ "-j4" ];
   }) // {
@@ -38,7 +35,6 @@ in {
   environment.systemPackages =
     (with pkgs; [
       nixtile
-      dwl
       wget
       citrix_workspace_24_08_0
       windsurf
