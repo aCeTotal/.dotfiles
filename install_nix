@@ -95,307 +95,153 @@ info_print "Creating the partitions on $DISK."
 sudo parted -s "$DISK" mklabel gpt
 sudo parted -s "$DISK" mkpart NIXBOOT fat32 1MiB 513MiB
 sudo parted -s "$DISK" set 1 esp on
-sudo parted -s "$DISK" mkpart NIXROOT 513MiB 100%
+# Sjekk RAM og avgjør om swap skal opprettes
+RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+RAM_GB=$((RAM_KB / 1024 / 1024))
+USE_SWAP=false
+if [ "$RAM_KB" -le $((16 * 1024 * 1024)) ]; then
+    USE_SWAP=true
+fi
+
+# Dynamisk partisjonering basert på diskstørrelse
+DISK_SIZE_B=$(lsblk -b -dn -o SIZE "$DISK")
+DISK_SIZE_GB=$((DISK_SIZE_B / 1024 / 1024 / 1024))
+BOOT_END=513MiB
+SWAP_SIZE_GB=10
+SWAP_SIZE_MIB=$((SWAP_SIZE_GB * 1024))
+if [ "$USE_SWAP" = true ]; then
+    info_print "Systemet har 16GB RAM eller mindre. Oppretter 10GiB swap-partisjon."
+    # Beregn ledig plass etter boot og swap
+    REMAINING_GB=$((DISK_SIZE_GB - SWAP_SIZE_GB - 1/2)) # 1/2 for å være sikker på avrunding
+    ROOT_SIZE_GB=$((REMAINING_GB / 2))
+    HOME_SIZE_GB=$((REMAINING_GB - ROOT_SIZE_GB))
+    ROOT_END="$((513 + ROOT_SIZE_GB * 1024))MiB"
+    HOME_END="$((513 + (ROOT_SIZE_GB + HOME_SIZE_GB) * 1024))MiB"
+    SWAP_START="$((DISK_SIZE_GB - SWAP_SIZE_GB))GiB"
+    sudo parted -s "$DISK" mkpart NIXROOT 513MiB $ROOT_END
+    sudo parted -s "$DISK" mkpart NIXHOME $ROOT_END $SWAP_START
+    sudo parted -s "$DISK" mkpart NIXSWAP $SWAP_START 100%
+else
+    REMAINING_GB=$((DISK_SIZE_GB - 1/2))
+    ROOT_SIZE_GB=$((REMAINING_GB / 2))
+    ROOT_END="$((513 + ROOT_SIZE_GB * 1024))MiB"
+    sudo parted -s "$DISK" mkpart NIXROOT 513MiB $ROOT_END
+    sudo parted -s "$DISK" mkpart NIXHOME $ROOT_END 100%
+fi
 
 NIXBOOT="/dev/disk/by-partlabel/NIXBOOT"
 NIXROOT="/dev/disk/by-partlabel/NIXROOT"
+NIXHOME="/dev/disk/by-partlabel/NIXHOME"
+if [ "$USE_SWAP" = true ]; then
+    NIXSWAP="/dev/disk/by-partlabel/NIXSWAP"
+fi
 
-# Formatting the ESP as FAT32.
-echo
-info_print "Formatting the EFI Partition as FAT32."
+# Spør om kryptering av root og home
+read -rp "Ønsker du å kryptere root og home med LUKS? (y/n): " ENCRYPT
+if [[ "$ENCRYPT" =~ ^[YyJj]$ ]]; then
+    while true; do
+        read -rsp "Skriv inn passphrase for disk-kryptering: " LUKS_PASSPHRASE
+        echo
+        read -rsp "Gjenta passphrase: " LUKS_PASSPHRASE2
+        echo
+        if [ "$LUKS_PASSPHRASE" = "$LUKS_PASSPHRASE2" ]; then
+            break
+        else
+            echo "Passordene var ikke like. Prøv igjen."
+        fi
+    done
+    info_print "Krypterer root-partisjon med LUKS..."
+    echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup luksFormat "$NIXROOT" \
+  --type luks2 \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --pbkdf argon2id \
+  --pbkdf-memory 1048576 \
+  --pbkdf-parallel 4 \
+  --pbkdf-force-iterations 10 \
+  -q --batch-mode --key-file -
+    echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup open "$NIXROOT" cryptroot --key-file -
+    NIXROOT="/dev/mapper/cryptroot"
+    info_print "Krypterer home-partisjon med LUKS..."
+    echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup luksFormat "$NIXHOME" \
+  --type luks2 \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --pbkdf argon2id \
+  --pbkdf-memory 1048576 \
+  --pbkdf-parallel 4 \
+  --pbkdf-force-iterations 10 \
+  -q --batch-mode --key-file -
+    echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup open "$NIXHOME" crypthome --key-file -
+    NIXHOME="/dev/mapper/crypthome"
+    if [ "$USE_SWAP" = true ]; then
+        info_print "Krypterer swap-partisjon med LUKS..."
+        echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup luksFormat "$NIXSWAP" \
+  --type luks2 \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --pbkdf argon2id \
+  --pbkdf-memory 1048576 \
+  --pbkdf-parallel 4 \
+  --pbkdf-force-iterations 10 \
+  -q --batch-mode --key-file -
+        echo -n "$LUKS_PASSPHRASE" | sudo cryptsetup open "$NIXSWAP" cryptswap --key-file -
+        NIXSWAP="/dev/mapper/cryptswap"
+    fi
+fi
+
+# Formater partisjoner
+info_print "Formaterer EFI-partisjon som FAT32."
 sudo mkfs.fat -F 32 "$NIXBOOT"
-
-# Mounting the root partition.
-echo
-info_print "Mounting the root partititon"
+info_print "Formaterer root-partisjon som btrfs."
 sudo mkfs.btrfs -f "$NIXROOT"
+if [ "$USE_SWAP" = true ]; then
+    info_print "Formaterer swap-partisjon."
+    sudo mkswap "$NIXSWAP"
+fi
+
+echo
+info_print "Monterer og oppretter BTRFS subvolumer."
 sudo mkdir -p /mnt
 sudo mount "$NIXROOT" /mnt
-
-# Creating BTRFS subvolumes.
-echo
-info_print "Creating BTRFS subvolumes."
 subvols=(root home nix log)
-for subvol in '' "${subvols[@]}"; do
-    sudo btrfs su cr /mnt/@"$subvol"
-done
+for subvol in "${subvols[@]}"; do
+    sudo btrfs su cr /mnt/@$subvol
+fi
+sudo umount -l /mnt
 
-mount_subvolumes () {
-echo
-info_print "Creating mountpoints and mounting the newly created subvolumes."
-  sudo umount -l /mnt
-  sudo mount -t btrfs -o subvol=@root,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt 
-  sudo mkdir -p /mnt/{home,nix,var/log,boot} &>/dev/null
-  sudo mount -t btrfs -o subvol=@home,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/home
-  sudo mount -t btrfs -o subvol=@nix,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/nix
-  sudo mount -t btrfs -o subvol=@log,defaults,noatime,compress=zstd,discard=async,ssd "$NIXROOT" /mnt/var/log
-  sudo mount -t vfat -o defaults,noatime,rw,fmask=0137,dmask=0027 "$NIXBOOT" /mnt/boot
+info_print "Monterer subvolumer med optimale opsjoner."
+# Monter subvolumer med optimale opsjoner (kun btrfs, ingen dobbel mounting)
+sudo mount -o subvol=@root,compress=zstd,space_cache=v2,noatime,discard=async,ssd "$NIXROOT" /mnt
+sudo mkdir -p /mnt/{home,nix,var/log,boot}
+sudo mount -o subvol=@home,compress=zstd,space_cache=v2,noatime,discard=async,ssd "$NIXROOT" /mnt/home
+sudo mount -o subvol=@nix,compress=zstd,space_cache=v2,noatime,discard=async,ssd "$NIXROOT" /mnt/nix
+sudo mount -o subvol=@log,compress=zstd,space_cache=v2,noatime,discard=async,ssd "$NIXROOT" /mnt/var/log
+# NB: Ikke bruk autodefrag på SSD, kun på roterende disk hvis nødvendig
+sudo mount "$NIXBOOT" /mnt/boot
+if [ "$USE_SWAP" = true ]; then
+    sudo swapon "$NIXSWAP"
+fi
 
-  info_print "Generating the hardware-config / hardware-configuration.nix"
+mount_filesystems () {
+  echo
+  info_print "Sørger for at partisjonene er montert."
+  sudo umount -l /mnt || true
+  sudo mount "$NIXROOT" /mnt
+  sudo mkdir -p /mnt/home
+  sudo mount "$NIXHOME" /mnt/home
+  sudo mkdir -p /mnt/boot
+  sudo mount "$NIXBOOT" /mnt/boot
+  if [ "$USE_SWAP" = true ]; then
+    sudo swapon "$NIXSWAP"
+  fi
+
+  info_print "Genererer hardware-config (hardware-configuration.nix)"
   sudo nixos-generate-config --root /mnt
-
   return 0
 }
 
-generate_systemconf () {
-# Generates system config | Configuration.nix.
-# The first setup is only to setup standalone Home-manager and set NIXPKGS to Master/unstable before installing the correct system with a flake.
-# Standard NIXOS isntallation does not use labels, and without labels it will be hard to reuse the hardware-file later.
+
 echo
-info_print "Generating the system config / configuration.nix"
-sudo rm /mnt/etc/nixos/configuration.nix &>/dev/null
-
-timezone=$(curl -s http://ip-api.com/line?fields=timezone)
-
-cat << EOF | sudo tee -a "/mnt/etc/nixos/configuration.nix" &>/dev/null
-
-{ pkgs, lib, inputs, ... }:
-
-{
-  imports =
-    [   # Include the results of the hardware scan.
-        ./hardware-configuration.nix
-    ];
-
-
-  # Boot Loader
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
-    };
-    grub = {
-      enable = true;
-      efiSupport = true;
-      devices = [ "nodev" ];
-      configurationLimit = 3;
-    };
-  };
-
-  # Networking
-  networking.networkmanager.enable = true;
-  networking.hostName = "nixos"; # Define your hostname.
-
-  # Set your time zone.
-  time.timeZone = "$timezone";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
-  };
-
-    # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.$username = {
-    isNormalUser = true;
-    initialPassword = "nixos";
-    description = "";
-    extraGroups = [ "networkmanager" "wheel" "disk" "power" "video" ];
-    packages = with pkgs; [];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    wpa_supplicant
-    btop
-    git
-    firefox
-    vscode
-    gh
-    neofetch
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  # List services that you want to enable:
-  services.openssh.enable = true;
-  services.fstrim.enable = true;
-  services.xserver = {
-    layout = "no";
-    xkbVariant = "";
-    libinput.enable = true;
-  };
-
-  console.keyMap = "no";
-
-# Aliases to quickly set nixpkgs to Unstable + install standalone Home-Manager.
-programs.bash.shellAliases = {
-  install = "nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install && cd && git clone https://github.com/aCeTotal/.dotfiles.git";
-  upgrade = "sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixos && sudo nix-channel --update && sudo nixos-rebuild switch --upgrade";
-};
-
-
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  
-  nixpkgs.config.allowUnfree = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
-  # Enables the use of flakes and some other nice features
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-}
-
-EOF
-return 0
-}
-
-generate_hardconf () {
-# Generates system config | Configuration.nix.
-# The first setup is only to setup standalone Home-manager and set NIXPKGS to Master/unstable before installing the correct system with a flake.
-# Standard NIXOS isntallation does not use labels, and without labels it will be hard to reuse the hardware-file later.
-echo
-info_print "Generating the hardware config / hardware-configuration.nix"
-sudo rm /mnt/etc/nixos/hardware-configuration.nix &>/dev/null
-cat << EOF | sudo tee -a "/mnt/etc/nixos/hardware-configuration.nix" &>/dev/null
-
-# Do not modify this file!  It was generated by ‘nixos-generate-config’
-# and may be overwritten by future invocations.  Please make changes
-# to /etc/nixos/configuration.nix instead.
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@root" "noatime" "compress=zstd" "discard=async" "ssd" ];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@home" "noatime" "compress=zstd" "discard=async" "ssd" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" "noatime" "compress=zstd" "discard=async" "ssd" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-partlabel/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=@log" "noatime" "compress=zstd" "discard=async" "ssd" ];
-      neededForBoot = true;
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-partlabel/NIXBOOT";
-      fsType = "vfat";
-    };
-
-  swapDevices = [ ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-}
-
-EOF
-
-return 0
-}
-
-# Mount the BTRFS subvolumes
-mount_subvolumes
-
-#generate_preconf
-
-generate_systemconf
-generate_hardconf
-
-info_print "Installing the system"
-sudo nixos-install --no-root-passwd && clear
-echo
-info_print "Rebooting!"
-echo
-sleep 1.5
-info_print "3..."
-echo
-sleep 1.5
-info_print "2..."
-echo
-sleep 1.5
-info_print "1..."
-echo
-sleep 1.5
-#clear
-
-# GoodBye screen.
-echo -ne "${BOLD}${BRED}
-
-
-    ▄▄▄▄·  ▄▄▄·  ▐ ▄  ▄▄ • ▄▄     
-    ▐█ ▀█▪▐█ ▀█ •█▌▐█▐█ ▀ ▪██▌    
-    ▐█▀▀█▄▄█▀▀█ ▐█▐▐▌▄█ ▀█▄▐█·    
-    ██▄▪▐█▐█ ▪▐▌██▐█▌▐█▄▪▐█.▀     
-    ·▀▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀▀  ▀     
-
-                                                      
-${RESET}"
-
-sleep 1
-sudo reboot
+info_print "Installerer systemet med flakes."
+sudo nixos-install --no-root-passwd --flake /mnt/etc/nixos#$(hostname) && clear

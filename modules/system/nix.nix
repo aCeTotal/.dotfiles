@@ -9,7 +9,8 @@
       options = "--delete-older-than 10d";
     };
     settings = {
-      max-jobs = 25;
+      max-jobs = 1;
+      cores = 1;
       download-buffer-size = 80000000000000;
       sandbox = false;
       keep-going = true;
