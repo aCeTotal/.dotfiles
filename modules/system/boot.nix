@@ -23,6 +23,17 @@
             timeout = 1;
         };
 
+    kernelParams = [ 
+    "zswap.enabled=1"
+    "zswap.compressor=zstd"
+    "zswap.max_pool_percent=20"
+    "nvme_core.default_ps_max_latency_us=0"
+    "intel_pstate=active"
+    "i915.enable_fbc=1"      # Framebuffer compression
+    "i915.enable_psr=1"      # Panel self refresh
+    "i915.fastboot=1"        # Raskere oppstart
+    ];
+
 
 # Kernel Options
     kernel.sysctl = {

@@ -3,7 +3,7 @@
   programs.neovim.defaultEditor = true;
 
   # Power Management
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "powersave";
 
 
   # Some programs need SUID wrappers, can be configured further or are
