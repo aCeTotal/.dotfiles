@@ -13,7 +13,7 @@
     home.packages = with pkgs; [
         swappy
         slurp
-        nautilus
+        xfce.thunar
         swaynotificationcenter
         hyprshot
         hyprlock
@@ -21,7 +21,7 @@
 
     home.file.".config/hypr/hyprland.conf".text = ''
 
-    ################
+################
 ### MONITORS ###
 ################
 
@@ -38,7 +38,7 @@ monitor = , preferred, auto, 1
 
 # Set programs that you use
 $terminal = kitty
-$fileManager = nautilus
+$fileManager = thunar
 $browser = google-chrome-stable
 $screenshot = hyprshot -m region
 $launcher = wofi --show drun
@@ -52,8 +52,9 @@ $launcher = wofi --show drun
 # Or execute your favorite apps at launch like this:
 
 exec-once = hyprpaper
-exec-once = systemctl --user start hyprpolkitagent
 exec-once = waybar
+exec-once = systemctl --user start hyprpolkitagent
+exec-once = mako
 exec-once = swaync
 exec-once = blueman-applet
 exec-once = nm-applet --indicator

@@ -25,7 +25,7 @@
 
 
     # Networking Hostname
-    networking.hostName = "nixos"; 
+    networking.hostName = "gs66"; 
 
 
     # Users and groups

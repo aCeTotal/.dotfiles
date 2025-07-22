@@ -1,14 +1,12 @@
-{ pkgs, users,...}:
+{ pkgs, users, inputs, system, ...}:
 
 {
   home.packages = with pkgs; [
-    google-chrome netflix
+    google-chrome
     libreoffice
     pureref
     kitty
-    gimp freecad
-    #stlink 
-    #stm32cubemx
+    freecad
     bashmount udisks udiskie
     mpv 
     spotify
@@ -23,7 +21,6 @@
 
     #(blender.override { cudaSupport = true;})
     
-
   ];
   
 }

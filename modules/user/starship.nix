@@ -80,7 +80,7 @@ mantle = "#181825"
 crust = "#11111b"
 
 [os]
-disabled = false
+disabled = true
 style = "bg:surface0 fg:text"
 
 [os.symbols]
@@ -183,7 +183,7 @@ style = "bg:mantle"
 format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
 
 [time]
-disabled = false
+disabled = true
 time_format = "%R"
 style = "bg:peach"
 format = '[[  $time ](fg:mantle bg:purple)]($style)'

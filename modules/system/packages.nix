@@ -16,6 +16,7 @@ in {
       "dotnet-sdk-6.0.428"
       "dotnet-runtime-6.0.36"
       "dotnet-sdk-wrapped-6.0.428"
+      "libxml2-2.13.8"
     ];
   };
 
@@ -48,8 +49,6 @@ in {
       q4wine
       waylandpp
       wayland
-      makemkv
-      mkvtoolnix
       prusa-slicer
     ])
     ++
@@ -61,8 +60,6 @@ in {
       zip
       rar
       nfs-utils
-      opentabletdriver
-
     ]);
     
       _module.args = {

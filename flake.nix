@@ -23,11 +23,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        #argonpkgs = {
-        #    url = "github:aCeTotal/argonpkgs";
-        #    inputs.nixpkgs.follows = "nixpkgs";
-        #};
-
     };
 
     outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
