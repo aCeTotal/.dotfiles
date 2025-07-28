@@ -4,7 +4,6 @@
 
   networking.networkmanager.enable = true;
 
-
   systemd.user.services = {
     nm-applet = {
       description = "Network manager applet";
@@ -24,6 +23,8 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
   networking.enableIPv6 = true;
+
+    
 
 
   environment.systemPackages = 

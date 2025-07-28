@@ -6,11 +6,11 @@
       automatic = true;
       dates = "weekly";
       randomizedDelaySec = "14m";
-      options = "--delete-older-than 10d";
+      options = "--delete-older-than 30d";
     };
     settings = {
-      max-jobs = 1;
-      cores = 1;
+      max-jobs = 4;
+      cores = 2;
       download-buffer-size = 80000000000000;
       sandbox = false;
       keep-going = true;

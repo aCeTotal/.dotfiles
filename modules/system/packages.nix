@@ -50,6 +50,7 @@ in {
       waylandpp
       wayland
       prusa-slicer
+      wf-recorder
     ])
     ++
     (with pkgs-stable; [
