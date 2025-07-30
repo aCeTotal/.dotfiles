@@ -13,7 +13,7 @@
       ../../modules/user/cursor_icons.nix
       ../../modules/user/hyprland.nix
       ../../modules/user/virtualisation.nix
-            # ../../modules/user/derivations.nix
+      ../../modules/user/derivations.nix
     ];
 
     home = {
