@@ -36,7 +36,6 @@ in {
   environment.systemPackages =
     (with pkgs; [
       wget
-      citrix_workspace_24_08_0
       windsurf
       pavucontrol
       unzip

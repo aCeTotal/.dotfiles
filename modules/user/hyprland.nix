@@ -14,7 +14,6 @@
         swappy
         slurp
         xfce.thunar
-        swaynotificationcenter
         hyprshot
         hyprlock
     ];
