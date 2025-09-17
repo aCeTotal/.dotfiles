@@ -241,11 +241,14 @@ programs.neovim.defaultEditor = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
+
+
   environment.systemPackages = with pkgs; [
     vim
     nodejs_23
     mariadb
     noip
+    libreoffice
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
