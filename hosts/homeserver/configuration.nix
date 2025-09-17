@@ -245,7 +245,7 @@ programs.neovim.defaultEditor = true;
 
   environment.systemPackages = with pkgs; [
     vim
-    nodejs_23
+    nodejs_24
     mariadb
     noip
     libreoffice
